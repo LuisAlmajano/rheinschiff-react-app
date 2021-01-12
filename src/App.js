@@ -1,7 +1,7 @@
 import React, { Component, useState } from "react";
-
 import SchiffListe from "./components/SchiffListe/SchiffListe";
 import SearchField from "./components/SearchField/SearchField";
+import SearchAppBar from "./components/SearchAppBar/SearchAppBar";
 import "./App.css";
 
 class App extends Component {
@@ -21,11 +21,12 @@ class App extends Component {
   render() {
     return (
       <main className="container">
-        <SearchField
+        <SearchAppBar onNewBoat={this.addNewBoatHandler} />
+        {/* <SearchField
           placeholder="Suche nach Schiffe"
           onNewBoat={this.addNewBoatHandler}
           //onChange={() => console.log("Typed in search field")}
-        />
+        /> */}
         <SchiffListe schiffe={this.state.schiffBeispiele} />
       </main>
     );
