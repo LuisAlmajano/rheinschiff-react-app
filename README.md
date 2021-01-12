@@ -71,7 +71,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ### Material-UI
 
-SearchBar Component used from: [https://material-ui.com/components/app-bar/#app-bar-with-search-field] (https://material-ui.com/components/app-bar/#app-bar-with-search-field)
+SearchBar Component used from: [https://material-ui.com/components/app-bar/#app-bar-with-search-field](https://material-ui.com/components/app-bar/#app-bar-with-search-field)
 
-I had to apply changes in the code to match the class Component, as described here: [Using Material UI theme variable in React Function and Class Components]
-(https://medium.com/swlh/using-material-ui-theme-variable-in-react-function-and-class-components-56f4b8164a00)
+I had to apply changes in the code to match the class Component, as described here: [Using Material UI theme variable in React Function and Class Components](https://medium.com/swlh/using-material-ui-theme-variable-in-react-function-and-class-components-56f4b8164a00)
