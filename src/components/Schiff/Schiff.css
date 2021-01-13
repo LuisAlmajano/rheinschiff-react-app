@@ -1,0 +1,49 @@
+.schif-item {
+  margin: 1rem;
+  width: calc(45% - 2rem);
+  min-width: 17.5rem;
+}
+
+.schiff-item a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  padding: 1rem;
+  color: white;
+  background: #292929;
+}
+
+.schiff-item a:hover,
+.schiff-item a:active {
+  background: #ffd900;
+}
+
+.schiff-item__content {
+  padding: 2;
+}
+
+.schiff-item__image {
+  width: 4rem;
+  height: 4rem;
+  margin-right: 1rem;
+}
+
+.schiff-item__info h2 {
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem 0;
+  font-weight: normal;
+  color: #ffd900;
+}
+
+.schiff-item:hover h2,
+.schiff-item:active h2,
+.schiff-item:hover h3,
+.schiff-item:active h3 {
+  color: #292929;
+}
+
+.schiff-item__info h3 {
+  margin: 0;
+}

@@ -1,11 +1,10 @@
-.schiff-liste {
+.schiff-list {
   list-style: none;
-  margin: 2rem;
+  margin: 0 auto;
   padding: 0;
-}
-
-.schiff-liste li {
-  margin: 1rem 0;
-  border: 1px solid #ccc;
-  padding: 1rem;
+  width: 90%;
+  max-width: 50rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
