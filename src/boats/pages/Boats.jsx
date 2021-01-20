@@ -4,8 +4,7 @@ import SearchAppBar from "../../shared/components/Navigation/SearchAppBar";
 import SchiffListe from "../components/SchiffListe/SchiffListe";
 
 const Boats = () => {
-  const [boats_dummy, setBoats] = React.useState([
-    {
+  const [boats_dummy, setBoats] = React.useState([{
       id: 1,
       name: "Tarragona",
       image: "https://picsum.photos/200",
@@ -26,6 +25,7 @@ const Boats = () => {
       timeseen: "2021-09-01",
       countseen: 1,
     },
+    
   ]);
 
   const addNewBoatHandler = (newBoat) => {

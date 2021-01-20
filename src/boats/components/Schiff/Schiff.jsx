@@ -15,9 +15,10 @@ const Schiff = (props) => {
           </div>
           <div className="schiff-item__info">
             <h2>{props.name}</h2>
-            <h3>
+            <h4>
               Seen: {props.countseen} {props.countseen === 1 ? "Time" : "Times"}
-            </h3>
+            </h4>
+            <h4>Last seen on: {props.timeseen}</h4>
           </div>
         </Link>
       </Card>

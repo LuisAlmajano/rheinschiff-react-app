@@ -1,13 +1,19 @@
 import React from "react";
 import Schiff from "../Schiff/Schiff";
 
+import Card from "../../../shared/components/UIElements/Card";
 import "./SchiffListe.css";
 
 const SchiffListe = (props) => {
   if (props.boats.length === 0) {
     return (
       <div className="center">
-        <h2>Keine Schiffe gefunden.</h2>
+        <Card>
+          <h3>
+            Keine Schiffe gefunden. Möchtest du ein neues Schiff hinterlegen?
+          </h3>
+          <button>Schiff hinterlegen</button>
+        </Card>
       </div>
     );
   }

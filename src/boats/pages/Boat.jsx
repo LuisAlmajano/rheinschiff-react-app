@@ -2,14 +2,14 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 import SearchAppBar from "../../shared/components/Navigation/SearchAppBar";
-import SchiffListe from "../components/SchiffListe/SchiffListe";
+import SchiffDetail from "../components/SchiffDetail/SchiffDetail";
 
 const Boat = () => {
   const [DUMMY_BOATS, setBoats] = React.useState([
     {
       id: 1,
       name: "Tarragona",
-      image: "https://picsum.photos/200",
+      image: "https://picsum.photos/300",
       timeseen: "2021-09-01",
       countseen: 2,
     },
@@ -33,6 +33,9 @@ const Boat = () => {
   const boatId = parseInt(useParams().boatId);
   const loadedBoat = DUMMY_BOATS.filter((boat) => boat.id === boatId);
 
+  // loadedBoat is an array of objects, so index [0] to reach first object
+  console.log("loadedBoat.name: ", loadedBoat[0].name);
+
   const addNewBoatHandler = (newBoat) => {
     const boats = DUMMY_BOATS.concat(newBoat);
     setBoats(boats);
@@ -41,7 +44,14 @@ const Boat = () => {
   return (
     <React.Fragment>
       <SearchAppBar onNewBoat={addNewBoatHandler} />
-      <SchiffListe boats={loadedBoat} />
+      <SchiffDetail
+        key={loadedBoat[0].id}
+        id={loadedBoat[0].id}
+        name={loadedBoat[0].name}
+        image={loadedBoat[0].image}
+        timeseen={loadedBoat[0].timeseen}
+        countseen={loadedBoat[0].countseen}
+      />
     </React.Fragment>
   );
 };
