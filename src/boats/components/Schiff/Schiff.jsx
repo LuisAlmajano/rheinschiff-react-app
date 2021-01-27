@@ -6,6 +6,9 @@ import Card from "../../../shared/components/UIElements/Card";
 import "./Schiff.css";
 
 const Schiff = (props) => {
+
+  const date = new Date(props.timeseen);
+
   return (
     <li className="schiff-item">
       <Card className="schiff-item__content">
@@ -18,7 +21,7 @@ const Schiff = (props) => {
             <h4>
               Seen: {props.countseen} {props.countseen === 1 ? "Time" : "Times"}
             </h4>
-            <h4>Last seen on: {props.timeseen}</h4>
+            <h4>Last seen on: {date.toGMTString()}</h4>
           </div>
         </Link>
       </Card>

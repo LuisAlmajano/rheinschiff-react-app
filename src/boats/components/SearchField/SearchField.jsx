@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { FaSearch } from "react-icons/fa";
+
 import "./SearchField.css";
+/* https://material-ui.com/components/app-bar/#app-bar-with-search-field */
+
 
 class SearchField extends Component {
   state = {
