@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { Component, useState } from "react";
+
 
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -64,64 +65,67 @@ const useStyles = (theme) => ({
   },
 });
 
-const SearchAppBar = (props) => {
-  const [enteredText, setEnteredText] = useState();
-  const { classes } = props;
+class SearchAppBar extends Component {
+  state = {
+    enteredText: "",
+  };
 
-  const textChangeHandler = (event) => {
-    setEnteredText(event.target.value);
+  textChangeHandler = (event) => {
+    const enteredText = event.target.value;
+    this.setState({ enteredText });
     console.log("Text entered: " + enteredText);
   };
 
-  const addBoatHandler = (props) => {
+  addBoatHandler = (props) => {
     console.log("Triggered addboathandler");
 
     const NewBoat = {
-      _id: Math.random().toString(),
-      name: enteredText,
+      id: Math.random().toString(),
+      name: this.state.enteredText,
       timeseen: Date.now(),
       countseen: 1,
     };
 
-    console.log("NewBoat: ", NewBoat.name);
-    //props.onNewBoat(NewBoat);
+    console.log("NewBoat: " + NewBoat.name);
+    this.props.onNewBoat(NewBoat);
   };
-
-  
-
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            RheinSchiff-App
-          </Typography>
-          <div className={classes.search} onClick={addBoatHandler}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="open drawer"
+              onClick={}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography className={classes.title} variant="h6" noWrap>
+              RheinSchiff-App
+            </Typography>
+            <div className={classes.search} onClick={this.addBoatHandler}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ "aria-label": "search" }}
+                onChange={this.textChangeHandler}
+              />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-              onChange={textChangeHandler}
-            />
-          </div>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
-};
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
+}
 
 export default withStyles(useStyles, { withTheme: true })(SearchAppBar);

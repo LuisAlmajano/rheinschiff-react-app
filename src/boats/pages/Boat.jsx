@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-import SearchAppBar from "../../shared/components/Navigation/SearchAppBar";
+import SearchAppBarDrawer from "../../shared/components/Navigation/SearchAppBarDrawer";
 import SchiffDetail from "../components/SchiffDetail/SchiffDetail";
 
 const Boat = () => {
-  const [boats_db, setBoats] = React.useState([]);
+  const [boats_db, setBoats] = useState([]);
 
-  const [DUMMY_BOATS, setBoatsDummy] = React.useState([
+  const [DUMMY_BOATS, setBoatsDummy] = useState([
     {
       _id: "1",
       name: "Tarragona",
@@ -54,7 +54,6 @@ const Boat = () => {
   const boatId = useParams().boatId;
   const loadedBoat = boats_db.find((boat) => boat._id === boatId);
 
-  // loadedBoat is an array of objects, so index [0] to reach first object
   console.log("loadedBoat: ", loadedBoat);
 
   if (!loadedBoat) {
@@ -67,11 +66,12 @@ const Boat = () => {
 
   return (
     <React.Fragment>
-      <SearchAppBar onNewBoat={addNewBoatHandler} />
+      <SearchAppBarDrawer onNewBoat={addNewBoatHandler} />
       <SchiffDetail
         key={loadedBoat._id}
         id={loadedBoat._id}
         name={loadedBoat.name}
+        description={loadedBoat.description}
         image={loadedBoat.image}
         timeseen={loadedBoat.timeseen}
         countseen={loadedBoat.countseen}

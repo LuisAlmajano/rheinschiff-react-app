@@ -23,7 +23,12 @@ const useStyles = makeStyles({
 
 export default function LeftDrawer() {
   const classes = useStyles();
-  const [state, setState] = React.useState({ left: false });
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -60,16 +65,14 @@ export default function LeftDrawer() {
 
   return (
     <div>
-      <React.Fragment>
-        <Button onClick={toggleDrawer("left", true)}>LEFT</Button>
-        <Drawer
-          anchor={"left"}
-          open={state["left"]}
-          onClose={toggleDrawer("left", false)}
-        >
-          {list("left")}
-        </Drawer>
-      </React.Fragment>
+      {['left', 'right', 'top', 'bottom'].map((anchor) => (
+        <React.Fragment key={anchor}>
+          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+          <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
+            {list(anchor)}
+          </Drawer>
+        </React.Fragment>
+      ))}
     </div>
   );
 }

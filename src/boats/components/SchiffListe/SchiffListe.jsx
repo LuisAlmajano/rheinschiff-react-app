@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import Schiff from "../Schiff/Schiff";
 import Card from "../../../shared/components/UIElements/Card";
+import Button from "../../../shared/components/FormElements/Button";
 
 import "./SchiffListe.css";
 
@@ -11,14 +12,10 @@ const SchiffListe = (props) => {
     return (
       <div className="center">
         <Card>
-          <h3>
-            No boats found. Would you like to add a new boat?
-          </h3>
+          <h3>No boats found. Would you like to add a new boat?</h3>
           <div>
             <Link to="/boats/new">
-              <button type="button" className="btn btn-info">
-                Add New Boat
-              </button>
+              <Button>Add New Boat</Button>
             </Link>
           </div>
         </Card>

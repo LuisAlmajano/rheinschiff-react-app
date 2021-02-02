@@ -1,0 +1,41 @@
+.newboat-form {
+  list-style: none;
+  margin: 0 auto;
+  padding: 1rem;
+  width: 90%;
+  max-width: 40rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 8px;
+  background: white;
+}
+
+label {
+  font-weight: bold;
+  display: flex;
+}
+
+input {
+  display: block;
+  width: 600px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-control {
+  margin-bottom: 20px;
+}
+
+.error {
+  color: red;
+}
+
+.button {
+  margin: 0 auto;
+  display: block;
+}

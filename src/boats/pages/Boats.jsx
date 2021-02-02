@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
-import SearchAppBar from "../../shared/components/Navigation/SearchAppBar";
+import SearchAppBarDrawer from "../../shared/components/Navigation/SearchAppBarDrawer";
 import SchiffListe from "../components/SchiffListe/SchiffListe";
 
 const Boats = () => {
-  const [boats_db, setBoats] = React.useState([]);
+  const [boats_db, setBoats] = useState([]);
 
-  const [boats_dummy, setBoatsDummy] = React.useState([
+  const [boats_dummy, setBoatsDummy] = useState([
     {
       _id: "1",
       name: "Tarragona",
@@ -52,7 +52,7 @@ const Boats = () => {
 
   return (
     <React.Fragment>
-      <SearchAppBar onNewBoat={addNewBoatHandler} />
+      <SearchAppBarDrawer onNewBoat={addNewBoatHandler} />
       <SchiffListe boats={boats_db} />
     </React.Fragment>
   );

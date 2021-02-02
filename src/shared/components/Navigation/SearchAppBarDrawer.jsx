@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import { Link } from "react-router-dom";
+import clsx from "clsx";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -8,6 +9,14 @@ import InputBase from "@material-ui/core/InputBase";
 import { fade, withStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
+import Drawer from "@material-ui/core/Drawer";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import HomeIcon from "@material-ui/icons/Home";
+import DirectionsBoatIcon from "@material-ui/icons/DirectionsBoat";
+import LockOpenIcon from "@material-ui/icons/LockOpen";
 
 const useStyles = (theme) => ({
   root: {
@@ -61,12 +70,69 @@ const useStyles = (theme) => ({
         width: "20ch",
       },
     },
+    list: {
+      width: 250,
+    },
+    fullList: {
+      width: "auto",
+    },
   },
 });
 
-const SearchAppBar = (props) => {
+const SearchAppBarDrawer = (props) => {
   const [enteredText, setEnteredText] = useState();
   const { classes } = props;
+
+  const [state, setState] = React.useState({
+    left: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <div
+      className={clsx(classes.list, {
+        [classes.fullList]: anchor === "top" || anchor === "bottom",
+      })}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        <ListItem button key="Home">
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <Link to="/">
+            <ListItemText primary="Home" />
+          </Link>
+        </ListItem>
+        <ListItem button key="Login">
+          <ListItemIcon>
+            <LockOpenIcon />
+          </ListItemIcon>
+          <ListItemText primary="Login" />
+        </ListItem>
+        <ListItem button key="Create new boat">
+          <ListItemIcon>
+            <DirectionsBoatIcon />
+          </ListItemIcon>
+          <Link to="/boats/new">
+            <ListItemText primary="Create new boat" />
+          </Link>
+        </ListItem>
+      </List>
+    </div>
+  );
 
   const textChangeHandler = (event) => {
     setEnteredText(event.target.value);
@@ -86,8 +152,7 @@ const SearchAppBar = (props) => {
     console.log("NewBoat: ", NewBoat.name);
     //props.onNewBoat(NewBoat);
   };
-
-  
+  const anchor = "left";
 
   return (
     <div className={classes.root}>
@@ -98,7 +163,15 @@ const SearchAppBar = (props) => {
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
+            onClick={toggleDrawer(anchor, true)}
           >
+            <Drawer
+              anchor={anchor}
+              open={state[anchor]}
+              onClose={toggleDrawer(anchor, false)}
+            >
+              {list(anchor)}
+            </Drawer>
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
@@ -124,4 +197,4 @@ const SearchAppBar = (props) => {
   );
 };
 
-export default withStyles(useStyles, { withTheme: true })(SearchAppBar);
+export default withStyles(useStyles, { withTheme: true })(SearchAppBarDrawer);
