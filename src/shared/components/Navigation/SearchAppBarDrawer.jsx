@@ -1,3 +1,5 @@
+/* Inspiration from https://material-ui.com/components/drawers/ */
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
