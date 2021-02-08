@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 
 import SearchAppBarDrawer from "../../shared/components/Navigation/SearchAppBarDrawer";
 import SchiffDetail from "../components/SchiffDetail/SchiffDetail";
+import Footer from "../../shared/components/Navigation/Footer";
 
 const Boat = () => {
   const [boats_db, setBoats] = useState([]);

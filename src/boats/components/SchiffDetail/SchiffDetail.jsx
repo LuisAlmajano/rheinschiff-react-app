@@ -28,8 +28,8 @@ const SchiffDetail = (props) => {
           <img src={props.image} alt={props.name} />
         </div>
         <div className="schiff-item__info">
-          <h2>Name: {props.name}</h2>
-          <h2>Description: {props.description}</h2>
+          <h2>{props.name}</h2>
+          <p>{props.description}</p>
           <h4>
             Seen: {props.countseen} {props.countseen === 1 ? "Time" : "Times"}
           </h4>

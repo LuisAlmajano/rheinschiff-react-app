@@ -3,6 +3,7 @@ import axios from "axios";
 
 import SearchAppBarDrawer from "../../shared/components/Navigation/SearchAppBarDrawer";
 import SchiffListe from "../components/SchiffListe/SchiffListe";
+import Footer from "../../shared/components/Navigation/Footer";
 
 const Boats = () => {
   const [boats_db, setBoats] = useState([]);
