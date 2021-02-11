@@ -39,8 +39,8 @@
 
 .schiff-item:hover h2,
 .schiff-item:active h2,
-.schiff-item:hover h3,
-.schiff-item:active h3 {
+.schiff-item:hover h4,
+.schiff-item:active h4 {
   color: #292929;
 }
 

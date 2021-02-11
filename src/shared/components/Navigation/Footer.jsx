@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 
+import "./Footer.css";
+
 const Footer = () => {
   return (
-    <footer style={{ align: "flex" }}>
+    <footer id="main-footer">
       <p>Copyright &copy; 2021</p>
       <Link to="/about">About</Link>
     </footer>

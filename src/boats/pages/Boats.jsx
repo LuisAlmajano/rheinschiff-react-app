@@ -55,6 +55,7 @@ const Boats = () => {
     <React.Fragment>
       <SearchAppBarDrawer onNewBoat={addNewBoatHandler} />
       <SchiffListe boats={boats_db} />
+      <Footer />
     </React.Fragment>
   );
 };
