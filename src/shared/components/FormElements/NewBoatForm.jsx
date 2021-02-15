@@ -7,7 +7,6 @@ import axios from "axios";
 import DatePicker from "react-datepicker";
 
 import Button from "./Button";
-import Card from "../UIElements/Card";
 import "./NewBoatForm.css";
 
 const initialValues = {
@@ -51,7 +50,7 @@ const NewBoatForm = () => {
 
   return (
     <form className="newboat-form" onSubmit={formik.handleSubmit}>
-      <div className="form-control">
+      <div className="form-new-boat">
         <label htmlFor="name">Name</label>
         <input
           type="text"
@@ -66,7 +65,7 @@ const NewBoatForm = () => {
         ) : null}
       </div>
 
-      <div className="form-control">
+      <div className="form-new-boat">
         <label htmlFor="description">Description</label>
         <input
           type="textarea"
@@ -81,7 +80,7 @@ const NewBoatForm = () => {
         ) : null}
       </div>
 
-      <div className="form-control">
+      <div className="form-new-boat">
         <label htmlFor="image">Image</label>
         <input
           type="text"

@@ -21,7 +21,8 @@
 }
 
 .schiff-item__content {
-  padding: 2;
+  padding: 0;
+  height: 170px;
 }
 
 .schiff-item__image {
@@ -32,9 +33,13 @@
 
 .schiff-item__info h2 {
   font-size: 1.5rem;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 1rem 0;
   font-weight: normal;
   color: #ffd900;
+}
+
+.schiff-item__info h4 {
+  font-size: 1rem;
 }
 
 .schiff-item:hover h2,
@@ -44,6 +49,3 @@
   color: #292929;
 }
 
-.schiff-item__info h3 {
-  margin: 0;
-}

@@ -11,7 +11,7 @@ const SchiffListe = (props) => {
   if (props.boats.length === 0) {
     return (
       <div className="center">
-        <Card>
+        <Card className="empty-list">
           <h3>No boats found. Would you like to add a new boat?</h3>
           <div>
             <Link to="/boats/new">

@@ -1,11 +1,28 @@
 .schiff-list {
+  display: flex;
   flex-direction: column;
+  justify-content: center;
   list-style: none;
   margin: 0 auto;
   padding: 0;
   width: 90%;
   max-width: 50rem;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  /*flex-wrap: wrap; */
+}
+
+.empty-list {
+  padding: 20px;
+  margin: 30px;
+}
+.empty-list h3 {
+  font-size: 1.4rem;
+}
+
+/* Add New Boat button */
+.empty-list button {
+  margin: 10px auto 0 auto;
+}
+
+a:hover {
+  text-decoration: none;
 }

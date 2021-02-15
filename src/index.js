@@ -1,5 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
+/* Imported this CSS to support the Bootstrap Modal components used */
+/* https://create-react-app.dev/docs/adding-bootstrap/#using-a-custom-theme */
+import "bootstrap/dist/css/bootstrap.css";
 import "./index.css";
 import App from "./App";
 
