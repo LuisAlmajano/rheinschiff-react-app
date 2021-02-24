@@ -17,7 +17,7 @@ class NavLinks extends Component {
           <NavLink to="/boats/new">Add Boat</NavLink>
         </li>
         <li>
-          <NavLink to="/auth">Login</NavLink>
+          <NavLink to="/login">Login</NavLink>
         </li>
       </ul>
     );

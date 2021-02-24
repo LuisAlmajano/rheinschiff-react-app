@@ -122,7 +122,9 @@ const SearchAppBarDrawer = (props) => {
           <ListItemIcon>
             <LockOpenIcon />
           </ListItemIcon>
-          <ListItemText primary="Login" />
+          <Link to="/login">
+            <ListItemText primary="Login" />
+          </Link>
         </ListItem>
         <ListItem button key="Create new boat">
           <ListItemIcon>
@@ -138,23 +140,32 @@ const SearchAppBarDrawer = (props) => {
 
   const textChangeHandler = (event) => {
     setEnteredText(event.target.value);
-    console.log("Text entered: " + enteredText);
+    console.log("Text entered: ", enteredText);
   };
 
-  const addBoatHandler = (props) => {
-    console.log("Triggered addboathandler");
+  const searchBoatHandler = (props) => {
+    console.log("Triggered searchBoatHandler");
+    console.log("Boat entered: ", enteredText);
 
-    const NewBoat = {
-      _id: Math.random().toString(),
-      name: enteredText,
-      timeseen: Date.now(),
-      countseen: 1,
-    };
+    // const NewBoat = {
+    //   _id: Math.random().toString(),
+    //   name: enteredText,
+    //   timeseen: Date.now(),
+    //   countseen: 1,
+    // };
+    // console.log({NewBoat});
+    // props.onNewBoat(NewBoat);
 
-    console.log("NewBoat: ", NewBoat.name);
-    //props.onNewBoat(NewBoat);
+    // Search for given Boat in MongoDB
+
+    // If Boat exists, display boat
+
+    // If Boat does NOT exist, display option to include boat -> New Boat
   };
   const anchor = "left";
+
+  // To fix the AppBar set position="fixed" below.
+  // Also possible to include back to top button: https://material-ui.com/components/app-bar/#back-to-top
 
   return (
     <div className={classes.root}>
@@ -179,7 +190,7 @@ const SearchAppBarDrawer = (props) => {
           <Typography className={classes.title} variant="h6" noWrap>
             RheinSchiff-App
           </Typography>
-          <div className={classes.search} onClick={addBoatHandler}>
+          <div className={classes.search} onClick={searchBoatHandler}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -190,7 +201,7 @@ const SearchAppBarDrawer = (props) => {
                 input: classes.inputInput,
               }}
               inputProps={{ "aria-label": "search" }}
-              onChange={textChangeHandler}
+              onChange={(e) => setEnteredText(e.target.value)}
             />
           </div>
         </Toolbar>

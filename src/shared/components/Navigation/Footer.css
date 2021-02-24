@@ -1,5 +1,19 @@
 #main-footer {
+  margin-top: 15px;
+  margin-bottom: 0;
   text-align: center;
-  padding: 20px;
-  margin-bottom: 10px;
+}
+
+.copyright {
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+#main-footer a {
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.social-icon {
+  margin: 20px 10px;
 }

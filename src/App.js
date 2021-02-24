@@ -9,6 +9,7 @@ import {
 import Boats from "./boats/pages/Boats";
 import Boat from "./boats/pages/Boat";
 import NewBoat from "./boats/pages/NewBoat";
+import Login from "./boats/pages/Login";
 
 class App extends Component {
   addNewBoatHandler = (newBoat) => {
@@ -20,6 +21,9 @@ class App extends Component {
     return (
       <Router>
         <Switch>
+          <Route path="/login" exact>
+            <Login />
+          </Route>
           <Route path="/" exact>
             <Boats />
           </Route>
