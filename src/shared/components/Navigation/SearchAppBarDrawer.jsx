@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../../contexts/AuthContext";
 import clsx from "clsx";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -82,10 +83,11 @@ const useStyles = (theme) => ({
 });
 
 const SearchAppBarDrawer = (props) => {
-  const [enteredText, setEnteredText] = useState();
   const { classes } = props;
+  const [enteredText, setEnteredText] = useState();
+  const { currentUser } = useAuth();
 
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     left: false,
   });
 
@@ -122,9 +124,13 @@ const SearchAppBarDrawer = (props) => {
           <ListItemIcon>
             <LockOpenIcon />
           </ListItemIcon>
-          <Link to="/login">
+          {/* If user is logged in, show Logout option, alternatively show Login option  */}
+          {currentUser ? <Link to="/login">
+            <ListItemText primary="Logout" />
+          </Link> : <Link to="/login">
             <ListItemText primary="Login" />
-          </Link>
+          </Link> }
+          
         </ListItem>
         <ListItem button key="Create new boat">
           <ListItemIcon>
@@ -189,6 +195,10 @@ const SearchAppBarDrawer = (props) => {
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
             RheinSchiff-App
+          </Typography>
+          {/* Added current user after log in  */}
+          <Typography>
+            { currentUser && currentUser.email}
           </Typography>
           <div className={classes.search} onClick={searchBoatHandler}>
             <div className={classes.searchIcon}>

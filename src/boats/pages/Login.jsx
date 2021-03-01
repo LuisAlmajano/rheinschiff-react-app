@@ -8,6 +8,7 @@ const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const { login } = useAuth();
+  const { currentUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
@@ -17,11 +18,11 @@ const Login = () => {
     try {
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
-      console.log("Login was successful!!");
+      console.log("Login was successful!!", currentUser.email);
       history.push("/");
     } catch (error) {
       console.log({ error });
-      
+
     }
 
     setLoading(false);
