@@ -7,8 +7,8 @@ import Button from "../../../shared/components/FormElements/Button";
 
 import "./SchiffListe.css";
 
-const SchiffListe = (props) => {
-  if (props.boats.length === 0) {
+const SchiffListe = ({boats}) => {
+  if (boats.length === 0) {
     return (
       <div className="center">
         <Card className="empty-list">
@@ -24,7 +24,7 @@ const SchiffListe = (props) => {
   }
   return (
     <ul className="schiff-list">
-      {props.boats.map((boat) => {
+      {boats.map((boat) => {
         return (
           <Schiff
             key={boat._id}

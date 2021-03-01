@@ -4,6 +4,7 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 import DatePicker from "react-datepicker";
 
 import Button from "./Button";
@@ -13,19 +14,6 @@ const initialValues = {
   name: "Enter boat name...",
   description: "",
   image: "",
-};
-
-const onSubmit = (values) => {
-  console.log("Form data", values);
-
-  const newboat = {
-    name: values.name,
-    description: values.description,
-    image: values.image,
-  };
-  axios
-    .post("http://localhost:3001/api/boats", newboat)
-    .catch((error) => console.error("Error fetching data with axios: ", error));
 };
 
 /* Yup is designed for front-end browser based use. */
@@ -40,6 +28,27 @@ const validationSchema = Yup.object({
 });
 
 const NewBoatForm = () => {
+  const history = useHistory();
+
+  const onSubmit = (values) => {
+    console.log("Form data", values);
+
+    const newboat = {
+      name: values.name,
+      description: values.description,
+      image: values.image,
+    };
+
+    axios
+      .post("http://localhost:3001/api/boats", newboat)
+      .then(() => {
+        history.push("/");
+      })
+      .catch((error) =>
+        console.error("Error fetching data with axios: ", error)
+      );
+  };
+
   const formik = useFormik({
     initialValues,
     onSubmit,

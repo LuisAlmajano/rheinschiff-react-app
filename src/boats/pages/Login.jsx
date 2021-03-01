@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
+import { Alert } from "react-bootstrap";
 
 import "./Login.css";
 
@@ -10,19 +11,20 @@ const Login = () => {
   const { login } = useAuth();
   const { currentUser } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      setError("");
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
       console.log("Login was successful!!", currentUser.email);
       history.push("/");
     } catch (error) {
-      console.log({ error });
-
+      setError("Failed to log in");
     }
 
     setLoading(false);
@@ -38,6 +40,7 @@ const Login = () => {
         class="login-icon"
       />
       <h1 class="h3 mb-3 font-weigth-normal">Rheinschiff-App Login</h1>
+      {error && <Alert variant="danger">{error}</Alert>}
       <label for="inputEmail" class="sr-only">
         Username
       </label>
