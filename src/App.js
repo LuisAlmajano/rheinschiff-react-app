@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -6,38 +6,26 @@ import {
   Switch,
 } from "react-router-dom";
 
+import { AuthProvider } from "./contexts/AuthContext";
 import Boats from "./boats/pages/Boats";
 import Boat from "./boats/pages/Boat";
 import NewBoat from "./boats/pages/NewBoat";
 import Login from "./boats/pages/Login";
 
-class App extends Component {
-  addNewBoatHandler = (newBoat) => {
-    const schiffBeispiele = this.state.schiffBeispiele.concat(newBoat);
-    this.setState({ schiffBeispiele });
-  };
-
-  render() {
-    return (
-      <Router>
-        <Switch>
-          <Route path="/login" exact>
-            <Login />
-          </Route>
-          <Route path="/" exact>
-            <Boats />
-          </Route>
-          <Route path="/boats/new" exact>
-            <NewBoat />
-          </Route>
-          <Route path="/boats/:boatId" exact>
-            <Boat />
-          </Route>
-          <Redirect to="/" />
-        </Switch>
-      </Router>
-    );
-  }
+function App() {
+  return (
+    <Router>
+      <AuthProvider>
+      <Switch>
+        <Route path="/" exact component={Boats} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/boats/new" exact component={NewBoat} />
+        <Route path="/boats/:boatId" exact component={Boat} />
+        <Redirect to="/" />
+      </Switch>
+      </AuthProvider>
+    </Router>
+  );
 }
 
 export default App;

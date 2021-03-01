@@ -1,19 +1,30 @@
 #main-footer {
   margin-top: 15px;
   margin-bottom: 0;
-  text-align: center;
 }
 
 .copyright {
   font-size: 0.75rem;
   text-align: center;
+  padding-left: 35px;
 }
 
-#main-footer a {
-  font-size: 0.9rem;
-  text-align: center;
+.social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.social-icon {
-  margin: 20px 10px;
+.social li {
+  list-style: none;
+}
+
+.social li a {
+  display: inline-block;
+  transition: 0.4s;
+  margin: 0 20px;
+}
+
+.social li a:hover {
+  transform: translateY(-15px);
 }
