@@ -7,6 +7,7 @@ import Footer from "../../shared/components/Navigation/Footer";
 
 const Boats = () => {
   const [boats_db, setBoats] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const [boats_dummy, setBoatsDummy] = useState([
     {
@@ -43,18 +44,20 @@ const Boats = () => {
       Section 6: Promises + Async/Await Syntax
       
     */
+    setLoading(true);
     axios
       .get("http://localhost:3001/api/boats")
       .then((result) => setBoats(result.data))
       .catch((error) =>
         console.error("Error fetching data with axios: ", error)
       );
+    setLoading(false);
   }, []);
 
   return (
     <React.Fragment>
       <SearchAppBarDrawer onNewBoat={addNewBoatHandler} />
-      <SchiffListe boats={boats_db} />
+      <SchiffListe loading={loading} boats={boats_db} />
       <Footer />
     </React.Fragment>
   );
