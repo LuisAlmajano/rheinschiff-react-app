@@ -31,42 +31,42 @@ const Login = () => {
   };
 
   return (
-    <form class="form-login" onSubmit={handleSubmit}>
+    <form className="form-login" onSubmit={handleSubmit}>
       <img
         src="/favicon.png"
         alt=""
         height="92"
         width="92"
-        class="login-icon"
+        className="login-icon"
       />
-      <h1 class="h3 mb-3 font-weigth-normal">Rheinschiff-App Login</h1>
+      <h1 className="h3 mb-3 font-weigth-normal">Rheinschiff-App Login</h1>
       {error && <Alert variant="danger">{error}</Alert>}
-      <label for="inputEmail" class="sr-only">
+      <label htmlFor="inputEmail" className="sr-only">
         Username
       </label>
       <input
         type="email"
         id="inputEmail"
         ref={emailRef}
-        class="form-control mb-2 ip-4"
+        className="form-control mb-2 ip-4"
         placeholder="Username"
         required
         autofocus
       />
-      <label for="inputPassword" class="sr-only">
+      <label htmlFor="inputPassword" className="sr-only">
         Password
       </label>
       <input
         type="password"
         id="inputPassword"
         ref={passwordRef}
-        class="form-control mb-2 ip-2"
+        className="form-control mb-2 ip-2"
         placeholder="Password"
         required
       />
       <button
         disabled={loading}
-        class="btn btn-lg btn-primary btn-block"
+        className="btn btn-lg btn-primary btn-block"
         type="submit"
       >
         Login

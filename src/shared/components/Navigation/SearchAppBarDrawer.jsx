@@ -85,7 +85,7 @@ const useStyles = (theme) => ({
 const SearchAppBarDrawer = (props) => {
   const { classes } = props;
   const [enteredText, setEnteredText] = useState();
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
 
   const [state, setState] = useState({
     left: false,
@@ -100,6 +100,20 @@ const SearchAppBarDrawer = (props) => {
     }
 
     setState({ ...state, [anchor]: open });
+  };
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+
+    console.log("HEY THERE! HandleLogut function was called");
+
+    try {
+      await logout();
+      console.log("Logout was successful!!");
+      setState({ ...state, [anchor]: false });
+    } catch (error) {
+      console.log("Failed to log out");
+    }
   };
 
   const list = (anchor) => (
@@ -125,12 +139,17 @@ const SearchAppBarDrawer = (props) => {
             <LockOpenIcon />
           </ListItemIcon>
           {/* If user is logged in, show Logout option, alternatively show Login option  */}
-          {currentUser ? <Link to="/login">
-            <ListItemText primary="Logout" />
-          </Link> : <Link to="/login">
-            <ListItemText primary="Login" />
-          </Link> }
-          
+          {currentUser ? (
+            <Link to="/login">
+              <span onClick={handleLogout}>
+                <ListItemText primary="Logout" />
+              </span>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <ListItemText primary="Login" />
+            </Link>
+          )}
         </ListItem>
         <ListItem button key="Create new boat">
           <ListItemIcon>
@@ -197,9 +216,7 @@ const SearchAppBarDrawer = (props) => {
             RheinSchiff-App
           </Typography>
           {/* Added current user after log in  */}
-          <Typography>
-            { currentUser && currentUser.email}
-          </Typography>
+          <Typography>{currentUser && currentUser.email}</Typography>
           <div className={classes.search} onClick={searchBoatHandler}>
             <div className={classes.searchIcon}>
               <SearchIcon />

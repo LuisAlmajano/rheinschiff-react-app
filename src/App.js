@@ -16,13 +16,13 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-      <Switch>
-        <Route path="/" exact component={Boats} />
-        <Route path="/login" exact component={Login} />
-        <Route path="/boats/new" exact component={NewBoat} />
-        <Route path="/boats/:boatId" exact component={Boat} />
-        <Redirect to="/" />
-      </Switch>
+        <Switch>
+          <Route path="/" exact component={Boats} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/boats/new" exact component={NewBoat} />
+          <Route path="/boats/:boatId" exact component={Boat} />
+          <Redirect to="/" />
+        </Switch>
       </AuthProvider>
     </Router>
   );

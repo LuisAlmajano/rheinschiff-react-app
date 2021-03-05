@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types'
+
 
 import Spinner from "../../../shared/components/UIElements/Spinner";
 import Schiff from "../Schiff/Schiff";
@@ -44,5 +46,10 @@ const SchiffListe = ({ loading, boats }) => {
     );
   }
 };
+
+SchiffListe.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  boats: PropTypes.array.isRequired,
+}
 
 export default SchiffListe;
