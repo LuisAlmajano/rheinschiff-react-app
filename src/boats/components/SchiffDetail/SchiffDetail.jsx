@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useParams, useHistory } from "react-router-dom";
+import PropTypes from 'prop-types'
+
 
 import DeleteModal from "../../../shared/components/UIElements/DeleteModal";
 import Card from "../../../shared/components/UIElements/Card";
@@ -8,9 +10,9 @@ import Button from "react-bootstrap/Button";
 //import Button from "../../../shared/components/FormElements/Button";
 import "./SchiffDetail.css";
 
-const SchiffDetail = (props) => {
+const SchiffDetail = ({ loadedBoat }) => {
   const [show, setShow] = useState(false);
-  const date = new Date(props.timeseen);
+  const date = new Date(loadedBoat.timeseen);
   let history = useHistory();
 
   // Extract the boatId from the URL in App <Route path="/boats/:boatId" exact> and only show the selected boat
@@ -49,13 +51,13 @@ const SchiffDetail = (props) => {
     <li className="schiff-item-detail">
       <Card className="schiff-item-detail__content">
         <div className="schiff-item-detail__image">
-          <img src={props.image} alt={props.name} />
+          <img src={loadedBoat.image} alt={loadedBoat.name} />
         </div>
         <div className="schiff-item-detail__info">
-          <h2>{props.name}</h2>
-          <p>{props.description}</p>
+          <h2>{loadedBoat.name}</h2>
+          <p>{loadedBoat.description}</p>
           <h4>
-            Seen: {props.countseen} {props.countseen === 1 ? "Time" : "Times"}
+            Seen: {loadedBoat.countseen} {loadedBoat.countseen === 1 ? "Time" : "Times"}
           </h4>
           <h4>Last seen on: {date.toGMTString()}</h4>
         </div>
@@ -76,5 +78,9 @@ const SchiffDetail = (props) => {
     </li>
   );
 };
+
+SchiffDetail.propTypes = {
+  loadedBoat: PropTypes.object.isRequired,
+}
 
 export default SchiffDetail;

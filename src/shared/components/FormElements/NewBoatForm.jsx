@@ -1,11 +1,12 @@
 /* Tutorial on formik here: https://www.youtube.com/watch?v=Gcs9cBI2Cw8&list=PLC3y8-rFHvwiPmFbtzEWjESkqBVDbdgGu&index=12 */
 
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import Button from "./Button";
 import "./NewBoatForm.css";
@@ -28,6 +29,7 @@ const validationSchema = Yup.object({
 });
 
 const NewBoatForm = () => {
+  const [startDate, setStartDate] = useState(new Date());
   const history = useHistory();
 
   const onSubmit = (values) => {
@@ -36,9 +38,10 @@ const NewBoatForm = () => {
     const newboat = {
       name: values.name,
       description: values.description,
+      timeseen: values.dateseen,
       image: values.image,
     };
-
+    
     axios
       .post("http://localhost:3001/api/boats", newboat)
       .then(() => {
@@ -87,6 +90,19 @@ const NewBoatForm = () => {
         {formik.touched.description && formik.errors.description ? (
           <div className="error">{formik.errors.description}</div>
         ) : null}
+      </div>
+
+      <div className="form-new-boat">
+        <label htmlFor="dateseen">Date seen</label>
+        <DatePicker
+          selected={startDate}
+          onChange={(date) => {
+            setStartDate(date);
+            formik.values.dateseen = date;
+           } }
+          withPortal
+          value={formik.values.dateseen}
+        />
       </div>
 
       <div className="form-new-boat">

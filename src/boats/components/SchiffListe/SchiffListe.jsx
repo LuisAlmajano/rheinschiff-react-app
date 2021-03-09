@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import PropTypes from 'prop-types'
-
+import PropTypes from "prop-types";
 
 import Spinner from "../../../shared/components/UIElements/Spinner";
 import Schiff from "../Schiff/Schiff";
@@ -31,16 +30,7 @@ const SchiffListe = ({ loading, boats }) => {
     return (
       <ul className="schiff-list">
         {boats.map((boat) => {
-          return (
-            <Schiff
-              key={boat._id}
-              id={boat._id}
-              name={boat.name}
-              image={boat.image}
-              timeseen={boat.timeseen}
-              countseen={boat.countseen}
-            />
-          );
+          return <Schiff boat={boat} />;
         })}
       </ul>
     );
@@ -50,6 +40,6 @@ const SchiffListe = ({ loading, boats }) => {
 SchiffListe.propTypes = {
   loading: PropTypes.bool.isRequired,
   boats: PropTypes.array.isRequired,
-}
+};
 
 export default SchiffListe;

@@ -68,15 +68,7 @@ const Boat = () => {
   return (
     <React.Fragment>
       <SearchAppBarDrawer onNewBoat={addNewBoatHandler} />
-      <SchiffDetail
-        key={loadedBoat._id}
-        id={loadedBoat._id}
-        name={loadedBoat.name}
-        description={loadedBoat.description}
-        image={loadedBoat.image}
-        timeseen={loadedBoat.timeseen}
-        countseen={loadedBoat.countseen}
-      />
+      <SchiffDetail loadedBoat={loadedBoat} />
     </React.Fragment>
   );
 };

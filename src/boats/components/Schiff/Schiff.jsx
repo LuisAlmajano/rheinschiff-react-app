@@ -1,25 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types'
+
 
 import Avatar from "../../../shared/components/UIElements/Avatar";
 import Card from "../../../shared/components/UIElements/Card";
 import "./Schiff.css";
 
-const Schiff = (props) => {
+const Schiff = ({ boat }) => {
 
-  const date = new Date(props.timeseen);
+  const date = new Date(boat.timeseen);
 
   return (
     <li className="schiff-item">
       <Card className="schiff-item__content">
-        <Link to={`/boats/${props.id}`}>
+        <Link to={`/boats/${boat._id}`}>
           <div className="schiff-item__image">
-            <Avatar image={props.image} alt={props.name} />
+            <Avatar image={boat.image} alt={boat.name} />
           </div>
           <div className="schiff-item__info">
-            <h2>{props.name}</h2>
+            <h2>{boat.name}</h2>
             <h4>
-              Seen: {props.countseen} {props.countseen === 1 ? "Time" : "Times"}
+              Seen: {boat.countseen} {boat.countseen === 1 ? "Time" : "Times"}
             </h4>
             <h4>Last seen on: {date.toGMTString()}</h4>
           </div>
@@ -28,5 +30,9 @@ const Schiff = (props) => {
     </li>
   );
 };
+
+Schiff.propTypes = {
+  boat: PropTypes.object.isRequired,
+}
 
 export default Schiff;
