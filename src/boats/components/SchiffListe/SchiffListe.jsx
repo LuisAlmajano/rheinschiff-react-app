@@ -26,14 +26,21 @@ const SchiffListe = ({ loading, boats }) => {
           </Card>
         </div>
       );
+    } else if (boats.name) {
+      return (
+        <ul className="schiff-list">
+          <Schiff key={boats._id} boat={boats} />
+        </ul>
+      );
+    } else {
+      return (
+        <ul className="schiff-list">
+          {boats.map((boat) => {
+            return <Schiff key={boat._id} boat={boat} />;
+          })}
+        </ul>
+      );
     }
-    return (
-      <ul className="schiff-list">
-        {boats.map((boat) => {
-          return <Schiff boat={boat} />;
-        })}
-      </ul>
-    );
   }
 };
 

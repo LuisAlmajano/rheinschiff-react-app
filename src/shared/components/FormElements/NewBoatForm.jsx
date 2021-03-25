@@ -1,4 +1,6 @@
 /* Tutorial on formik here: https://www.youtube.com/watch?v=Gcs9cBI2Cw8&list=PLC3y8-rFHvwiPmFbtzEWjESkqBVDbdgGu&index=12 */
+/* https://www.npmjs.com/package/react-datepicker */
+/* https://reactdatepicker.com/ */
 
 import React, { useState } from "react";
 import { useFormik } from "formik";
@@ -6,7 +8,10 @@ import * as Yup from "yup";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import DatePicker from "react-datepicker";
+// CSS Modules, react-datepicker-cssmodules.css
 import "react-datepicker/dist/react-datepicker.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Button from "./Button";
 import "./NewBoatForm.css";
@@ -41,15 +46,17 @@ const NewBoatForm = () => {
       timeseen: values.dateseen,
       image: values.image,
     };
-    
+
     axios
       .post("http://localhost:3001/api/boats", newboat)
       .then(() => {
+        toast("New boat was added!", { type: "success" });
         history.push("/");
       })
-      .catch((error) =>
-        console.error("Error fetching data with axios: ", error)
-      );
+      .catch((error) => {
+        toast("Ops! Something went wrong", { type: "error" });
+        console.error("Error fetching data with axios: ", error);
+      });
   };
 
   const formik = useFormik({
@@ -99,7 +106,7 @@ const NewBoatForm = () => {
           onChange={(date) => {
             setStartDate(date);
             formik.values.dateseen = date;
-           } }
+          }}
           withPortal
           value={formik.values.dateseen}
         />

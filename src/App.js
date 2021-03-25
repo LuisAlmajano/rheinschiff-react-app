@@ -14,8 +14,8 @@ import Login from "./boats/pages/Login";
 
 function App() {
   return (
-    <Router>
-      <AuthProvider>
+    <AuthProvider>
+      <Router>
         <Switch>
           <Route path="/" exact component={Boats} />
           <Route path="/login" exact component={Login} />
@@ -23,8 +23,8 @@ function App() {
           <Route path="/boats/:boatId" exact component={Boat} />
           <Redirect to="/" />
         </Switch>
-      </AuthProvider>
-    </Router>
+      </Router>
+    </AuthProvider>
   );
 }
 

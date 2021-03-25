@@ -1,20 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useParams, useHistory } from "react-router-dom";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types'
+
 
 import DeleteModal from "../../../shared/components/UIElements/DeleteModal";
 import Card from "../../../shared/components/UIElements/Card";
 import Button from "react-bootstrap/Button";
-
 //import Button from "../../../shared/components/FormElements/Button";
-import "./SchiffDetail.css";
+import "./SchiffDetailEdit.css";
 
-toast.configure();
-
-const SchiffDetail = ({ loadedBoat }) => {
+const SchiffDetailEdit = ({ loadedBoat }) => {
   const [show, setShow] = useState(false);
   const date = new Date(loadedBoat.timeseen);
   let history = useHistory();
@@ -34,23 +30,21 @@ const SchiffDetail = ({ loadedBoat }) => {
   };
 
   const confirmDeleteHandler = (event) => {
-    /* Potentially show here waiting spinner */
-
     axios
       .delete(`http://localhost:3001/api/boats/${boatId}`)
       .then(() => {
-        /* After deletion, we remove the Modal */
-        setShow(false);
-        toast("Boat was successfully deleted", { type: "success" });
+        /* Potentially show here waiting spinner */
         console.log("DELETE Axios Request completed");
-        /* Move to Home page */
-        /* https://dev.to/projectescape/programmatic-navigation-in-react-3p1l */
-        history.push("/");
       })
-      .catch((error) => {
-        toast("Ops! Something went wrong", { type: "error" });
-        console.error("Error trying to delete data with axios: ", error);
-      });
+      .catch((error) =>
+        console.error("Error trying to delete data with axios: ", error)
+      );
+    /* After deletion, we remove the Modal */
+    setShow(false);
+    /* Move to Home page */
+    /* https://dev.to/projectescape/programmatic-navigation-in-react-3p1l */
+    history.push("/");
+    
   };
 
   return (
@@ -63,20 +57,13 @@ const SchiffDetail = ({ loadedBoat }) => {
           <h2>{loadedBoat.name}</h2>
           <p>{loadedBoat.description}</p>
           <h4>
-            Seen: {loadedBoat.countseen}{" "}
-            {loadedBoat.countseen === 1 ? "Time" : "Times"}
+            Seen: {loadedBoat.countseen} {loadedBoat.countseen === 1 ? "Time" : "Times"}
           </h4>
           <h4>Last seen on: {date.toGMTString()}</h4>
         </div>
         <div className="schiff-item-detail__actions">
-          <Button id="edit-button" variant="primary" onClick={editBoatHandler}>
-            EDIT
-          </Button>
-          <Button
-            id="delete-button"
-            variant="danger"
-            onClick={deleteBoatHandler}
-          >
+          <Button id="edit-button" variant="primary" onClick={editBoatHandler}>EDIT</Button>
+          <Button id="delete-button" variant="danger" onClick={deleteBoatHandler}>
             DELETE
           </Button>
         </div>
@@ -92,8 +79,8 @@ const SchiffDetail = ({ loadedBoat }) => {
   );
 };
 
-SchiffDetail.propTypes = {
+SchiffDetailEdit.propTypes = {
   loadedBoat: PropTypes.object.isRequired,
-};
+}
 
-export default SchiffDetail;
+export default SchiffDetailEdit;

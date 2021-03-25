@@ -42,9 +42,9 @@
   font-size: 1rem;
 }
 
-.schiff-item:hover h2,
+.schiff-item__content:hover h2,
 .schiff-item:active h2,
-.schiff-item:hover h4,
+.schiff-item__content:hover h4,
 .schiff-item:active h4 {
   color: #292929;
 }

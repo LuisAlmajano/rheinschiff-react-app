@@ -8,8 +8,7 @@ import "./Login.css";
 const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { login } = useAuth();
-  const { currentUser } = useAuth();
+  const { login, currentUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const history = useHistory();
@@ -51,7 +50,7 @@ const Login = () => {
         className="form-control mb-2 ip-4"
         placeholder="Username"
         required
-        autofocus
+        autoFocus
       />
       <label htmlFor="inputPassword" className="sr-only">
         Password

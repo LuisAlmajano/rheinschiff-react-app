@@ -8,35 +8,8 @@ import Footer from "../../shared/components/Navigation/Footer";
 const Boats = () => {
   const [boats_db, setBoats] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  const [boats_dummy, setBoatsDummy] = useState([
-    {
-      _id: "1",
-      name: "Tarragona",
-      image: "https://picsum.photos/200",
-      timeseen: "2020-09-01",
-      countseen: 2,
-    },
-    {
-      _id: "2",
-      name: "Veerman",
-      image: "https://picsum.photos/400",
-      timeseen: "2021-01-11",
-      countseen: 1,
-    },
-    {
-      _id: "3",
-      name: "Sophie Schwarz",
-      image: "https://picsum.photos/300",
-      timeseen: "2020-09-01",
-      countseen: 1,
-    },
-  ]);
-
-  const addNewBoatHandler = (newBoat) => {
-    const boats = boats_dummy.concat(newBoat);
-    setBoatsDummy(boats);
-  };
+  const [searchedBoat, setSearchedBoat] = useState();
+  let searched = null;
 
   React.useEffect(() => {
     /* 
@@ -47,20 +20,53 @@ const Boats = () => {
     setLoading(true);
     axios
       .get("http://localhost:3001/api/boats")
-      .then((result) => setBoats(result.data))
+      .then((result) => {
+        setBoats(result.data);
+        setLoading(false);
+        console.log("Boats retrieved from MongoDB:", boats_db);
+      })
       .catch((error) =>
         console.error("Error fetching data with axios: ", error)
       );
-    setLoading(false);
   }, []);
 
-  return (
-    <React.Fragment>
-      <SearchAppBarDrawer onNewBoat={addNewBoatHandler} />
-      <SchiffListe loading={loading} boats={boats_db} />
-      <Footer />
-    </React.Fragment>
-  );
+  const SearchBoat = (enteredText) => {
+    console.log("------SearchBoat function called-----", searchedBoat);
+    // Search for given Boat in the list of boats from MongoDB
+    // Only search if user entered text
+    if (enteredText) {
+      searched = boats_db.find((boat) => boat.name === enteredText);
+      if (searched) {
+        setSearchedBoat(searched);
+        console.log("A boat with this name was found!");
+        // console.log("enteredText: ", enteredText);
+        console.log("Searched Boat within the list of boats: ", searched);
+        console.log("searchedBoat useState: ", searchedBoat);
+      } else {
+        console.log("NO boat with this name was found", enteredText);
+      }
+    }
+  };
+  // If a boat was found
+  if (searchedBoat) {
+    console.log("IF STATEMENT - Searched Boat exists within the list of boats: ",searchedBoat);
+    console.log("searchedBoat.length: ", searchedBoat.length);
+    return (
+      <React.Fragment>
+        <SearchAppBarDrawer onSearch={SearchBoat} />
+        <SchiffListe loading={loading} boats={searchedBoat} />
+        <Footer />
+      </React.Fragment>
+    );
+  } else {
+    return (
+      <React.Fragment>
+        <SearchAppBarDrawer onSearch={SearchBoat} />
+        <SchiffListe loading={loading} boats={boats_db} />
+        <Footer />
+      </React.Fragment>
+    );
+  }
 };
 
 export default Boats;

@@ -20,6 +20,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import HomeIcon from "@material-ui/icons/Home";
 import DirectionsBoatIcon from "@material-ui/icons/DirectionsBoat";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
+import PropTypes from "prop-types";
 
 const useStyles = (theme) => ({
   root: {
@@ -82,8 +83,7 @@ const useStyles = (theme) => ({
   },
 });
 
-const SearchAppBarDrawer = (props) => {
-  const { classes } = props;
+const SearchAppBarDrawer = ({ classes, onSearch }) => {
   const [enteredText, setEnteredText] = useState();
   const { currentUser, logout } = useAuth();
 
@@ -91,17 +91,7 @@ const SearchAppBarDrawer = (props) => {
     left: false,
   });
 
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
-    setState({ ...state, [anchor]: open });
-  };
-
+  // User Authentication via Firebase
   const handleLogout = async (e) => {
     e.preventDefault();
 
@@ -114,6 +104,17 @@ const SearchAppBarDrawer = (props) => {
     } catch (error) {
       console.log("Failed to log out");
     }
+  };
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
   };
 
   const list = (anchor) => (
@@ -163,14 +164,14 @@ const SearchAppBarDrawer = (props) => {
     </div>
   );
 
-  const textChangeHandler = (event) => {
-    setEnteredText(event.target.value);
-    console.log("Text entered: ", enteredText);
-  };
+  // const textChangeHandler = (event) => {
+  //   setEnteredText(event.target.value);
+  //   console.log("Text entered: ", enteredText);
+  // };
 
   const searchBoatHandler = (props) => {
     console.log("Triggered searchBoatHandler");
-    console.log("Boat entered: ", enteredText);
+    console.log("Entered text: ", enteredText);
 
     // const NewBoat = {
     //   _id: Math.random().toString(),
@@ -181,12 +182,10 @@ const SearchAppBarDrawer = (props) => {
     // console.log({NewBoat});
     // props.onNewBoat(NewBoat);
 
-    // Search for given Boat in MongoDB
-
-    // If Boat exists, display boat
-
-    // If Boat does NOT exist, display option to include boat -> New Boat
+    onSearch(enteredText);
+    
   };
+
   const anchor = "left";
 
   // To fix the AppBar set position="fixed" below.
@@ -235,6 +234,10 @@ const SearchAppBarDrawer = (props) => {
       </AppBar>
     </div>
   );
+};
+
+SearchAppBarDrawer.propTypes = {
+  onSearch: PropTypes.func,
 };
 
 export default withStyles(useStyles, { withTheme: true })(SearchAppBarDrawer);
