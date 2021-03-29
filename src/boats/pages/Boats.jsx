@@ -25,9 +25,10 @@ const Boats = () => {
         setLoading(false);
         console.log("Boats retrieved from MongoDB:", boats_db);
       })
-      .catch((error) =>
-        console.error("Error fetching data with axios: ", error)
-      );
+      .catch((error) => {
+        console.error("Error fetching data with axios: ", error);
+        setLoading(false);
+      });
   }, []);
 
   const SearchBoat = (enteredText) => {
@@ -49,7 +50,10 @@ const Boats = () => {
   };
   // If a boat was found
   if (searchedBoat) {
-    console.log("IF STATEMENT - Searched Boat exists within the list of boats: ",searchedBoat);
+    console.log(
+      "IF STATEMENT - Searched Boat exists within the list of boats: ",
+      searchedBoat
+    );
     console.log("searchedBoat.length: ", searchedBoat.length);
     return (
       <React.Fragment>
