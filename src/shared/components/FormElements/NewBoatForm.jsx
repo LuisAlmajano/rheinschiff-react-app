@@ -35,7 +35,7 @@ const validationSchema = Yup.object({
 });
 
 const NewBoatForm = () => {
-  const [startDate, setStartDate] = useState(new Date());
+  const [pickDate, setPickDate] = useState(new Date());
   const fileInput = useRef();
   const history = useHistory();
 
@@ -50,8 +50,9 @@ const NewBoatForm = () => {
 
   // AWS S3 Upload
   const imageS3Uploader = (fileInput, filename) => {
-    let file = fileInput.current.files[0];
-    let newFileName = filename + ".jpg";
+    const file = fileInput.current.files[0];
+    const extension = file.name.split(".")[1];
+    const newFileName = filename + "." + extension;
 
     const ReactS3Client = new S3(config);
     ReactS3Client.uploadFile(file, newFileName)
@@ -69,20 +70,24 @@ const NewBoatForm = () => {
   const onSubmit = (values) => {
     console.log("Form data", values);
 
+    // We name the image file as the boat name
+    const imageName = values.name;
+    const extension = fileInput.current.files[0].name.split(".")[1];
+
     const newboat = {
       name: values.name,
       description: values.description,
-      timeseen: values.dateseen,
-      image: `https://${config.bucketName}.s3.${config.region}.amazonaws.com/${config.dirName}/${values.name}.jpg`, //https://rheinschiff-react-app.s3.eu-central-1.amazonaws.com/public/images/Sputnik.jpg
+      timeseen: pickDate,
+      image: `https://${config.bucketName}.s3.${config.region}.amazonaws.com/${config.dirName}/${imageName}.${extension}`, //https://rheinschiff-react-app.s3.eu-central-1.amazonaws.com/public/images/Sputnik.jpg
     };
 
-    // Upload file to AWS S3 bucket
-    // console.log("File: ", fileInput.current.files[0]);
-    // console.log("File name: ", fileInput.current.files[0].name);
-    // console.log("Image: ", values.name);
-    console.log("Timeseen: ", newboat.timeseen);
-    imageS3Uploader(fileInput, values.name);
+    console.log("NewBoat: ", newboat);
 
+    // Upload file to AWS S3 bucket
+    imageS3Uploader(fileInput, imageName);
+
+
+    // TO DO: Modify the code with async await to get control over function results
     // If file upload to S3 was successful, POST to upload boat
     // if (result === "success") {
     axios
@@ -145,10 +150,10 @@ const NewBoatForm = () => {
       <div className="form-new-boat">
         <label htmlFor="dateseen">Date seen</label>
         <DatePicker
-          selected={startDate}
+          selected={pickDate}
           onChange={(date) => {
-            setStartDate(date);
-            formik.values.dateseen = date;
+            setPickDate(date);
+            //formik.values.dateseen = date;
           }}
           withPortal
           value={formik.values.dateseen}
