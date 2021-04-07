@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-import Spinner from "../../shared/components/UIElements/Spinner";
-import SearchAppBarDrawer from "../../shared/components/Navigation/SearchAppBarDrawer";
-import SchiffDetail from "../components/SchiffDetail/SchiffDetail";
-import Footer from "../../shared/components/Navigation/Footer";
+import Spinner from "../layout/UIElements/Spinner";
+import SearchAppBarDrawer from "../layout/Navigation/SearchAppBarDrawer";
+import SchiffDetail from "../boats/SchiffDetail/SchiffDetail";
+import Footer from "../layout/Navigation/Footer";
 
 const Boat = () => {
   const [boats_db, setBoats] = useState([]);

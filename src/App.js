@@ -7,11 +7,11 @@ import {
 } from "react-router-dom";
 
 import { AuthProvider } from "./contexts/AuthContext";
-import Boats from "./boats/pages/Boats";
-import Boat from "./boats/pages/Boat";
-import NewBoat from "./boats/pages/NewBoat";
-import Login from "./boats/pages/Login";
-import ProtectedRoute from './boats/pages/ProtectedRoute';
+import Boats from "./components/pages/Boats";
+import Boat from "./components/pages/Boat";
+import NewBoat from "./components/pages/NewBoat";
+import Login from "./components/auth/Login";
+import ProtectedRoute from "./components/routing/ProtectedRoute";
 
 function App() {
   return (

@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import axios from "axios";
 
-import SearchAppBarDrawer from "../../shared/components/Navigation/SearchAppBarDrawer";
-import SchiffListe from "../components/SchiffListe/SchiffListe";
-import Footer from "../../shared/components/Navigation/Footer";
+import SearchAppBarDrawer from "../layout/Navigation/SearchAppBarDrawer";
+import SchiffListe from "../boats/SchiffListe/SchiffListe";
+import Footer from "../layout/Navigation/Footer";
 
 const Boats = () => {
   const [boats_db, setBoats] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [filtered, setFiltered] = useState(null);
   const [searchedBoat, setSearchedBoat] = useState();
   let searched = null;
 
@@ -31,10 +32,28 @@ const Boats = () => {
       });
   }, []);
 
+  const filterBoats = (text) => {
+    const filter = boats_db.filter((boat) => {
+      const regex = new RegExp(`${text}`, "gi");
+      return boat.name.match(regex);
+    });
+    setFiltered(filter);
+  };
+
+  const clearFilter = () => {
+    setFiltered(null);
+  };
+
   const SearchBoat = (enteredText) => {
     console.log("------SearchBoat function called-----", searchedBoat);
     // Search for given Boat in the list of boats from MongoDB
     // Only search if user entered text
+    // Check Filter code from ContactKeeper App
+    // const regex = new RegExp(`enteredText`, "gi");
+    // filtered: state.contacts.filter((contact) => {
+    //   const regex = new RegExp(`${action.payload}`, "gi");
+    //   return contact.name.match(regex) || contact.email.match(regex);
+
     if (enteredText) {
       searched = boats_db.find((boat) => boat.name === enteredText);
       if (searched) {
@@ -48,29 +67,22 @@ const Boats = () => {
       }
     }
   };
-  // If a boat was found
-  if (searchedBoat) {
-    console.log(
-      "IF STATEMENT - Searched Boat exists within the list of boats: ",
-      searchedBoat
-    );
-    console.log("searchedBoat.length: ", searchedBoat.length);
-    return (
-      <React.Fragment>
-        <SearchAppBarDrawer onSearch={SearchBoat} />
-        <SchiffListe loading={loading} boats={searchedBoat} />
-        <Footer />
-      </React.Fragment>
-    );
-  } else {
-    return (
-      <React.Fragment>
-        <SearchAppBarDrawer onSearch={SearchBoat} />
+
+  return (
+    <Fragment>
+      <SearchAppBarDrawer
+        onSearch={SearchBoat}
+        filterBoats={filterBoats}
+        clearFilter={clearFilter}
+      />
+      {filtered ? (
+        <SchiffListe loading={loading} boats={filtered} />
+      ) : (
         <SchiffListe loading={loading} boats={boats_db} />
-        <Footer />
-      </React.Fragment>
-    );
-  }
+      )}
+      <Footer />
+    </Fragment>
+  );
 };
 
 export default Boats;

@@ -1,6 +1,6 @@
 /* Inspiration from https://material-ui.com/components/drawers/ */
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../contexts/AuthContext";
 import clsx from "clsx";
@@ -83,9 +83,10 @@ const useStyles = (theme) => ({
   },
 });
 
-const SearchAppBarDrawer = ({ classes, onSearch }) => {
+const SearchAppBarDrawer = ({ classes, filterBoats, clearFilter, onSearch }) => {
   const [enteredText, setEnteredText] = useState();
   const { currentUser, logout } = useAuth();
+  const text = useRef("");
 
   const [state, setState] = useState({
     left: false,
@@ -164,10 +165,15 @@ const SearchAppBarDrawer = ({ classes, onSearch }) => {
     </div>
   );
 
-  // const textChangeHandler = (event) => {
-  //   setEnteredText(event.target.value);
-  //   console.log("Text entered: ", enteredText);
-  // };
+  const onChange = (e) => {
+    if (text.current.value !== "") {
+      filterBoats(e.target.value);
+    } else {
+      clearFilter();
+    }
+    //   setEnteredText(event.target.value);
+    //   console.log("Text entered: ", enteredText);
+  };
 
   const searchBoatHandler = (props) => {
     console.log("Triggered searchBoatHandler");
@@ -183,7 +189,6 @@ const SearchAppBarDrawer = ({ classes, onSearch }) => {
     // props.onNewBoat(NewBoat);
 
     onSearch(enteredText);
-    
   };
 
   const anchor = "left";
@@ -227,7 +232,9 @@ const SearchAppBarDrawer = ({ classes, onSearch }) => {
                 input: classes.inputInput,
               }}
               inputProps={{ "aria-label": "search" }}
-              onChange={(e) => setEnteredText(e.target.value)}
+              ref={text}
+              onChange={onChange}
+              // onChange={(e) => setEnteredText(e.target.value)}
             />
           </div>
         </Toolbar>

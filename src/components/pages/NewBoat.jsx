@@ -1,7 +1,7 @@
 import React from "react";
 
-import SearchAppBarDrawer from "../../shared/components/Navigation/SearchAppBarDrawer";
-import NewBoatForm from "../../shared/components/FormElements/NewBoatForm";
+import SearchAppBarDrawer from "../layout/Navigation/SearchAppBarDrawer";
+import NewBoatForm from "../layout/FormElements/NewBoatForm";
 
 const NewBoat = () => {
   const addNewBoatHandler = (newBoat) => {

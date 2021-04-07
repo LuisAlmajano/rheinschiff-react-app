@@ -5,8 +5,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
 
-import DeleteModal from "../../../shared/components/UIElements/DeleteModal";
-import Card from "../../../shared/components/UIElements/Card";
+import DeleteModal from "../../layout/UIElements/DeleteModal";
+import Card from "../../layout/UIElements/Card";
 import Button from "react-bootstrap/Button";
 
 //import Button from "../../../shared/components/FormElements/Button";
@@ -39,6 +39,25 @@ const SchiffDetail = ({ loadedBoat }) => {
     axios
       .delete(`http://localhost:3001/api/boats/${boatId}`)
       .then(() => {
+        /* TODO Delete image in AWS S3 Bucket */
+        /* https://www.npmjs.com/package/react-aws-s3
+        // AWS S3 Config
+        const config = {
+          bucketName: process.env.REACT_APP_AWS_BUCKET_NAME,
+          dirName: process.env.REACT_APP_AWS_DIR_NAME,
+          region: process.env.REACT_APP_AWS_REGION,
+          accessKeyId: process.env.REACT_APP_AWS_ACCESS_ID,
+          secretAccessKey: process.env.REACT_APP_AWS_ACCESS_KEY,
+        };
+
+        // Retrieve filename 
+        const ReactS3Client = new S3(config);
+        ReactS3Client.deleteFile(filename)
+            .then(response => console.log(response))
+            .catch(err => console.error(err))
+    
+        
+
         /* After deletion, we remove the Modal */
         setShow(false);
         toast("Boat was successfully deleted", { type: "success" });

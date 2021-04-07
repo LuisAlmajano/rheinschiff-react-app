@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import Spinner from "../../../shared/components/UIElements/Spinner";
+import Spinner from "../../layout/UIElements/Spinner";
 import Schiff from "../Schiff/Schiff";
-import Card from "../../../shared/components/UIElements/Card";
-import Button from "../../../shared/components/FormElements/Button";
+import Card from "../../layout/UIElements/Card";
+import Button from "../../layout/FormElements/Button";
 
 import "./SchiffListe.css";
 
@@ -35,9 +35,9 @@ const SchiffListe = ({ loading, boats }) => {
     } else {
       return (
         <ul className="schiff-list">
-          {boats.map((boat) => {
-            return <Schiff key={boat._id} boat={boat} />;
-          })}
+          {boats.map((boat) => (
+            <Schiff key={boat._id} boat={boat} />
+          ))}
         </ul>
       );
     }

@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import PropTypes from 'prop-types'
 
 
-import Avatar from "../../../shared/components/UIElements/Avatar";
-import Card from "../../../shared/components/UIElements/Card";
+import Avatar from "../../layout/UIElements/Avatar";
+import Card from "../../layout/UIElements/Card";
 import "./Schiff.css";
 
 const Schiff = ({ boat }) => {

@@ -4,8 +4,8 @@ import { useParams, useHistory } from "react-router-dom";
 import PropTypes from 'prop-types'
 
 
-import DeleteModal from "../../../shared/components/UIElements/DeleteModal";
-import Card from "../../../shared/components/UIElements/Card";
+import DeleteModal from "../../../../shared/components/UIElements/DeleteModal";
+import Card from "../../../../shared/components/UIElements/Card";
 import Button from "react-bootstrap/Button";
 //import Button from "../../../shared/components/FormElements/Button";
 import "./SchiffDetailEdit.css";
