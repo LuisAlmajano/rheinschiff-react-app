@@ -83,7 +83,7 @@ const useStyles = (theme) => ({
   },
 });
 
-const SearchAppBarDrawer = ({ classes, filterBoats, clearFilter, onSearch }) => {
+const SearchAppBarDrawer = ({ classes, filterBoats, clearFilter }) => {
   const [enteredText, setEnteredText] = useState();
   const { currentUser, logout } = useAuth();
   const text = useRef("");
@@ -171,24 +171,6 @@ const SearchAppBarDrawer = ({ classes, filterBoats, clearFilter, onSearch }) => 
     } else {
       clearFilter();
     }
-    //   setEnteredText(event.target.value);
-    //   console.log("Text entered: ", enteredText);
-  };
-
-  const searchBoatHandler = (props) => {
-    console.log("Triggered searchBoatHandler");
-    console.log("Entered text: ", enteredText);
-
-    // const NewBoat = {
-    //   _id: Math.random().toString(),
-    //   name: enteredText,
-    //   timeseen: Date.now(),
-    //   countseen: 1,
-    // };
-    // console.log({NewBoat});
-    // props.onNewBoat(NewBoat);
-
-    onSearch(enteredText);
   };
 
   const anchor = "left";
@@ -221,7 +203,7 @@ const SearchAppBarDrawer = ({ classes, filterBoats, clearFilter, onSearch }) => 
           </Typography>
           {/* Added current user after log in  */}
           <Typography>{currentUser && currentUser.email}</Typography>
-          <div className={classes.search} onClick={searchBoatHandler}>
+          <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -234,7 +216,6 @@ const SearchAppBarDrawer = ({ classes, filterBoats, clearFilter, onSearch }) => 
               inputProps={{ "aria-label": "search" }}
               ref={text}
               onChange={onChange}
-              // onChange={(e) => setEnteredText(e.target.value)}
             />
           </div>
         </Toolbar>

@@ -44,37 +44,9 @@ const Boats = () => {
     setFiltered(null);
   };
 
-  const SearchBoat = (enteredText) => {
-    console.log("------SearchBoat function called-----", searchedBoat);
-    // Search for given Boat in the list of boats from MongoDB
-    // Only search if user entered text
-    // Check Filter code from ContactKeeper App
-    // const regex = new RegExp(`enteredText`, "gi");
-    // filtered: state.contacts.filter((contact) => {
-    //   const regex = new RegExp(`${action.payload}`, "gi");
-    //   return contact.name.match(regex) || contact.email.match(regex);
-
-    if (enteredText) {
-      searched = boats_db.find((boat) => boat.name === enteredText);
-      if (searched) {
-        setSearchedBoat(searched);
-        console.log("A boat with this name was found!");
-        // console.log("enteredText: ", enteredText);
-        console.log("Searched Boat within the list of boats: ", searched);
-        console.log("searchedBoat useState: ", searchedBoat);
-      } else {
-        console.log("NO boat with this name was found", enteredText);
-      }
-    }
-  };
-
   return (
     <Fragment>
-      <SearchAppBarDrawer
-        onSearch={SearchBoat}
-        filterBoats={filterBoats}
-        clearFilter={clearFilter}
-      />
+      <SearchAppBarDrawer filterBoats={filterBoats} clearFilter={clearFilter} />
       {filtered ? (
         <SchiffListe loading={loading} boats={filtered} />
       ) : (
