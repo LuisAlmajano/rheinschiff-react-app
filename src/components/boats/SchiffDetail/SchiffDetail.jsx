@@ -94,6 +94,8 @@ const SchiffDetail = ({ loadedBoat }) => {
   };
 
   if (editing) {
+    // Use as reference https://blog.logrocket.com/building-inline-editable-ui-in-react/
+
     return (
       <Card className="schiff-item-detail__content">
         <div className="schiff-item-detail__image">
@@ -103,7 +105,8 @@ const SchiffDetail = ({ loadedBoat }) => {
           <h2>{editedBoat.name}</h2>
           <textarea type="text">{editedBoat.description}</textarea>
           <h4>
-            Seen: <AiFillPlusCircle onClick={increaseCountSeen} /> {editedBoat.countseen}{" "}
+            Seen: <AiFillPlusCircle onClick={increaseCountSeen} />{" "}
+            {editedBoat.countseen}{" "}
             <AiFillMinusCircle onClick={decreaseCountSeen} />
             {editedBoat.countseen === 1 ? "Time" : "Times"}
           </h4>
