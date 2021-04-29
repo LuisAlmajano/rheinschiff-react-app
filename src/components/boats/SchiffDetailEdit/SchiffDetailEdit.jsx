@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useParams, useHistory } from "react-router-dom";
-import PropTypes from 'prop-types'
-
+import PropTypes from "prop-types";
 
 import DeleteModal from "../../../../shared/components/UIElements/DeleteModal";
 import Card from "../../../../shared/components/UIElements/Card";
@@ -31,7 +30,7 @@ const SchiffDetailEdit = ({ loadedBoat }) => {
 
   const confirmDeleteHandler = (event) => {
     axios
-      .delete(`http://localhost:3001/api/boats/${boatId}`)
+      .delete(`/api/boats/${boatId}`)
       .then(() => {
         /* Potentially show here waiting spinner */
         console.log("DELETE Axios Request completed");
@@ -44,7 +43,6 @@ const SchiffDetailEdit = ({ loadedBoat }) => {
     /* Move to Home page */
     /* https://dev.to/projectescape/programmatic-navigation-in-react-3p1l */
     history.push("/");
-    
   };
 
   return (
@@ -57,13 +55,20 @@ const SchiffDetailEdit = ({ loadedBoat }) => {
           <h2>{loadedBoat.name}</h2>
           <p>{loadedBoat.description}</p>
           <h4>
-            Seen: {loadedBoat.countseen} {loadedBoat.countseen === 1 ? "Time" : "Times"}
+            Seen: {loadedBoat.countseen}{" "}
+            {loadedBoat.countseen === 1 ? "Time" : "Times"}
           </h4>
           <h4>Last seen on: {date.toGMTString()}</h4>
         </div>
         <div className="schiff-item-detail__actions">
-          <Button id="edit-button" variant="primary" onClick={editBoatHandler}>EDIT</Button>
-          <Button id="delete-button" variant="danger" onClick={deleteBoatHandler}>
+          <Button id="edit-button" variant="primary" onClick={editBoatHandler}>
+            EDIT
+          </Button>
+          <Button
+            id="delete-button"
+            variant="danger"
+            onClick={deleteBoatHandler}
+          >
             DELETE
           </Button>
         </div>
@@ -81,6 +86,6 @@ const SchiffDetailEdit = ({ loadedBoat }) => {
 
 SchiffDetailEdit.propTypes = {
   loadedBoat: PropTypes.object.isRequired,
-}
+};
 
 export default SchiffDetailEdit;

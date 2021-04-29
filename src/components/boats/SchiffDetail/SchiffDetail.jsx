@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import axios from "axios";
 import { useParams, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -9,35 +9,56 @@ import DeleteModal from "../../layout/UIElements/DeleteModal";
 import Card from "../../layout/UIElements/Card";
 import Button from "react-bootstrap/Button";
 
+import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
+
 //import Button from "../../../shared/components/FormElements/Button";
 import "./SchiffDetail.css";
 
 toast.configure();
 
 const SchiffDetail = ({ loadedBoat }) => {
-  const [show, setShow] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [editedBoat, setEditedBoat] = useState({
+    name: loadedBoat.name,
+    description: loadedBoat.description,
+    countseen: loadedBoat.countseen,
+  });
   const date = new Date(loadedBoat.timeseen);
   let history = useHistory();
 
   // Extract the boatId from the URL in App <Route path="/boats/:boatId" exact> and only show the selected boat
   const boatId = useParams().boatId;
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => setShowModal(false);
 
   const editBoatHandler = (event) => {
-    console.log("You want to edit boat: ", event);
+    setEditing(true);
+  };
+
+  const saveEditBoatHandler = (event) => {
+    setEditing(false);
+    // @ToDo: Save edited boat in backend
+  };
+
+  const increaseCountSeen = (e) => {
+    setEditedBoat({ ...editedBoat, countseen: editedBoat.countseen + 1 });
+  };
+
+  const decreaseCountSeen = (e) => {
+    setEditedBoat({ ...editedBoat, countseen: editedBoat.countseen - 1 });
   };
 
   const deleteBoatHandler = (event) => {
     /* We show the Modal to get user confirmation */
-    setShow(true);
+    setShowModal(true);
   };
 
   const confirmDeleteHandler = (event) => {
     /* Potentially show here waiting spinner */
 
     axios
-      .delete(`http://localhost:3001/api/boats/${boatId}`)
+      .delete(`/api/boats/${boatId}`)
       .then(() => {
         /* TODO Delete image in AWS S3 Bucket */
         /* https://www.npmjs.com/package/react-aws-s3
@@ -59,7 +80,7 @@ const SchiffDetail = ({ loadedBoat }) => {
         
 
         /* After deletion, we remove the Modal */
-        setShow(false);
+        setShowModal(false);
         toast("Boat was successfully deleted", { type: "success" });
         console.log("DELETE Axios Request completed");
         /* Move to Home page */
@@ -72,43 +93,83 @@ const SchiffDetail = ({ loadedBoat }) => {
       });
   };
 
-  return (
-    <li className="schiff-item-detail">
+  if (editing) {
+    return (
       <Card className="schiff-item-detail__content">
         <div className="schiff-item-detail__image">
           <img src={loadedBoat.image} alt={loadedBoat.name} />
         </div>
         <div className="schiff-item-detail__info">
-          <h2>{loadedBoat.name}</h2>
-          <p>{loadedBoat.description}</p>
+          <h2>{editedBoat.name}</h2>
+          <textarea type="text">{editedBoat.description}</textarea>
           <h4>
-            Seen: {loadedBoat.countseen}{" "}
-            {loadedBoat.countseen === 1 ? "Time" : "Times"}
+            Seen: <AiFillPlusCircle onClick={increaseCountSeen} /> {editedBoat.countseen}{" "}
+            <AiFillMinusCircle onClick={decreaseCountSeen} />
+            {editedBoat.countseen === 1 ? "Time" : "Times"}
           </h4>
           <h4>Last seen on: {date.toGMTString()}</h4>
         </div>
         <div className="schiff-item-detail__actions">
-          <Button id="edit-button" variant="primary" onClick={editBoatHandler}>
-            EDIT
+          <Button
+            id="save-button"
+            variant="primary"
+            onClick={saveEditBoatHandler}
+          >
+            SAVE
           </Button>
           <Button
-            id="delete-button"
-            variant="danger"
-            onClick={deleteBoatHandler}
+            id="cancel-edit-button"
+            variant="secondary"
+            onClick={() => setEditing(false)}
           >
-            DELETE
+            CANCEL
           </Button>
         </div>
       </Card>
-      <div className="delete-modal">
-        <DeleteModal
-          show={show}
-          handleClose={handleClose}
-          confirmDeleteHandler={confirmDeleteHandler}
-        />
-      </div>
-    </li>
-  );
+    );
+  } else {
+    return (
+      <Fragment>
+        <Card className="schiff-item-detail__content">
+          <div className="schiff-item-detail__image">
+            <img src={loadedBoat.image} alt={loadedBoat.name} />
+          </div>
+          <div className="schiff-item-detail__info">
+            <h2>{loadedBoat.name}</h2>
+            <p>{loadedBoat.description}</p>
+            <h4>
+              Seen: {loadedBoat.countseen}{" "}
+              {loadedBoat.countseen === 1 ? "Time" : "Times"}
+            </h4>
+            <h4>Last seen on: {date.toGMTString()}</h4>
+          </div>
+          <div className="schiff-item-detail__actions">
+            <Button
+              id="edit-button"
+              variant="primary"
+              onClick={editBoatHandler}
+            >
+              EDIT
+            </Button>
+            <Button
+              id="delete-button"
+              variant="danger"
+              onClick={deleteBoatHandler}
+            >
+              DELETE
+            </Button>
+          </div>
+        </Card>
+        <div className="delete-modal">
+          <DeleteModal
+            show={showModal}
+            handleClose={handleClose}
+            confirmDeleteHandler={confirmDeleteHandler}
+          />
+        </div>
+      </Fragment>
+    );
+  }
 };
 
 SchiffDetail.propTypes = {

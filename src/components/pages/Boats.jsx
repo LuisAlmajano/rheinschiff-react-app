@@ -9,8 +9,6 @@ const Boats = () => {
   const [boats_db, setBoats] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filtered, setFiltered] = useState(null);
-  const [searchedBoat, setSearchedBoat] = useState();
-  let searched = null;
 
   React.useEffect(() => {
     /* 
@@ -20,7 +18,7 @@ const Boats = () => {
     */
     setLoading(true);
     axios
-      .get("http://localhost:3001/api/boats")
+      .get("/api/boats")
       .then((result) => {
         setBoats(result.data);
         setLoading(false);
@@ -56,5 +54,25 @@ const Boats = () => {
     </Fragment>
   );
 };
+
+// @nice to have: Add transition to the filter
+// import { CSSTransition, TransitionGroup } from "react-transition-group";
+{
+  /* <Fragment>
+      <TransitionGroup>
+        {filtered !== null
+          ? filtered.map((contact) => (
+              <CSSTransition key={contact.id} timeout={500} classNames="item">
+                <ContactItem contact={contact} />
+              </CSSTransition>
+            ))
+          : contacts.map((contact) => (
+              <CSSTransition key={contact.id} timeout={500} classNames="item">
+                <ContactItem contact={contact} />
+              </CSSTransition>
+            ))}
+      </TransitionGroup>
+    </Fragment> */
+}
 
 export default Boats;

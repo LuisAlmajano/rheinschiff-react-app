@@ -4,16 +4,22 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
-const ProtectedRoute = ({ Component, ...rest }) => {
+const ProtectedRoute = ({ component: Component, ...rest }) => {
   const { currentUser } = useAuth();
 
-  console.log("CurrentUser: ", currentUser);
+  if (currentUser !== null) {
+    console.log("CurrentUser Email: ", currentUser.email);
+  }
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        !currentUser ? <Redirect to="/login" /> : <Component {...props} />
+        currentUser !== null ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/login" />
+        )
       }
     />
   );

@@ -84,7 +84,6 @@ const useStyles = (theme) => ({
 });
 
 const SearchAppBarDrawer = ({ classes, filterBoats, clearFilter }) => {
-  const [enteredText, setEnteredText] = useState();
   const { currentUser, logout } = useAuth();
   const text = useRef("");
 

@@ -29,7 +29,7 @@ export function AuthProvider({ children }) {
     });
     console.log("currentUser end of useEffect: ", currentUser);
     return unsubscribe;
-  }, []);
+  }, [currentUser]);
 
   const value = {
     currentUser,

@@ -86,12 +86,11 @@ const NewBoatForm = () => {
     // Upload file to AWS S3 bucket
     imageS3Uploader(fileInput, imageName);
 
-
     // TO DO: Modify the code with async await to get control over function results
     // If file upload to S3 was successful, POST to upload boat
     // if (result === "success") {
     axios
-      .post("http://localhost:3001/api/boats", newboat)
+      .post("/api/boats", newboat)
       .then(() => {
         toast("New boat was added!", { type: "success" });
         history.push("/");
