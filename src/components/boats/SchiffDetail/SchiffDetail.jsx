@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
 
+import DatePicker from "react-datepicker";
 import DeleteModal from "../../layout/UIElements/DeleteModal";
 import Card from "../../layout/UIElements/Card";
 import Button from "react-bootstrap/Button";
@@ -21,7 +22,9 @@ const SchiffDetail = ({ loadedBoat }) => {
   const [editing, setEditing] = useState(false);
   const [editedBoat, setEditedBoat] = useState({
     name: loadedBoat.name,
+    image: loadedBoat.image,
     description: loadedBoat.description,
+    timeseen: new Date(loadedBoat.timeseen),
     countseen: loadedBoat.countseen,
   });
   const date = new Date(loadedBoat.timeseen);
@@ -30,30 +33,15 @@ const SchiffDetail = ({ loadedBoat }) => {
   // Extract the boatId from the URL in App <Route path="/boats/:boatId" exact> and only show the selected boat
   const boatId = useParams().boatId;
 
-  const handleClose = () => setShowModal(false);
-
-  const editBoatHandler = (event) => {
-    setEditing(true);
-  };
-
-  const saveEditBoatHandler = (event) => {
-    setEditing(false);
-    // @ToDo: Save edited boat in backend
-  };
-
-  const increaseCountSeen = (e) => {
-    setEditedBoat({ ...editedBoat, countseen: editedBoat.countseen + 1 });
-  };
-
-  const decreaseCountSeen = (e) => {
-    setEditedBoat({ ...editedBoat, countseen: editedBoat.countseen - 1 });
-  };
-
+  // Show Delete Modal to get user confirmation
   const deleteBoatHandler = (event) => {
-    /* We show the Modal to get user confirmation */
     setShowModal(true);
   };
 
+  // Close Delete Modal
+  const handleClose = () => setShowModal(false);
+
+  // Deletion of boat after confirming so in Delete Modal
   const confirmDeleteHandler = (event) => {
     /* Potentially show here waiting spinner */
 
@@ -93,24 +81,69 @@ const SchiffDetail = ({ loadedBoat }) => {
       });
   };
 
+  // Confirm save after editing boat
+  const saveEditBoatHandler = (event) => {
+    setEditing(false);
+    console.log(editedBoat);
+    // @ToDo: Save edited boat in backend
+    axios
+      .put(`/api/boats/${boatId}`, editedBoat)
+      .then(() => {
+        toast("Boat was edited!", { type: "success" });
+      })
+      .catch((error) => {
+        toast("Ops! Something went wrong", { type: "error" });
+        console.error("Error fetching data with axios: ", error);
+      });
+  };
+
   if (editing) {
     // Use as reference https://blog.logrocket.com/building-inline-editable-ui-in-react/
 
     return (
       <Card className="schiff-item-detail__content">
         <div className="schiff-item-detail__image">
-          <img src={loadedBoat.image} alt={loadedBoat.name} />
+          <img src={editedBoat.image} alt={editedBoat.name} />
         </div>
         <div className="schiff-item-detail__info">
           <h2>{editedBoat.name}</h2>
-          <textarea type="text">{editedBoat.description}</textarea>
+          <textarea
+            rows="3"
+            value={editedBoat.description}
+            onChange={(e) =>
+              setEditedBoat({ ...editedBoat, description: e.target.value })
+            }
+          />
           <h4>
-            Seen: <AiFillPlusCircle onClick={increaseCountSeen} />{" "}
+            Seen:{" "}
+            <AiFillPlusCircle
+              onClick={() =>
+                setEditedBoat({
+                  ...editedBoat,
+                  countseen: editedBoat.countseen + 1,
+                })
+              }
+            />{" "}
             {editedBoat.countseen}{" "}
-            <AiFillMinusCircle onClick={decreaseCountSeen} />
+            <AiFillMinusCircle
+              onClick={() =>
+                setEditedBoat({
+                  ...editedBoat,
+                  countseen: editedBoat.countseen - 1,
+                })
+              }
+            />
             {editedBoat.countseen === 1 ? "Time" : "Times"}
           </h4>
-          <h4>Last seen on: {date.toGMTString()}</h4>
+          <h4>Last seen on:</h4>
+          <DatePicker
+            selected={editedBoat.timeseen}
+            onChange={(date) => {
+              setEditedBoat({ ...editedBoat, timeseen: date });
+            }}
+            withPortal
+            value={editedBoat.timeseen}
+          />
         </div>
         <div className="schiff-item-detail__actions">
           <Button
@@ -135,14 +168,14 @@ const SchiffDetail = ({ loadedBoat }) => {
       <Fragment>
         <Card className="schiff-item-detail__content">
           <div className="schiff-item-detail__image">
-            <img src={loadedBoat.image} alt={loadedBoat.name} />
+            <img src={editedBoat.image} alt={editedBoat.name} />
           </div>
           <div className="schiff-item-detail__info">
-            <h2>{loadedBoat.name}</h2>
-            <p>{loadedBoat.description}</p>
+            <h2>{editedBoat.name}</h2>
+            <p>{editedBoat.description}</p>
             <h4>
-              Seen: {loadedBoat.countseen}{" "}
-              {loadedBoat.countseen === 1 ? "Time" : "Times"}
+              Seen: {editedBoat.countseen}{" "}
+              {editedBoat.countseen === 1 ? "Time" : "Times"}
             </h4>
             <h4>Last seen on: {date.toGMTString()}</h4>
           </div>
@@ -150,7 +183,7 @@ const SchiffDetail = ({ loadedBoat }) => {
             <Button
               id="edit-button"
               variant="primary"
-              onClick={editBoatHandler}
+              onClick={() => setEditing(true)}
             >
               EDIT
             </Button>

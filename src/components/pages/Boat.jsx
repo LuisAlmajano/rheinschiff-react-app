@@ -5,40 +5,13 @@ import { useParams } from "react-router-dom";
 import Spinner from "../layout/UIElements/Spinner";
 import SearchAppBarDrawer from "../layout/Navigation/SearchAppBarDrawer";
 import SchiffDetail from "../boats/SchiffDetail/SchiffDetail";
+import SchiffListe from "../boats/SchiffListe/SchiffListe";
 import Footer from "../layout/Navigation/Footer";
 
 const Boat = () => {
   const [boats_db, setBoats] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  // const [DUMMY_BOATS, setBoatsDummy] = useState([
-  //   {
-  //     _id: "1",
-  //     name: "Tarragona",
-  //     image: "https://picsum.photos/300",
-  //     timeseen: "2021-09-01",
-  //     countseen: 2,
-  //   },
-  //   {
-  //     _id: "2",
-  //     name: "Veerman",
-  //     image: "https://picsum.photos/400",
-  //     timeseen: "2021-01-11",
-  //     countseen: 1,
-  //   },
-  //   {
-  //     _id: "3",
-  //     name: "Sophie Schwarz",
-  //     image: "https://picsum.photos/300",
-  //     timeseen: "2021-09-01",
-  //     countseen: 1,
-  //   },
-  // ]);
-
-  // const addNewBoatHandler = (newBoat) => {
-  //   const boats = DUMMY_BOATS.concat(newBoat);
-  //   setBoatsDummy(boats);
-  // };
+  const [filtered, setFiltered] = useState(null);
 
   React.useEffect(() => {
     /* 
@@ -63,6 +36,18 @@ const Boat = () => {
 
   console.log("loadedBoat: ", loadedBoat);
 
+  const filterBoats = (text) => {
+    const filter = boats_db.filter((boat) => {
+      const regex = new RegExp(`${text}`, "gi");
+      return boat.name.match(regex);
+    });
+    setFiltered(filter);
+  };
+
+  const clearFilter = () => {
+    setFiltered(null);
+  };
+
   if (loading) {
     return <Spinner />;
   } else {
@@ -76,8 +61,16 @@ const Boat = () => {
 
     return (
       <React.Fragment>
-        <SearchAppBarDrawer />
-        <SchiffDetail loadedBoat={loadedBoat} />
+        <SearchAppBarDrawer
+          filterBoats={filterBoats}
+          clearFilter={clearFilter}
+        />
+        {filtered && filtered.length > 1 ? (
+          <SchiffListe boats={filtered} />
+        ) : (
+          <SchiffDetail loadedBoat={loadedBoat} />
+        )}
+
         <Footer />
       </React.Fragment>
     );
