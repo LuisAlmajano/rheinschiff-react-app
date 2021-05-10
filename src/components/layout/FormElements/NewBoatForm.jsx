@@ -18,7 +18,7 @@ import Button from "./Button";
 import "./NewBoatForm.css";
 
 const initialValues = {
-  name: "Enter boat name...",
+  name: "",
   description: "",
   image: "",
 };
@@ -36,6 +36,7 @@ const validationSchema = Yup.object({
 
 const NewBoatForm = () => {
   const [pickDate, setPickDate] = useState(new Date());
+  const [isLoading, setIsLoading] = useState(false);
   const fileInput = useRef();
   const history = useHistory();
 
@@ -61,14 +62,19 @@ const NewBoatForm = () => {
         if (data.status === 204) {
           console.log("AWS S3 File upload successful!");
         } else {
+          toast("Ops! Upload to S3 failed", { type: "error" });
           console.log("AWS S3 File Failed to upload to S3 failed!");
         }
       })
-      .catch((err) => console.log("Failed to upload to S3", err.message));
+      .catch((err) => {
+        toast("Ops! Upload to S3 failed", { type: "error" });
+        console.log("Failed to upload to S3", err.message)
+      });
   };
 
   const onSubmit = (values) => {
     console.log("Form data", values);
+    setIsLoading(true);
 
     // We name the image file as the boat name
     const imageName = values.name;
@@ -104,6 +110,7 @@ const NewBoatForm = () => {
     //   toast("Ops! Something went wrong", { type: "error" });
     //   console.log("Error when trying to upload image to AWS S3");
     // }
+    setIsLoading(false);
   };
 
   const formik = useFormik({
@@ -122,6 +129,7 @@ const NewBoatForm = () => {
           type="text"
           id="name"
           name="name"
+          placeholder="Enter boat name..."
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.name}
@@ -169,13 +177,14 @@ const NewBoatForm = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.image}
+          accept="image/png, image/jpeg"
         />
         {formik.touched.image && formik.errors.image ? (
           <div className="error">{formik.errors.image}</div>
         ) : null}
       </div>
 
-      <Button type="submit">Submit New Boat</Button>
+      <Button type="submit" loading={isLoading} disabled={!formik.values.name || !formik.values.description || !formik.values.image}>Submit New Boat</Button>
     </form>
   );
 };

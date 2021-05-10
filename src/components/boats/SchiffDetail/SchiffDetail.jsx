@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import S3 from "react-aws-s3";
 import PropTypes from "prop-types";
 
 import DatePicker from "react-datepicker";
@@ -45,11 +46,21 @@ const SchiffDetail = ({ loadedBoat }) => {
   const confirmDeleteHandler = (event) => {
     /* Potentially show here waiting spinner */
 
+    // Get boat name to retrieve S3 file name
+    let S3filename;
+    axios
+      .get(`/api/boats/${boatId}`)
+      .then((result)=> {
+        S3filename = result.data.name;
+        console.log("S3 Filename: ", S3filename);
+      })
+      .catch((err) => console.error("Error trying to retrieve boat by ID: ", err) );
+
     axios
       .delete(`/api/boats/${boatId}`)
       .then(() => {
         /* TODO Delete image in AWS S3 Bucket */
-        /* https://www.npmjs.com/package/react-aws-s3
+        // https://www.npmjs.com/package/react-aws-s3
         // AWS S3 Config
         const config = {
           bucketName: process.env.REACT_APP_AWS_BUCKET_NAME,
@@ -59,11 +70,12 @@ const SchiffDetail = ({ loadedBoat }) => {
           secretAccessKey: process.env.REACT_APP_AWS_ACCESS_KEY,
         };
 
-        // Retrieve filename 
-        const ReactS3Client = new S3(config);
-        ReactS3Client.deleteFile(filename)
-            .then(response => console.log(response))
-            .catch(err => console.error(err))
+        // Delete file in AWS S3 
+        // In order for this to Worker, S3 policies need to be adjusted
+        // const ReactS3Client = new S3(config);
+        // ReactS3Client.deleteFile(S3filename + '.jpg')
+        //     .then(response => console.log(response))
+        //     .catch(err => console.error(err))
     
         
 
@@ -85,7 +97,6 @@ const SchiffDetail = ({ loadedBoat }) => {
   const saveEditBoatHandler = (event) => {
     setEditing(false);
     console.log(editedBoat);
-    // @ToDo: Save edited boat in backend
     axios
       .put(`/api/boats/${boatId}`, editedBoat)
       .then(() => {
