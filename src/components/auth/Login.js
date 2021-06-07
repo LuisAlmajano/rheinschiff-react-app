@@ -20,10 +20,11 @@ const Login = () => {
       setError("");
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
-      console.log("Login was successful!!", currentUser.email);
+
       history.push("/");
-    } catch (error) {
+    } catch (err) {
       setError("Failed to log in");
+      console.error("Failed to login: ", err);
     }
 
     setLoading(false);

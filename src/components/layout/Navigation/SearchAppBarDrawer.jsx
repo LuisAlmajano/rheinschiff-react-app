@@ -101,8 +101,8 @@ const SearchAppBarDrawer = ({ classes, filterBoats, clearFilter }) => {
       await logout();
       console.log("Logout was successful!!");
       setState({ ...state, [anchor]: false });
-    } catch (error) {
-      console.log("Failed to log out");
+    } catch (err) {
+      console.log("Failed to log out", err.message);
     }
   };
 

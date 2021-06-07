@@ -30,7 +30,8 @@ const validationSchema = Yup.object({
   name: Yup.string().min(4).max(50).required(),
   description: Yup.string().min(4).max(200),
   image: Yup.string(),
-  timeseen: Yup.date(),
+  firstseen: Yup.date(),
+  seen: Yup.date(),
   countseen: Yup.number(),
 });
 
