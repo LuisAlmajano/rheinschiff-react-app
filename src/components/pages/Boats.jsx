@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import axios from "axios";
 
 import SearchAppBarDrawer from "../layout/Navigation/SearchAppBarDrawer";
+import ScrollToTop from "../layout/Navigation/ScrollToTop";
 import SchiffListe from "../boats/SchiffListe/SchiffListe";
 import Footer from "../layout/Navigation/Footer";
 
@@ -48,7 +49,10 @@ const Boats = () => {
       {filtered ? (
         <SchiffListe loading={loading} boats={filtered} />
       ) : (
-        <SchiffListe loading={loading} boats={boats_db} />
+        <Fragment>
+          <ScrollToTop />
+          <SchiffListe loading={loading} boats={boats_db} />
+        </Fragment>
       )}
       <Footer />
     </Fragment>

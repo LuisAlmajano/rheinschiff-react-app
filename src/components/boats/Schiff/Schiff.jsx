@@ -16,7 +16,7 @@ const Schiff = ({ boat }) => {
       <Card className="schiff-item__content">
         <Link to={`/boats/${boat._id}`}>
           <div className="schiff-item__image">
-            <Avatar image={boat.image} alt={boat.name} />
+            <Avatar image={boat.image} alt={boat.name} width="80px"/>
           </div>
           <div className="schiff-item__info">
             <h2>{boat.name}</h2>

@@ -20,6 +20,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import HomeIcon from "@material-ui/icons/Home";
 import DirectionsBoatIcon from "@material-ui/icons/DirectionsBoat";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
+//import AppIcon from "./AppIcon";
 import PropTypes from "prop-types";
 
 const useStyles = (theme) => ({
@@ -200,6 +201,7 @@ const SearchAppBarDrawer = ({ classes, filterBoats, clearFilter }) => {
           <Typography className={classes.title} variant="h6" noWrap>
             RheinSchiff-App
           </Typography>
+        
           {/* Added current user after log in  */}
           <Typography>{currentUser && currentUser.email}</Typography>
           <div className={classes.search}>
