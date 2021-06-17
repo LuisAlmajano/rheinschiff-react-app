@@ -47,7 +47,10 @@ const Boats = () => {
     <Fragment>
       <SearchAppBarDrawer filterBoats={filterBoats} clearFilter={clearFilter} />
       {filtered ? (
-        <SchiffListe loading={loading} boats={filtered} />
+        <Fragment>
+          <ScrollToTop />
+          <SchiffListe loading={loading} boats={filtered} />
+        </Fragment>
       ) : (
         <Fragment>
           <ScrollToTop />

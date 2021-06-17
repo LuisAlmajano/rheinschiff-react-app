@@ -10,7 +10,7 @@ const ScrollToTop = () => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    pageYOffset > 600 ? setVisible(true) : setVisible(false);
+    pageYOffset > 1200 ? setVisible(true) : setVisible(false);
   }, [pageYOffset]);
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
