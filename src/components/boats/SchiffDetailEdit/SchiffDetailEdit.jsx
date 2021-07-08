@@ -58,7 +58,7 @@ const SchiffDetailEdit = ({ loadedBoat }) => {
             Seen: {loadedBoat.countseen}{" "}
             {loadedBoat.countseen === 1 ? "Time" : "Times"}
           </h4>
-          <h4>Last seen on: {date.toGMTString()}</h4>
+          <h4>Last seen on: {date.toDateString()}</h4>
         </div>
         <div className="schiff-item-detail__actions">
           <Button id="edit-button" variant="primary" onClick={editBoatHandler}>

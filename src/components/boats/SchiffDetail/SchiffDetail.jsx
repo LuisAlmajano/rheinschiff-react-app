@@ -25,10 +25,14 @@ const SchiffDetail = ({ loadedBoat }) => {
     name: loadedBoat.name,
     image: loadedBoat.image,
     description: loadedBoat.description,
-    timeseen: new Date(loadedBoat.timeseen),
+    firstseen: loadedBoat.firstseen ? new Date(loadedBoat.firstseen) : new Date(),
+    lastseen: loadedBoat.lastseen ? new Date(loadedBoat.lastseen) : new Date(),
     countseen: loadedBoat.countseen,
   });
-  const date = new Date(loadedBoat.timeseen);
+  const date = new Date(loadedBoat.firstseen);
+  const date_last = new Date(loadedBoat.lastseen);
+  console.log({ date_last });
+
   let history = useHistory();
 
   // Extract the boatId from the URL in App <Route path="/boats/:boatId" exact> and only show the selected boat
@@ -50,11 +54,13 @@ const SchiffDetail = ({ loadedBoat }) => {
     let S3filename;
     axios
       .get(`/api/boats/${boatId}`)
-      .then((result)=> {
+      .then((result) => {
         S3filename = result.data.name;
         console.log("S3 Filename: ", S3filename);
       })
-      .catch((err) => console.error("Error trying to retrieve boat by ID: ", err) );
+      .catch((err) =>
+        console.error("Error trying to retrieve boat by ID: ", err)
+      );
 
     axios
       .delete(`/api/boats/${boatId}`)
@@ -70,14 +76,12 @@ const SchiffDetail = ({ loadedBoat }) => {
           secretAccessKey: process.env.REACT_APP_AWS_ACCESS_KEY,
         };
 
-        // Delete file in AWS S3 
+        // Delete file in AWS S3
         // In order for this to Worker, S3 policies need to be adjusted
         // const ReactS3Client = new S3(config);
         // ReactS3Client.deleteFile(S3filename + '.jpg')
         //     .then(response => console.log(response))
         //     .catch(err => console.error(err))
-    
-        
 
         /* After deletion, we remove the Modal */
         setShowModal(false);
@@ -146,14 +150,25 @@ const SchiffDetail = ({ loadedBoat }) => {
             />
             {editedBoat.countseen === 1 ? "Time" : "Times"}
           </h4>
-          <h4>Last seen on:</h4>
+
+          <h4>First seen on:</h4>
           <DatePicker
-            selected={editedBoat.timeseen}
+            selected={editedBoat.firstseen}
             onChange={(date) => {
-              setEditedBoat({ ...editedBoat, timeseen: date });
+              setEditedBoat({ ...editedBoat, firstseen: date });
             }}
             withPortal
-            value={editedBoat.timeseen}
+            value={editedBoat.firstseen}
+          />
+
+          <h4>Last seen on:</h4>
+          <DatePicker
+            selected={editedBoat.lastseen}
+            onChange={(date) => {
+              setEditedBoat({ ...editedBoat, lastseen: date });
+            }}
+            withPortal
+            value={editedBoat.lastseen}
           />
         </div>
         <div className="schiff-item-detail__actions">
@@ -188,7 +203,10 @@ const SchiffDetail = ({ loadedBoat }) => {
               Seen: {editedBoat.countseen}{" "}
               {editedBoat.countseen === 1 ? "Time" : "Times"}
             </h4>
-            <h4>Last seen on: {date.toGMTString()}</h4>
+            <h4>First seen on: {date.toDateString()}</h4>
+            {loadedBoat.lastseen && (
+              <h4>Last seen on: {date_last.toDateString()}</h4>
+            )}
           </div>
           <div className="schiff-item-detail__actions">
             <Button

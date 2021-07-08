@@ -8,7 +8,7 @@
   flex-wrap: wrap;
 }
 
-.schiff-item-detail__image {
+.schiff-item-detail__image img {
   display: flex;
   justify-content: center;
   width: 100%;
@@ -50,13 +50,13 @@
 
 #edit-button {
   position: absolute;
-  left: calc(45% - 2rem);
+  left: calc(25% - 2rem);
   min-block-size: inherit;
 }
 
 #delete-button {
   position: absolute;
-  right: calc(45% - 2rem);
+  right: calc(30% - 2rem);
   min-block-size: inherit;
 }
 
@@ -72,4 +72,15 @@
 
 textarea {
   width: 100%;
+}
+
+/* Mobile Styles */
+@media (max-width: 920px) {
+  .schiff-item-detail__content {
+    width: 95%;
+  }
+  .schiff-item-detail__image img {
+    margin: 0 auto;
+    width: 100%;
+  }
 }

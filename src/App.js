@@ -20,7 +20,6 @@ function App() {
         <Switch>
           <Route path="/" exact component={Boats} />
           <Route path="/login" exact component={Login} />
-          {/* <Route path="/boats/new" exact component={NewBoat} /> */}
           <ProtectedRoute path="/boats/new" exact component={NewBoat} />
           <Route path="/boats/:boatId" exact component={Boat} />
           <Redirect to="/" />

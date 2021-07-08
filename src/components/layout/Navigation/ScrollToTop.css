@@ -5,7 +5,7 @@
   width: 40px;
   height: 40px;
   border-radius: 100%;
-  background:#2e5ab8;
+  background: #2e5ab8;
   color: white;
   z-index: 1;
 }
@@ -21,5 +21,12 @@
   }
   to {
     transform: translateY(-1px);
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 920px) {
+  .scroll-to-top {
+    left: 85%;
   }
 }

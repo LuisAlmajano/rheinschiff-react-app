@@ -1,4 +1,5 @@
 // Inspiration by https://www.youtube.com/watch?v=0jgl5L8yeTw
+// https://github.com/codegeous/react-component-depot/blob/master/src/components/ScrollToTop/index.js
 
 import React, { useEffect, useState } from "react";
 import { useWindowScroll } from "react-use";

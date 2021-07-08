@@ -69,7 +69,7 @@ const NewBoatForm = () => {
       })
       .catch((err) => {
         toast("Ops! Upload to S3 failed", { type: "error" });
-        console.log("Failed to upload to S3", err.message)
+        console.log("Failed to upload to S3", err.message);
       });
   };
 
@@ -84,7 +84,8 @@ const NewBoatForm = () => {
     const newboat = {
       name: values.name,
       description: values.description,
-      timeseen: pickDate,
+      firstseen: pickDate,
+      lastseen: pickDate,
       image: `https://${config.bucketName}.s3.${config.region}.amazonaws.com/${config.dirName}/${imageName}.${extension}`, //https://rheinschiff-react-app.s3.eu-central-1.amazonaws.com/public/images/Sputnik.jpg
     };
 
@@ -185,7 +186,17 @@ const NewBoatForm = () => {
         ) : null}
       </div>
 
-      <Button type="submit" loading={isLoading} disabled={!formik.values.name || !formik.values.description || !formik.values.image}>Submit New Boat</Button>
+      <Button
+        type="submit"
+        loading={isLoading}
+        disabled={
+          !formik.values.name ||
+          !formik.values.description ||
+          !formik.values.image
+        }
+      >
+        Submit New Boat
+      </Button>
     </form>
   );
 };
