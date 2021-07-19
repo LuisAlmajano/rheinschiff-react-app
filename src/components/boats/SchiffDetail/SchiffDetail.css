@@ -50,13 +50,13 @@
 
 #edit-button {
   position: absolute;
-  left: calc(25% - 2rem);
+  left: calc(45% - 4rem);
   min-block-size: inherit;
 }
 
 #delete-button {
   position: absolute;
-  right: calc(30% - 2rem);
+  right: calc(45% - 4rem);
   min-block-size: inherit;
 }
 

@@ -204,7 +204,7 @@ const SchiffDetail = ({ loadedBoat }) => {
               {editedBoat.countseen === 1 ? "Time" : "Times"}
             </h4>
             <h4>First seen on: {date.toDateString()}</h4>
-            {loadedBoat.lastseen && (
+            {loadedBoat.lastseen && loadedBoat.lastseen !== loadedBoat.firstseen && (
               <h4>Last seen on: {date_last.toDateString()}</h4>
             )}
           </div>
