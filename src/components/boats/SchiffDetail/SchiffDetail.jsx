@@ -25,7 +25,9 @@ const SchiffDetail = ({ loadedBoat }) => {
     name: loadedBoat.name,
     image: loadedBoat.image,
     description: loadedBoat.description,
-    firstseen: loadedBoat.firstseen ? new Date(loadedBoat.firstseen) : new Date(),
+    firstseen: loadedBoat.firstseen
+      ? new Date(loadedBoat.firstseen)
+      : new Date(),
     lastseen: loadedBoat.lastseen ? new Date(loadedBoat.lastseen) : new Date(),
     countseen: loadedBoat.countseen,
   });
@@ -77,11 +79,11 @@ const SchiffDetail = ({ loadedBoat }) => {
         };
 
         // Delete file in AWS S3
-        // In order for this to Worker, S3 policies need to be adjusted
-        // const ReactS3Client = new S3(config);
-        // ReactS3Client.deleteFile(S3filename + '.jpg')
-        //     .then(response => console.log(response))
-        //     .catch(err => console.error(err))
+        // In order for this to work, S3 CORS policies (?) need to be adjusted
+        const ReactS3Client = new S3(config);
+        ReactS3Client.deleteFile(S3filename + ".jpg")
+          .then((response) => console.log(response))
+          .catch((err) => console.error(err));
 
         /* After deletion, we remove the Modal */
         setShowModal(false);
@@ -204,9 +206,10 @@ const SchiffDetail = ({ loadedBoat }) => {
               {editedBoat.countseen === 1 ? "Time" : "Times"}
             </h4>
             <h4>First seen on: {date.toDateString()}</h4>
-            {loadedBoat.lastseen && loadedBoat.lastseen !== loadedBoat.firstseen && (
-              <h4>Last seen on: {date_last.toDateString()}</h4>
-            )}
+            {loadedBoat.lastseen &&
+              loadedBoat.lastseen !== loadedBoat.firstseen && (
+                <h4>Last seen on: {date_last.toDateString()}</h4>
+              )}
           </div>
           <div className="schiff-item-detail__actions">
             <Button

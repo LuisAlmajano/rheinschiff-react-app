@@ -100,7 +100,7 @@ const NewBoatForm = () => {
     axios
       .post("/api/boats", newboat)
       .then(() => {
-        toast("New boat was added!", { type: "success" });
+        toast("New boat was added!", { type: "success", autoClose: 1500 });
         history.push("/");
       })
       .catch((error) => {
