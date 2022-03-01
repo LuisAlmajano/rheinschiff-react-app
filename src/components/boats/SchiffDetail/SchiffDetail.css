@@ -3,7 +3,7 @@
   justify-content: center;
   list-style: none;
   margin: 1.6em auto;
-  padding-top: 15px;
+  padding-top: 0px;
   width: 50%;
   flex-wrap: wrap;
 }
@@ -12,14 +12,14 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 450px;
+  height: 550px;
 }
 
 .schiff-item-detail__image img {
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 450px;
+  height: 100%;
 }
 
 .schiff-item-detail__info {

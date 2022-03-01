@@ -2,6 +2,7 @@
 
 FROM node as build
 
+
 WORKDIR /app
 
 COPY package*.json .

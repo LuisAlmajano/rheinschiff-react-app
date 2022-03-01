@@ -4,6 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import S3 from "react-aws-s3";
+import AWS from "aws-sdk";
 import PropTypes from "prop-types";
 
 import DatePicker from "react-datepicker";
@@ -48,6 +49,34 @@ const SchiffDetail = ({ loadedBoat }) => {
   // Close Delete Modal
   const handleClose = () => setShowModal(false);
 
+  // Function to delete boat from S3
+  // https://stackoverflow.com/questions/27753411/how-do-i-delete-an-object-on-aws-s3-using-javascript
+  const deleteS3Object = async (S3Object) => {
+    AWS.config.update({
+      accessKeyId: process.env.REACT_APP_AWS_ACCESS_ID,
+      secretAccessKey: process.env.REACT_APP_AWS_ACCESS_KEY,
+      region: process.env.REACT_APP_AWS_REGION,
+    });
+    const s3 = new AWS.S3();
+
+    const params = {
+      Bucket: process.env.REACT_APP_AWS_BUCKET_NAME,
+      Key: `${process.env.REACT_APP_AWS_DIR_NAME + "/" + S3Object}.jpg`, //if any sub folder-> path/of/the/folder.ext
+    };
+    try {
+      await s3.headObject(params).promise();
+      console.log(`File ${S3Object} found in S3`);
+      try {
+        await s3.deleteObject(params).promise();
+        console.log(`DELETE File ${S3Object} in S3 successfully!!`);
+      } catch (err) {
+        console.log("ERROR in file Deleting : " + JSON.stringify(err));
+      }
+    } catch (err) {
+      console.log("File not Found ERROR : " + err.code);
+    }
+  };
+
   // Deletion of boat after confirming so in Delete Modal
   const confirmDeleteHandler = (event) => {
     /* Potentially show here waiting spinner */
@@ -67,7 +96,10 @@ const SchiffDetail = ({ loadedBoat }) => {
     axios
       .delete(`/api/boats/${boatId}`)
       .then(() => {
-        /* TODO Delete image in AWS S3 Bucket */
+        /* Delete image in AWS S3 Bucket */
+        deleteS3Object(S3filename);
+
+        /*
         // https://www.npmjs.com/package/react-aws-s3
         // AWS S3 Config
         const config = {
@@ -84,6 +116,8 @@ const SchiffDetail = ({ loadedBoat }) => {
         ReactS3Client.deleteFile(S3filename + ".jpg")
           .then((response) => console.log(response))
           .catch((err) => console.error(err));
+
+        */
 
         /* After deletion, we remove the Modal */
         setShowModal(false);
