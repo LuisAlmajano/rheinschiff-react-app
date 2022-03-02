@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import S3 from "react-aws-s3";
 import AWS from "aws-sdk";
 import PropTypes from "prop-types";
+import { useAuth } from "../../../contexts/AuthContext";
 
 import DatePicker from "react-datepicker";
 import DeleteModal from "../../layout/UIElements/DeleteModal";
@@ -35,6 +36,8 @@ const SchiffDetail = ({ loadedBoat }) => {
   const date = new Date(loadedBoat.firstseen);
   const date_last = new Date(loadedBoat.lastseen);
   console.log({ date_last });
+
+  const { currentUser } = useAuth();
 
   let history = useHistory();
 
@@ -250,6 +253,7 @@ const SchiffDetail = ({ loadedBoat }) => {
               id="edit-button"
               variant="primary"
               onClick={() => setEditing(true)}
+              disabled={currentUser ? false : true}
             >
               EDIT
             </Button>
@@ -257,6 +261,7 @@ const SchiffDetail = ({ loadedBoat }) => {
               id="delete-button"
               variant="danger"
               onClick={deleteBoatHandler}
+              disabled={currentUser ? false : true}
             >
               DELETE
             </Button>
