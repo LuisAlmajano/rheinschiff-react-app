@@ -64,7 +64,7 @@ const SchiffDetail = ({ loadedBoat }) => {
 
     const params = {
       Bucket: process.env.REACT_APP_AWS_BUCKET_NAME,
-      Key: `${process.env.REACT_APP_AWS_DIR_NAME + "/" + S3Object}.jpg`, //if any sub folder-> path/of/the/folder.ext
+      Key: `${process.env.REACT_APP_AWS_DIR_NAME + "/" + S3Object}`, //if any sub folder-> path/of/the/folder.ext
     };
     try {
       await s3.headObject(params).promise();
@@ -83,13 +83,14 @@ const SchiffDetail = ({ loadedBoat }) => {
   // Deletion of boat after confirming so in Delete Modal
   const confirmDeleteHandler = (event) => {
     /* Potentially show here waiting spinner */
-
+    
     // Get boat name to retrieve S3 file name
     let S3filename;
+
     axios
       .get(`/api/boats/${boatId}`)
       .then((result) => {
-        S3filename = result.data.name;
+        S3filename = result.data.name + "." + result.data.image.split(".")[5];
         console.log("S3 Filename: ", S3filename);
       })
       .catch((err) =>
