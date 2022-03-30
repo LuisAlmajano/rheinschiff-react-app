@@ -3,7 +3,6 @@ import axios from "axios";
 import { useParams, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import S3 from "react-aws-s3";
 import AWS from "aws-sdk";
 import PropTypes from "prop-types";
 import { useAuth } from "../../../contexts/AuthContext";
@@ -54,6 +53,7 @@ const SchiffDetail = ({ loadedBoat }) => {
 
   // Function to delete boat from S3
   // https://stackoverflow.com/questions/27753411/how-do-i-delete-an-object-on-aws-s3-using-javascript
+
   const deleteS3Object = async (S3Object) => {
     AWS.config.update({
       accessKeyId: process.env.REACT_APP_AWS_ACCESS_ID,
@@ -90,7 +90,7 @@ const SchiffDetail = ({ loadedBoat }) => {
     axios
       .get(`/api/boats/${boatId}`)
       .then((result) => {
-        S3filename = result.data.name + "." + result.data.image.split(".")[5];
+        S3filename = result.data.name + "." + result.data.image.split(".")[5]; // S3filename includes filename + file extension
         console.log("S3 Filename: ", S3filename);
       })
       .catch((err) =>
@@ -102,26 +102,6 @@ const SchiffDetail = ({ loadedBoat }) => {
       .then(() => {
         /* Delete image in AWS S3 Bucket */
         deleteS3Object(S3filename);
-
-        /*
-        // https://www.npmjs.com/package/react-aws-s3
-        // AWS S3 Config
-        const config = {
-          bucketName: process.env.REACT_APP_AWS_BUCKET_NAME,
-          dirName: process.env.REACT_APP_AWS_DIR_NAME,
-          region: process.env.REACT_APP_AWS_REGION,
-          accessKeyId: process.env.REACT_APP_AWS_ACCESS_ID,
-          secretAccessKey: process.env.REACT_APP_AWS_ACCESS_KEY,
-        };
-
-        // Delete file in AWS S3
-        // In order for this to work, S3 CORS policies (?) need to be adjusted
-        const ReactS3Client = new S3(config);
-        ReactS3Client.deleteFile(S3filename + ".jpg")
-          .then((response) => console.log(response))
-          .catch((err) => console.error(err));
-
-        */
 
         /* After deletion, we remove the Modal */
         setShowModal(false);
