@@ -73,10 +73,10 @@ const SchiffDetail = ({ loadedBoat }) => {
         await s3.deleteObject(params).promise();
         console.log(`DELETE File ${S3Object} in S3 successfully!!`);
       } catch (err) {
-        console.log("ERROR in file Deleting : " + JSON.stringify(err));
+        console.error("ERROR in file Deleting : " + JSON.stringify(err));
       }
     } catch (err) {
-      console.log("File not Found ERROR : " + err.code);
+      console.error("File not Found ERROR : " + err.code);
     }
   };
 

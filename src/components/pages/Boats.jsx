@@ -25,7 +25,7 @@ const Boats = () => {
         setLoading(false);
         //console.log("Boats retrieved from MongoDB:", boats_db); boats_db does not hold boats data, yet.
         console.log("Boats retrieved from MongoDB:", result.data);
-        console.log("Boats retrieved from MongoDB:", result.data.length);
+        console.log("Number of boats retrieved from MongoDB:", result.data.length);
       })
       .catch((error) => {
         console.error("Error fetching data with axios: ", error);

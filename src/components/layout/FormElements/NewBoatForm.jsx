@@ -64,12 +64,12 @@ const NewBoatForm = () => {
           console.log("AWS S3 File upload successful!");
         } else {
           toast("Ops! Upload to S3 failed", { type: "error" });
-          console.log("AWS S3 File Failed to upload to S3 failed!");
+          console.error("AWS S3 File Failed to upload to S3 failed!");
         }
       })
       .catch((err) => {
         toast("Ops! Upload to S3 failed", { type: "error" });
-        console.log("Failed to upload to S3", err.message);
+        console.error("Failed to upload to S3", err.message);
       });
   };
 
