@@ -4,11 +4,14 @@ import axios from "axios";
 import SearchAppBarDrawer from "../layout/Navigation/SearchAppBarDrawer";
 import ScrollToTop from "../layout/Navigation/ScrollToTop";
 import SchiffListe from "../boats/SchiffListe/SchiffListe";
+import Pagination from "../layout/Navigation/Pagination";
 import Footer from "../layout/Navigation/Footer";
 
 const Boats = () => {
   const [boats_db, setBoats] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [boatsPerPage, setBoatsPerPage] = useState(10);
   const [filtered, setFiltered] = useState(null);
 
   React.useEffect(() => {
@@ -25,7 +28,10 @@ const Boats = () => {
         setLoading(false);
         //console.log("Boats retrieved from MongoDB:", boats_db); boats_db does not hold boats data, yet.
         console.log("Boats retrieved from MongoDB:", result.data);
-        console.log("Number of boats retrieved from MongoDB:", result.data.length);
+        console.log(
+          "Number of boats retrieved from MongoDB:",
+          result.data.length
+        );
       })
       .catch((error) => {
         console.error("Error fetching data with axios: ", error);
@@ -45,6 +51,14 @@ const Boats = () => {
     setFiltered(null);
   };
 
+  // Change page
+  const paginate = (pageNum) => setCurrentPage(pageNum);
+
+  // Get current boats
+  const indexOfLastBoat = currentPage * boatsPerPage;
+  const indexOfFirstBoat = indexOfLastBoat - boatsPerPage;
+  const currentBoats = boats_db.slice(indexOfFirstBoat, indexOfLastBoat);
+
   return (
     <Fragment>
       <SearchAppBarDrawer filterBoats={filterBoats} clearFilter={clearFilter} />
@@ -56,7 +70,8 @@ const Boats = () => {
       ) : (
         <Fragment>
           <ScrollToTop />
-          <SchiffListe loading={loading} boats={boats_db} />
+          <SchiffListe loading={loading} boats={currentBoats} />
+          <Pagination boatsPerPage={boatsPerPage} totalBoats={boats_db.length} paginate={paginate} /> 
         </Fragment>
       )}
       <Footer />
