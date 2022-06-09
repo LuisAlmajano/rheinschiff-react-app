@@ -1,6 +1,8 @@
+// Credits: https://www.youtube.com/watch?v=IYCa1F-OWmk&list=PLillGF-RfqbY3c2r0htQyVbDJJoBFE6Rb&index=10
+
 import React from "react";
 
-import './Pagination.css';
+import "./Pagination.css";
 
 const Pagination = ({ boatsPerPage, totalBoats, paginate }) => {
   const pageNumbers = [];

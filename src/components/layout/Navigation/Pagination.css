@@ -5,3 +5,12 @@
   margin-top: 15px;
   margin-bottom: 0;
 }
+
+.pagination a {
+  cursor: pointer;
+}
+
+.pagination a:hover {
+  color: white;
+  background-color: #2e5ab8;
+}

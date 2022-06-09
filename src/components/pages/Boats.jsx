@@ -11,7 +11,7 @@ const Boats = () => {
   const [boats_db, setBoats] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [boatsPerPage, setBoatsPerPage] = useState(10);
+  const [boatsPerPage] = useState(10);
   const [filtered, setFiltered] = useState(null);
 
   React.useEffect(() => {

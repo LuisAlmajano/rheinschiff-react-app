@@ -201,7 +201,7 @@ const SearchAppBarDrawer = ({ classes, filterBoats, clearFilter }) => {
           <Typography className={classes.title} variant="h6" noWrap>
             RheinSchiff-App
           </Typography>
-        
+
           {/* Added current user after log in  */}
           <Typography>{currentUser && currentUser.email}</Typography>
           <div className={classes.search}>
