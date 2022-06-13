@@ -14,3 +14,10 @@
   color: white;
   background-color: #2e5ab8;
 }
+
+.page-link-active {
+  box-shadow: 0 3px 4px 0 #dbedf3;
+  opacity: 0.5;
+  color: white;
+  background-color: #2e5ab8;
+}

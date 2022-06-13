@@ -27,7 +27,7 @@ const Boats = () => {
         setBoats(result.data);
         setLoading(false);
         //console.log("Boats retrieved from MongoDB:", boats_db); boats_db does not hold boats data, yet.
-        console.log("Boats retrieved from MongoDB:", result.data);
+        //console.log("Boats retrieved from MongoDB:", result.data);
         console.log(
           "Number of boats retrieved from MongoDB:",
           result.data.length
@@ -51,6 +51,7 @@ const Boats = () => {
     setFiltered(null);
   };
 
+  // Pagination logic
   // Change page
   const paginate = (pageNum) => setCurrentPage(pageNum);
 

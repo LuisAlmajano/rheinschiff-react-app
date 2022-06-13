@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
@@ -60,7 +60,7 @@ const Boat = () => {
     }
 
     return (
-      <React.Fragment>
+      <Fragment>
         <SearchAppBarDrawer
           filterBoats={filterBoats}
           clearFilter={clearFilter}
@@ -72,7 +72,7 @@ const Boat = () => {
         )}
 
         <Footer />
-      </React.Fragment>
+      </Fragment>
     );
   }
 };

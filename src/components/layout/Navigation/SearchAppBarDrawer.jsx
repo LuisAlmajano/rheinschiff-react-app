@@ -20,6 +20,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import HomeIcon from "@material-ui/icons/Home";
 import DirectionsBoatIcon from "@material-ui/icons/DirectionsBoat";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
+import AssessmentIcon from "@material-ui/icons/Assessment";
 //import AppIcon from "./AppIcon";
 import PropTypes from "prop-types";
 
@@ -159,6 +160,14 @@ const SearchAppBarDrawer = ({ classes, filterBoats, clearFilter }) => {
           </ListItemIcon>
           <Link to="/boats/new">
             <ListItemText primary="Create new boat" />
+          </Link>
+        </ListItem>
+        <ListItem button key="Dashboard">
+          <ListItemIcon>
+            <AssessmentIcon />
+          </ListItemIcon>
+          <Link to="/dashboard">
+            <ListItemText primary="Dashboard" />
           </Link>
         </ListItem>
       </List>
