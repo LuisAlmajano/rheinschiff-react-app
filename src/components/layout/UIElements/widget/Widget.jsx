@@ -1,14 +1,17 @@
 import "./Widget.css";
+import { useState, useEffect } from "react";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import DirectionsBoatIcon from "@material-ui/icons/DirectionsBoat";
+import React from "react";
 
-const Widget = ({ type }) => {
+const Widget = ({ type, loading, counter }) => {
   let data;
 
   switch (type) {
     case "boats":
       data = {
-        title: "BOATS",
+        title: "TOTAL BOATS",
+        counter: counter,
         link: "See all boats",
         icon: (
           <DirectionsBoatIcon
@@ -24,7 +27,8 @@ const Widget = ({ type }) => {
       break;
     case "boats2021":
       data = {
-        title: "BOATS IN 2021",
+        title: "BOATS SEEN IN 2021",
+        counter: counter,
         link: "See all boats",
         icon: (
           <DirectionsBoatIcon
@@ -40,7 +44,8 @@ const Widget = ({ type }) => {
       break;
     case "boats2022":
       data = {
-        title: "BOATS IN 2022",
+        title: "BOATS SEEN IN 2022",
+        counter: counter,
         link: "See all boats",
         icon: (
           <DirectionsBoatIcon
@@ -60,7 +65,7 @@ const Widget = ({ type }) => {
     <div className="widget">
       <div className="left">
         <span className="title">{data.title}</span>
-        <span className="counter">289</span>
+        <span className="counter">{data.counter}</span>
         <span className="link">{data.link}</span>
       </div>
       <div className="right">

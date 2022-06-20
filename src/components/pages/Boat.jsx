@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
@@ -13,7 +13,7 @@ const Boat = () => {
   const [loading, setLoading] = useState(false);
   const [filtered, setFiltered] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     /* 
       Inspiration from https://www.freecodecamp.org/news/javascript-skills-you-need-for-react-practical-examples/
     */

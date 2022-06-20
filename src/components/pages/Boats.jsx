@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import axios from "axios";
 
 import SearchAppBarDrawer from "../layout/Navigation/SearchAppBarDrawer";
@@ -14,7 +14,7 @@ const Boats = () => {
   const [boatsPerPage] = useState(10);
   const [filtered, setFiltered] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     /* 
       Inspired by https://www.freecodecamp.org/news/javascript-skills-you-need-for-react-practical-examples/
       Section 6: Promises + Async/Await Syntax
