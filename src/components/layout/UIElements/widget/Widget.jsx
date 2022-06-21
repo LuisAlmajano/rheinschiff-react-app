@@ -1,5 +1,5 @@
 import "./Widget.css";
-import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import DirectionsBoatIcon from "@material-ui/icons/DirectionsBoat";
 import React from "react";
@@ -77,6 +77,11 @@ const Widget = ({ type, loading, counter }) => {
       </div>
     </div>
   );
+};
+
+Widget.propTypes = {
+  type: PropTypes.string,
+  counter: PropTypes.number,
 };
 
 export default Widget;

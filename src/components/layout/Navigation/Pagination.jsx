@@ -16,7 +16,27 @@ const Pagination = ({ boatsPerPage, totalBoats, paginate }) => {
       <ul className="pagination">
         {pageNumbers.map((number) => (
           <li key={number} className="page-item">
-            <a onClick={() => paginate(number)} className="page-link">
+            <a
+              onClick={() => {
+                paginate(number);
+                // First, we remove active class from all pages
+                for (
+                  let i = 0;
+                  i < document.querySelectorAll(".page-link").length;
+                  i++
+                ) {
+                  document
+                    .querySelectorAll(".page-link")
+                    [i].classList.remove("active");
+                }
+                // Them we set the new page as active
+                const touched =
+                  document.querySelectorAll(".page-link")[number - 1];
+                console.log("Selector touched: ", touched);
+                touched.classList.add("active");
+              }}
+              className="page-link"
+            >
               {number}
             </a>
           </li>

@@ -17,13 +17,20 @@ const Dashboard = () => {
     let counter = 0;
 
     boats.map((boat) => {
-      if (boat.lastseen && boat.lastseen.includes(year)) counter++;
+      if (
+        boat.firstseen.includes(year) ||
+        (boat.lastseen && boat.lastseen.includes(year))
+      )
+        counter++;
     });
 
     return counter;
   };
 
-  const BoatsMostSeen = (boats) => {};
+  const BoatsMostSeen = (boats) => {
+    const boatsMostSeen = [];
+
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -50,15 +57,13 @@ const Dashboard = () => {
   return (
     <Fragment>
       <SearchAppBarDrawer />
-      <h1>Rheinschiff Dashboard</h1>
+      <div className="header">RheinSchiff Dashboard</div>
       <div className="widgets">
         <Widget type="boats" loading={loading} counter={counterTotalBoats} />
         <Widget type="boats2021" counter={counterBoats2021} />
         <Widget type="boats2022" counter={counterBoats2022} />
       </div>
-      <div className="highlights">
-        
-      </div>
+      <div className="highlights"></div>
       <Footer />
     </Fragment>
   );
