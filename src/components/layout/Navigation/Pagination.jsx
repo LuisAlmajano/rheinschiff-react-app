@@ -30,10 +30,9 @@ const Pagination = ({ boatsPerPage, totalBoats, paginate }) => {
                     [i].classList.remove("active");
                 }
                 // Them we set the new page as active
-                const touched =
-                  document.querySelectorAll(".page-link")[number - 1];
-                console.log("Selector touched: ", touched);
-                touched.classList.add("active");
+                document
+                  .querySelectorAll(".page-link")
+                  [number - 1].classList.add("active");
               }}
               className="page-link"
             >

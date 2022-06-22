@@ -16,7 +16,7 @@ const Dashboard = () => {
   const BoatsSeeninYear = (boats, year) => {
     let counter = 0;
 
-    boats.map((boat) => {
+    boats.forEach((boat) => {
       if (
         boat.firstseen.includes(year) ||
         (boat.lastseen && boat.lastseen.includes(year))
@@ -28,8 +28,11 @@ const Dashboard = () => {
   };
 
   const BoatsMostSeen = (boats) => {
-    const boatsMostSeen = [];
-
+    const counterMostSeen = boats.reduce(
+      (acc, boat) => (acc = acc > boat.countseen ? acc : boat.countseen),
+      0
+    );
+    console.log("counterMostSeen: ", counterMostSeen);
   };
 
   useEffect(() => {
@@ -43,6 +46,7 @@ const Dashboard = () => {
         console.log("Boats in 2021: ", BoatsSeeninYear(result.data, 2021));
         setCounterBoats2022(BoatsSeeninYear(result.data, 2022));
         console.log("Boats in 2022: ", BoatsSeeninYear(result.data, 2022));
+        BoatsMostSeen(result.data);
         setLoading(false);
       })
       .catch((error) => {
