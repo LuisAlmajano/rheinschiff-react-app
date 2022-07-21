@@ -4,7 +4,7 @@ import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import DirectionsBoatIcon from "@material-ui/icons/DirectionsBoat";
 import React from "react";
 
-const Widget = ({ type, loading, counter }) => {
+const Widget = ({ type, counter, loading }) => {
   let data;
 
   switch (type) {
@@ -27,7 +27,7 @@ const Widget = ({ type, loading, counter }) => {
       break;
     case "boats2021":
       data = {
-        title: "BOATS SEEN IN 2021",
+        title: "BOATS SIGHTED IN 2021",
         counter: counter,
         link: "See all boats",
         icon: (
@@ -44,7 +44,7 @@ const Widget = ({ type, loading, counter }) => {
       break;
     case "boats2022":
       data = {
-        title: "BOATS SEEN IN 2022",
+        title: "BOATS SIGHTED IN 2022",
         counter: counter,
         link: "See all boats",
         icon: (
@@ -80,8 +80,9 @@ const Widget = ({ type, loading, counter }) => {
 };
 
 Widget.propTypes = {
-  type: PropTypes.string,
-  counter: PropTypes.number,
+  type: PropTypes.string.isRequired,
+  counter: PropTypes.number.isRequired,
+  loading: PropTypes.bool,
 };
 
 export default Widget;

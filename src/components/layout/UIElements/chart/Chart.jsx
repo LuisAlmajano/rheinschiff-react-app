@@ -1,5 +1,6 @@
 import "./Chart.css";
 
+import PropTypes from "prop-types";
 import Spinner from "../../UIElements/Spinner";
 
 import {
@@ -94,12 +95,10 @@ const Chart = ({ loading, counter2021, counter2022 }) => {
   ];
 
   let inputData = [];
-  
 
   if (loading) {
     return <Spinner />;
   } else {
-
     for (let i = 0; i < 12; i++) {
       inputData[i] = {
         month: months[i],
@@ -110,7 +109,7 @@ const Chart = ({ loading, counter2021, counter2022 }) => {
 
     return (
       <div className="chart">
-        <div className="title">Number of Boats seen per Month</div>
+        <div className="title">Number of Boats sighted per Month</div>
         <ResponsiveContainer width="100%" aspect={2 / 1}>
           <AreaChart
             width={730}
@@ -155,6 +154,12 @@ const Chart = ({ loading, counter2021, counter2022 }) => {
       </div>
     );
   }
+};
+
+Chart.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  counter2021: PropTypes.array.isRequired,
+  counter2022: PropTypes.array.isRequired,
 };
 
 export default Chart;
