@@ -1,0 +1,34 @@
+.featured {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+  box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+  border-radius: 10px;
+  height: 150px;
+  background: #e9e3e3;
+}
+
+.featured .left,
+.right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 14px;
+  color: grey;
+}
+
+.counter {
+  font-size: 38px;
+  font-weight: 300;
+}
+
+.link {
+  font-size: 12px;
+  border-bottom: 1px solid grey;
+  width: max-content;
+}
