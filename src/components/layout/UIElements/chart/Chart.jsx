@@ -1,3 +1,5 @@
+// Ref: https://recharts.org/en-US/api
+
 import "./Chart.css";
 
 import PropTypes from "prop-types";

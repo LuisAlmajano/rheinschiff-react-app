@@ -64,7 +64,6 @@ const Dashboard = () => {
     }
 
     console.log(`Boats per Month (${year}): `, boatsMonthAccumulated);
-    console.log(`Boats per Month (${year}): `, boatsMonthAccumulated);
     return boatsMonthAccumulated;
   };
 
@@ -88,7 +87,7 @@ const Dashboard = () => {
         setCounterBoats2022(BoatsSeeninYear(result.data, 2022));
         console.log("Boats in 2022: ", BoatsSeeninYear(result.data, 2022));
         BoatsMostSeen(result.data);
-        BoatsSeeninMonth(result.data, 2022, "07");
+        //BoatsSeeninMonth(result.data, 2022, "07");
         setCounterBoatsMonth2021(BoatsSeeninYearPerMonth(result.data, 2021));
         setCounterBoatsMonth2022(BoatsSeeninYearPerMonth(result.data, 2022));
         setLoading(false);
@@ -118,7 +117,11 @@ const Dashboard = () => {
           <Featured type="firstSeen" />
         </div>
         <div className="charts">
-          <Chart loading={loading} counter2021={counterBoatsMonth2021} counter2022={counterBoatsMonth2022} />
+          <Chart
+            loading={loading}
+            counter2021={counterBoatsMonth2021}
+            counter2022={counterBoatsMonth2022}
+          />
         </div>
       </div>
 
