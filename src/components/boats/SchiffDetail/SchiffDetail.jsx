@@ -105,7 +105,7 @@ const SchiffDetail = ({ loadedBoat }) => {
 
         /* After deletion, we remove the Modal */
         setShowModal(false);
-        toast("Boat was successfully deleted", { type: "success" });
+        toast("Boat was successfully deleted", { type: "success", autoClose: 1500 });
         console.log("DELETE Axios Request completed");
         /* Move to Home page */
         /* https://dev.to/projectescape/programmatic-navigation-in-react-3p1l */
@@ -124,7 +124,7 @@ const SchiffDetail = ({ loadedBoat }) => {
     axios
       .put(`/api/boats/${boatId}`, editedBoat)
       .then(() => {
-        toast("Boat was edited!", { type: "success" });
+        toast("Boat was edited!", { type: "success", autoClose: 1500 });
       })
       .catch((error) => {
         toast("Ops! Something went wrong", { type: "error" });

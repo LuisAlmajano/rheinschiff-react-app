@@ -19,7 +19,7 @@ const Pagination = ({ boatsPerPage, totalBoats, paginate }) => {
             <a
               onClick={() => {
                 paginate(number);
-                // First, we remove active class from all pages
+                // First, we remove active class from all pages...
                 for (
                   let i = 0;
                   i < document.querySelectorAll(".page-link").length;
@@ -29,7 +29,7 @@ const Pagination = ({ boatsPerPage, totalBoats, paginate }) => {
                     .querySelectorAll(".page-link")
                     [i].classList.remove("active");
                 }
-                // Them we set the new page as active
+                // ...then we set the new page as active
                 document
                   .querySelectorAll(".page-link")
                   [number - 1].classList.add("active");
