@@ -2,31 +2,31 @@ import "./Featured.css";
 
 import PropTypes from "prop-types";
 
-const Featured = ({ type, counter }) => {
+const Featured = ({ type, featuredBoat }) => {
   let data;
 
   switch (type) {
     case "mostSeen":
       data = {
         title: "BOAT MOST FREQUENTLY SEEN",
-        counter: counter,
-        link: "See all boats",
+        boat: featuredBoat,
+        link: "See boat",
       };
 
       break;
     case "lastSeen":
       data = {
         title: "BOAT LAST SEEN",
-        counter: counter,
-        link: "See all boats",
+        boat: featuredBoat,
+        link: "See boat",
       };
 
       break;
     case "firstSeen":
       data = {
         title: "BOAT FIRST SEEN",
-        counter: counter,
-        link: "See all boats",
+        boat: featuredBoat,
+        link: "See boat",
       };
 
       break;
@@ -39,7 +39,7 @@ const Featured = ({ type, counter }) => {
     <div className="featured">
       <div className="left">
         <span className="title">{data.title}</span>
-        <span className="counter">{data.counter}</span>
+        <span className="counter">{data.boat}</span>
         <span className="link">{data.link}</span>
       </div>
       <div className="right">
@@ -51,7 +51,7 @@ const Featured = ({ type, counter }) => {
 
 Featured.propTypes = {
   type: PropTypes.string,
-  counter: PropTypes.number,
+  featuredBoat: PropTypes.object,
 };
 
 export default Featured;
