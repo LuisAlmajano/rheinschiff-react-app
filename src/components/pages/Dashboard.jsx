@@ -18,6 +18,7 @@ const Dashboard = () => {
   const [counterBoats2022, setCounterBoats2022] = useState(0);
   const [counterBoatsMonth2021, setCounterBoatsMonth2021] = useState([]);
   const [counterBoatsMonth2022, setCounterBoatsMonth2022] = useState([]);
+  const [boatMostSeen, setBoatMostSeen] = useState({});
 
   const BoatsSeeninYear = (boats, year) => {
     let counter = 0;
@@ -68,11 +69,21 @@ const Dashboard = () => {
   };
 
   const BoatsMostSeen = (boats) => {
-    const counterMostSeen = boats.reduce(
-      (acc, boat) => (acc = acc > boat.countseen ? acc : boat.countseen),
-      0
+    // const counterMostSeen = boats.reduce(
+    //   (acc, boat) => (acc = acc > boat.countseen ? acc : boat.countseen),
+    //   0
+    // );
+
+    // We sort all boats by countseen
+    const boatsOrderedByCountSeen = boats.sort(
+      (a, b) => b.countseen - a.countseen
     );
-    console.log("counterMostSeen: ", counterMostSeen);
+    console.log("------BoatsOrderedByCountSeen: ", boatsOrderedByCountSeen);
+    console.log("------BoatMostSeen: ", boatsOrderedByCountSeen[0].name);
+
+    // Return the boat with the max countseen.
+    // TODO: Check if there are multiple boats with same countseen and return randomly one single boat
+    return boatsOrderedByCountSeen[0];
   };
 
   useEffect(() => {
@@ -80,16 +91,22 @@ const Dashboard = () => {
     axios
       .get("/api/boats")
       .then((result) => {
+        // Set total and yearly counters
         setCounterTotalBoats(result.data.length);
         console.log("Boats in MongoDB: ", result.data);
         setCounterBoats2021(BoatsSeeninYear(result.data, 2021));
         console.log("Boats in 2021: ", BoatsSeeninYear(result.data, 2021));
         setCounterBoats2022(BoatsSeeninYear(result.data, 2022));
         console.log("Boats in 2022: ", BoatsSeeninYear(result.data, 2022));
-        BoatsMostSeen(result.data);
         //BoatsSeeninMonth(result.data, 2022, "07");
+
+        // Set counters required for Chart
         setCounterBoatsMonth2021(BoatsSeeninYearPerMonth(result.data, 2021));
         setCounterBoatsMonth2022(BoatsSeeninYearPerMonth(result.data, 2022));
+
+        // Set featured Boats
+        setBoatMostSeen(BoatsMostSeen(result.data));
+        console.log("boatMostSeen: ", boatMostSeen);
         setLoading(false);
       })
       .catch((error) => {
@@ -106,13 +123,13 @@ const Dashboard = () => {
       <SearchAppBarDrawer />
       <div className="header">RheinSchiff Dashboard</div>
       <div className="widgets">
-        <Widget type="boats" counter={counterTotalBoats} loading={loading} />
+        <Widget type="boats" counter={counterTotalBoats} />
         <Widget type="boats2021" counter={counterBoats2021} />
         <Widget type="boats2022" counter={counterBoats2022} />
       </div>
       <div className="highlightsContainer">
         <div className="highlights">
-          <Featured type="mostSeen" />
+          <Featured type="mostSeen" featuredBoat={boatMostSeen} loading={loading} />
           <Featured type="lastSeen" />
           <Featured type="firstSeen" />
         </div>
