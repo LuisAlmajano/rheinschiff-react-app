@@ -83,7 +83,22 @@ const Dashboard = () => {
 
     // Return the boat with the max countseen.
     // TODO: Check if there are multiple boats with same countseen and return randomly one single boat
-    return boatsOrderedByCountSeen[0];
+    let counter = 0;
+    for (let i = 0; i < 5; i++) {
+      if (
+        boatsOrderedByCountSeen[i].countseen ==
+        boatsOrderedByCountSeen[i + 1].countseen
+      ) {
+        counter++;
+      } else break;
+    }
+    console.log("----Counter: ", counter);
+    console.log(
+      "----Random number: ",
+      Math.floor(Math.random() * (counter + 1))
+    );
+
+    return boatsOrderedByCountSeen[Math.floor(Math.random() * (counter + 1))];
   };
 
   useEffect(() => {
@@ -106,7 +121,7 @@ const Dashboard = () => {
 
         // Set featured Boats
         setBoatMostSeen(BoatsMostSeen(result.data));
-        console.log("boatMostSeen: ", boatMostSeen);
+        console.log({ boatMostSeen });
         setLoading(false);
       })
       .catch((error) => {
@@ -129,9 +144,21 @@ const Dashboard = () => {
       </div>
       <div className="highlightsContainer">
         <div className="highlights">
-          <Featured type="mostSeen" featuredBoat={boatMostSeen} loading={loading} />
-          <Featured type="lastSeen" />
-          <Featured type="firstSeen" />
+          <Featured
+            type="mostSeen"
+            featuredBoat={boatMostSeen}
+            loading={loading}
+          />
+          <Featured
+            type="lastSeen"
+            featuredBoat={boatMostSeen}
+            loading={loading}
+          />
+          <Featured
+            type="firstSeen"
+            featuredBoat={boatMostSeen}
+            loading={loading}
+          />
         </div>
         <div className="charts">
           <Chart

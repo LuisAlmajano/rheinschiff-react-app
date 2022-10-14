@@ -1,5 +1,6 @@
 import "./Featured.css";
 import Spinner from "../Spinner";
+import Avatar from "../Avatar";
 
 import PropTypes from "prop-types";
 
@@ -8,12 +9,15 @@ const Featured = ({ type, featuredBoat, loading }) => {
     return <Spinner />;
   } else {
     let data;
-    
+
     switch (type) {
       case "mostSeen":
         data = {
           title: "BOAT MOST FREQUENTLY SEEN",
           boat: featuredBoat.name,
+          image: featuredBoat.image,
+          countseen: featuredBoat.countseen,
+          lastseen: new Date(featuredBoat.lastseen),
           link: "See boat",
         };
 
@@ -22,6 +26,7 @@ const Featured = ({ type, featuredBoat, loading }) => {
         data = {
           title: "BOAT LAST SEEN",
           boat: "Test",
+          lastseen: new Date(featuredBoat.lastseen),
           link: "See boat",
         };
 
@@ -30,6 +35,7 @@ const Featured = ({ type, featuredBoat, loading }) => {
         data = {
           title: "BOAT FIRST SEEN",
           boat: "Test2",
+          lastseen: new Date(featuredBoat.lastseen),
           link: "See boat",
         };
 
@@ -41,13 +47,19 @@ const Featured = ({ type, featuredBoat, loading }) => {
 
     return (
       <div className="featured">
-        <div className="left">
-          <span className="title">{data.title}</span>
-          <span className="counter">{data.boat}</span>
-          <span className="link">{data.link}</span>
-        </div>
-        <div className="right">
-          <div className="percentage positive">20%</div>
+        <div className="title">{data.title}</div>
+        <div className="content">
+          <div className="avatar">
+            <Avatar image={data.image} alt={data.boat} width="80px" />
+          </div>
+          <div className="info">
+            <span className="name">{data.boat}</span>
+            <span className="countseen">
+              Seen: {data.countseen} {data.countseen === 1 ? "Time" : "Times"}
+            </span>
+            <span className="lastseen">Last seen on: {data.lastseen.toDateString()}</span>
+          </div>
+          <div className="link">{data.link}</div>
         </div>
       </div>
     );

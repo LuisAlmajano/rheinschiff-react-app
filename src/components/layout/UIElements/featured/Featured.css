@@ -1,5 +1,6 @@
 .featured {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   padding: 10px;
   -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
@@ -9,22 +10,40 @@
   background: #e9e3e3;
 }
 
-.featured .left,
-.right {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
 .title {
   font-weight: bold;
   font-size: 14px;
   color: grey;
 }
 
-.counter {
-  font-size: 38px;
-  font-weight: 300;
+.content {
+  justify-content: space-between;
+  display: flex;
+}
+
+.content .avatar {
+  width: 4rem;
+  height: 4rem;
+  margin: 9px 5px 10px 10px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0px 0px 20px 0px;
+}
+
+.info .name {
+  font-size: 1.5rem;
+}
+
+.info .countseen {
+  font-size: 0.9rem;
+}
+
+.info .lastseen {
+  font-size: 0.7rem;
 }
 
 .link {
