@@ -86,7 +86,7 @@ const Dashboard = () => {
     let counter = 0;
     for (let i = 0; i < 5; i++) {
       if (
-        boatsOrderedByCountSeen[i].countseen ==
+        boatsOrderedByCountSeen[i].countseen ===
         boatsOrderedByCountSeen[i + 1].countseen
       ) {
         counter++;
