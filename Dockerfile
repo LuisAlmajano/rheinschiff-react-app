@@ -21,5 +21,8 @@ RUN npm run build
 # Setup nginx server
 FROM nginx:1.19
 
+# Expose the service over PORT 80
+EXPOSE 80
+
 # COPY ./nginx/ngnix.conf /etc/nginx/nginx.conf
 COPY --from=build /app/build /usr/share/nginx/html
