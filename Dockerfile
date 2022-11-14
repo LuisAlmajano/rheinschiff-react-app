@@ -21,8 +21,8 @@ RUN npm run build
 # Setup nginx server
 FROM nginx:1.19
 
-# Expose the service over PORT 80
-EXPOSE 80
+# Expose the service over PORT 3000 (React app)
+EXPOSE 3000
 
 # COPY ./nginx/ngnix.conf /etc/nginx/nginx.conf
 COPY --from=build /app/build /usr/share/nginx/html
