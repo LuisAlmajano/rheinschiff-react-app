@@ -1,6 +1,6 @@
 #  Reference:  https://www.youtube.com/watch?v=-ANCcFQBk6I
 
-FROM node as build
+FROM node:16-alpine as build
 
 # Set the work directory to backend folder
 WORKDIR /app
@@ -19,10 +19,13 @@ RUN npm run build
 
 
 # Setup nginx server
-FROM nginx:1.19
+FROM nginx
 
-# Expose the service over PORT 3000 (React app)
+# Expose the service over PORT 3000 (React)
 EXPOSE 3000
 
-# COPY ./nginx/ngnix.conf /etc/nginx/nginx.conf
+# Overwrite nginx default.conf file
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+
+# Copy build files into nginx to serve requests
 COPY --from=build /app/build /usr/share/nginx/html
