@@ -49,7 +49,7 @@ const NewBoatForm = () => {
     accessKeyId: process.env.REACT_APP_AWS_ACCESS_ID,
     secretAccessKey: process.env.REACT_APP_AWS_ACCESS_KEY,
   };
-
+  
   // AWS S3 Upload
   const imageS3Uploader = (fileInput, filename) => {
     const file = fileInput.current.files[0];
@@ -69,7 +69,7 @@ const NewBoatForm = () => {
       })
       .catch((err) => {
         toast("Ops! Upload to S3 failed", { type: "error" });
-        console.error("Failed to upload to S3", err.message);
+        console.error("Failed to upload to S3. Error: ", err.message);
       });
   };
 
