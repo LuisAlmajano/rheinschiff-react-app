@@ -57,6 +57,21 @@ const Widget = ({ type, counter, loading }) => {
 
       break;
 
+      case "boats2023":
+        data = {
+          title: "BOATS SIGHTED IN 2023",
+          counter: counter,
+          link: "See all boats",
+          icon: (
+            <DirectionsBoatIcon
+              className="icon"
+              style={{ color: "purple", backgroundColor: "rgba(128,0,128, 0.2)" }}
+            />
+          ),
+        };
+  
+        break;
+
     default:
       break;
   }
