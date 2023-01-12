@@ -106,7 +106,7 @@ const Dashboard = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("/api/boats")
+      .get("http://localhost:5001/api/boats")
       .then((result) => {
         // Set total and yearly counters
         setCounterTotalBoats(result.data.length);

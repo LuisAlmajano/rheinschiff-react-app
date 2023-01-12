@@ -22,7 +22,7 @@ const Boats = () => {
     */
     setLoading(true);
     axios
-      .get("/api/boats")
+      .get("http://localhost:5001/api/boats")
       .then((result) => {
         setBoats(result.data);
         setLoading(false);
@@ -72,7 +72,11 @@ const Boats = () => {
         <Fragment>
           <ScrollToTop />
           <SchiffListe loading={loading} boats={currentBoats} />
-          <Pagination boatsPerPage={boatsPerPage} totalBoats={boats_db.length} paginate={paginate} /> 
+          <Pagination
+            boatsPerPage={boatsPerPage}
+            totalBoats={boats_db.length}
+            paginate={paginate}
+          />
         </Fragment>
       )}
       <Footer />
