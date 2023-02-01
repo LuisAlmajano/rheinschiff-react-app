@@ -25,7 +25,9 @@ const Featured = ({ type, featuredBoat, loading }) => {
       case "lastSeen":
         data = {
           title: "BOAT LAST SEEN",
-          boat: "Test",
+          boat: featuredBoat.name,
+          image: featuredBoat.image,
+          countseen: featuredBoat.countseen,
           lastseen: new Date(featuredBoat.lastseen),
           link: "See boat",
         };
@@ -34,7 +36,10 @@ const Featured = ({ type, featuredBoat, loading }) => {
       case "firstSeen":
         data = {
           title: "BOAT FIRST SEEN",
-          boat: "Test2",
+          boat: featuredBoat.name,
+          image: featuredBoat.image,
+          countseen: featuredBoat.countseen,
+          firstseen: new Date(featuredBoat.firstseen),
           lastseen: new Date(featuredBoat.lastseen),
           link: "See boat",
         };
@@ -57,7 +62,15 @@ const Featured = ({ type, featuredBoat, loading }) => {
             <span className="countseen">
               Seen: {data.countseen} {data.countseen === 1 ? "Time" : "Times"}
             </span>
-            <span className="lastseen">Last seen on: {data.lastseen.toDateString()}</span>
+            {type === "firstSeen" ? (
+              <span className="firstseen">
+                First seen on: {data.firstseen.toDateString()}
+              </span>
+            ) : (
+              <span className="lastseen">
+                Last seen on: {data.lastseen.toDateString()}
+              </span>
+            )}
           </div>
           <div className="link">{data.link}</div>
         </div>

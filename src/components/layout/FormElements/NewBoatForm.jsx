@@ -18,7 +18,7 @@ import Button from "./Button";
 import "./NewBoatForm.css";
 
 // In Webpack version 5, Webpack no longer automatically polyfill's Node.js API's if they are not natively supported anymore.
-// The browser environment does not support Buffer natively, therefore we now need to add a third party Buffer package and point Node.js 
+// The browser environment does not support Buffer natively, therefore we now need to add a third party Buffer package and point Node.js
 // to it in the Webpack config
 // Ref: https://stackoverflow.com/questions/69686231/react-s3-error-referenceerror-buffer-is-not-defined
 window.Buffer = window.Buffer || require("buffer").Buffer;

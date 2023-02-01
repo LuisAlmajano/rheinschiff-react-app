@@ -21,6 +21,8 @@ const Dashboard = () => {
   const [counterBoatsMonth2022, setCounterBoatsMonth2022] = useState([]);
   const [counterBoatsMonth2023, setCounterBoatsMonth2023] = useState([]);
   const [boatMostSeen, setBoatMostSeen] = useState({});
+  const [boatFirstSeen, setBoatFirstSeen] = useState({});
+  const [boatLastSeen, setBoatLastSeen] = useState({});
 
   const BoatsSeeninYear = (boats, year) => {
     let counter = 0;
@@ -70,12 +72,9 @@ const Dashboard = () => {
     return boatsMonthAccumulated;
   };
 
-  const BoatsMostSeen = (boats) => {
-    // const counterMostSeen = boats.reduce(
-    //   (acc, boat) => (acc = acc > boat.countseen ? acc : boat.countseen),
-    //   0
-    // );
+  // Functions required for featured boats
 
+  const BoatsMostSeen = (boats) => {
     // We sort all boats by countseen
     const boatsOrderedByCountSeen = boats.sort(
       (a, b) => b.countseen - a.countseen
@@ -103,6 +102,28 @@ const Dashboard = () => {
     return boatsOrderedByCountSeen[Math.floor(Math.random() * (counter + 1))];
   };
 
+  const BoatsFirstSeen = (boats) => {
+    // We sort all boats by firstseen date
+    const boatsOrderedByFirstSeen = boats.sort(
+      (a, b) => b.firstseen - a.firstseen
+    );
+    console.log("------BoatsOrderedByFirstSeen: ", boatsOrderedByFirstSeen);
+    console.log("------BoatFirstSeen: ", boatsOrderedByFirstSeen[0].name);
+
+    return boatsOrderedByFirstSeen[0];
+  };
+
+  const BoatsLastSeen = (boats) => {
+    // We sort all boats by lastseen date
+    const boatsOrderedByLastSeen = boats.sort(
+      (a, b) => a.lastseen - b.lastseen
+    );
+    console.log("------BoatsOrderedByLastSeen: ", boatsOrderedByLastSeen);
+    console.log("------BoatLastSeen: ", boatsOrderedByLastSeen[boatsOrderedByLastSeen.length -1].name);
+
+    return boatsOrderedByLastSeen[boatsOrderedByLastSeen.length -1];
+  };
+
   useEffect(() => {
     setLoading(true);
     axios
@@ -127,6 +148,13 @@ const Dashboard = () => {
         // Set featured Boats
         setBoatMostSeen(BoatsMostSeen(result.data));
         console.log({ boatMostSeen });
+
+        setBoatFirstSeen(BoatsFirstSeen(result.data));
+        console.log({ boatFirstSeen });
+
+        setBoatLastSeen(BoatsLastSeen(result.data));
+        console.log({ boatLastSeen });
+
         setLoading(false);
       })
       .catch((error) => {
@@ -157,12 +185,12 @@ const Dashboard = () => {
           />
           <Featured
             type="lastSeen"
-            featuredBoat={boatMostSeen}
+            featuredBoat={boatLastSeen}
             loading={loading}
           />
           <Featured
             type="firstSeen"
-            featuredBoat={boatMostSeen}
+            featuredBoat={boatFirstSeen}
             loading={loading}
           />
         </div>
