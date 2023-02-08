@@ -1,6 +1,7 @@
 import "./Featured.css";
 import Spinner from "../Spinner";
 import Avatar from "../Avatar";
+import { Link } from "react-router-dom";
 
 import PropTypes from "prop-types";
 
@@ -72,7 +73,9 @@ const Featured = ({ type, featuredBoat, loading }) => {
               </span>
             )}
           </div>
-          <div className="link">{data.link}</div>
+          <div className="link">
+            <Link to={`/boats/${featuredBoat._id}`}>{data.link}</Link>
+          </div>
         </div>
       </div>
     );
