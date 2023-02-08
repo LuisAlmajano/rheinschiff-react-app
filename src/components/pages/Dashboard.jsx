@@ -116,12 +116,12 @@ const Dashboard = () => {
   const BoatsLastSeen = (boats) => {
     // We sort all boats by lastseen date
     const boatsOrderedByLastSeen = boats.sort(
-      (a, b) => a.lastseen - b.lastseen
+      (a, b) => new Date(b.lastseen) - new Date(a.lastseen)
     );
     console.log("------BoatsOrderedByLastSeen: ", boatsOrderedByLastSeen);
-    console.log("------BoatLastSeen: ", boatsOrderedByLastSeen[boatsOrderedByLastSeen.length -1].name);
+    console.log("------BoatLastSeen: ", boatsOrderedByLastSeen[0].name);
 
-    return boatsOrderedByLastSeen[boatsOrderedByLastSeen.length -1];
+    return boatsOrderedByLastSeen[0];
   };
 
   useEffect(() => {
@@ -179,13 +179,13 @@ const Dashboard = () => {
       <div className="highlightsContainer">
         <div className="highlights">
           <Featured
-            type="mostSeen"
-            featuredBoat={boatMostSeen}
+            type="lastSeen"
+            featuredBoat={boatLastSeen}
             loading={loading}
           />
           <Featured
-            type="lastSeen"
-            featuredBoat={boatLastSeen}
+            type="mostSeen"
+            featuredBoat={boatMostSeen}
             loading={loading}
           />
           <Featured
