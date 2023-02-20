@@ -83,7 +83,7 @@ const SchiffDetail = ({ loadedBoat }) => {
   // Deletion of boat after confirming so in Delete Modal
   const confirmDeleteHandler = (event) => {
     /* Potentially show here waiting spinner */
-    
+
     // Get boat name to retrieve S3 file name
     let S3filename;
 
@@ -105,7 +105,10 @@ const SchiffDetail = ({ loadedBoat }) => {
 
         /* After deletion, we remove the Modal */
         setShowModal(false);
-        toast("Boat was successfully deleted", { type: "success", autoClose: 1500 });
+        toast("Boat was successfully deleted", {
+          type: "success",
+          autoClose: 1500,
+        });
         console.log("DELETE Axios Request completed");
         /* Move to Home page */
         /* https://dev.to/projectescape/programmatic-navigation-in-react-3p1l */

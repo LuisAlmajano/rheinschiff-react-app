@@ -110,7 +110,11 @@ const NewBoatForm = () => {
         history.push("/");
       })
       .catch((error) => {
-        toast("Ops! Something went wrong", { type: "error" });
+        if (error.response.status === 409) {
+          toast("A boat with this name already exists!", { type: "error" });
+        } else {
+          toast("Ops! Something went wrong", { type: "error" });
+        }
         console.error("Error fetching data with axios: ", error);
       });
     // If file upload to S3 failed return error message
