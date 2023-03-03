@@ -17,8 +17,8 @@ const Widget = ({ type, counter, loading }) => {
           <DirectionsBoatIcon
             className="icon"
             style={{
-              color: "crimson",
-              backgroundColor: "rgba(255, 0, 0, 0.2)",
+              color: "blue",
+              backgroundColor: "rgba(253,253,253, 0.2)",
             }}
           />
         ),
@@ -34,8 +34,8 @@ const Widget = ({ type, counter, loading }) => {
           <DirectionsBoatIcon
             className="icon"
             style={{
-              color: "goldenrod",
-              backgroundColor: "rgba(218,165,32,0.2)",
+              color: "mediumslateblue",
+              backgroundColor: "rgba(253,253,253,0.2)",
             }}
           />
         ),
@@ -50,27 +50,27 @@ const Widget = ({ type, counter, loading }) => {
         icon: (
           <DirectionsBoatIcon
             className="icon"
-            style={{ color: "purple", backgroundColor: "rgba(128,0,128, 0.2)" }}
+            style={{ color: "mediumaquamarine", backgroundColor: "rgba(253,253,253, 0.2)" }}
           />
         ),
       };
 
       break;
 
-      case "boats2023":
-        data = {
-          title: "BOATS SIGHTED IN 2023",
-          counter: counter,
-          link: "See all boats",
-          icon: (
-            <DirectionsBoatIcon
-              className="icon"
-              style={{ color: "purple", backgroundColor: "rgba(128,0,128, 0.2)" }}
-            />
-          ),
-        };
-  
-        break;
+    case "boats2023":
+      data = {
+        title: "BOATS SIGHTED IN 2023",
+        counter: counter,
+        link: "See all boats",
+        icon: (
+          <DirectionsBoatIcon
+            className="icon"
+            style={{ color: "goldenrod", backgroundColor: "rgba(253,253,253,0.2)" }}
+          />
+        ),
+      };
+
+      break;
 
     default:
       break;

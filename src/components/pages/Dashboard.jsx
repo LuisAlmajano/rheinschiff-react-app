@@ -172,9 +172,9 @@ const Dashboard = () => {
       <div className="header">RheinSchiff Dashboard</div>
       <div className="widgets">
         <Widget type="boats" counter={counterTotalBoats} />
-        <Widget type="boats2021" counter={counterBoats2021} />
-        <Widget type="boats2022" counter={counterBoats2022} />
         <Widget type="boats2023" counter={counterBoats2023} />
+        <Widget type="boats2022" counter={counterBoats2022} />
+        <Widget type="boats2021" counter={counterBoats2021} />
       </div>
       <div className="highlightsContainer">
         <div className="highlights">
