@@ -22,7 +22,7 @@ const Boats = () => {
     */
     setLoading(true);
     axios
-      .get("http://localhost:5001/api/boats")
+      .get("/api/boats")
       .then((result) => {
         setBoats(result.data);
         setLoading(false);
