@@ -24,7 +24,7 @@ const Footer = () => {
           </a>
         </li>
       </ul>
-      <p className="copyright">Copyright &copy; 2021 RheinSchiff</p>
+      <p className="copyright">Copyright &copy; 2023 RheinSchiff</p>
     </footer>
   );
 };

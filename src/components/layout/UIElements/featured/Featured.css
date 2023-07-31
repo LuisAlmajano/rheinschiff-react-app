@@ -56,3 +56,10 @@
   border-bottom: 1px solid grey;
   width: max-content;
 }
+
+/* Mobile Styles */
+@media (max-width: 920px) {
+  .content {
+    padding: 5px;
+  }
+}

@@ -35,6 +35,17 @@ const Boats = () => {
       })
       .catch((error) => {
         console.error("Error fetching data with axios: ", error);
+        if (error.response) {
+          // Request was made and the server responded with a status code that falls out of the range 2xx
+          console.error("HTTP Status code: " + error.response.status + "; Error Data: " + error.response.data);
+        } else if (error.request) {
+          // Request was made but no response was received. 'error.request' is an instance of XMLHttpRequest
+          // in the browser and an instance http.ClientRequest in Node.js
+          console.error(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.error("Error fetching data with Axios: ", error.message);
+        }
         setLoading(false);
       });
   }, []);
