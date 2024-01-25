@@ -24,6 +24,7 @@ import AssessmentIcon from "@material-ui/icons/Assessment";
 import InfoIcon from "@material-ui/icons/Info";
 //import AppIcon from "./AppIcon";
 import PropTypes from "prop-types";
+import { blue, blueGrey } from "@material-ui/core/colors";
 
 const useStyles = (theme) => ({
   root: {
@@ -175,9 +176,10 @@ const SearchAppBarDrawer = ({ classes, filterBoats, clearFilter }) => {
           <ListItemIcon>
             <InfoIcon />
           </ListItemIcon>
-          <Link to="">
-            <ListItemText primary="Version 1.1.0" />
-          </Link>
+          <ListItemText
+            primary={`Version ${process.env.REACT_APP_VERSION}`}
+            style={{ color: "#007bff" }}
+          />
         </ListItem>
       </List>
     </div>
