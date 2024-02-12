@@ -80,7 +80,13 @@ import {
 //   },
 // ];
 
-const Chart = ({ loading, counter2021, counter2022, counter2023 }) => {
+const Chart = ({
+  loading,
+  counter2021,
+  counter2022,
+  counter2023,
+  counter2024,
+}) => {
   const months = [
     "Jan",
     "Feb",
@@ -107,6 +113,7 @@ const Chart = ({ loading, counter2021, counter2022, counter2023 }) => {
         2021: counter2021[i],
         2022: counter2022[i],
         2023: counter2023[i],
+        2024: counter2024[i],
       };
     }
 
@@ -133,11 +140,22 @@ const Chart = ({ loading, counter2021, counter2022, counter2023 }) => {
                 <stop offset="5%" stopColor="#f3921e" stopOpacity={0.8} />
                 <stop offset="95%" stopColor="#f3921e" stopOpacity={0} />
               </linearGradient>
+              <linearGradient id="2024" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#f0600f" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#f0600f" stopOpacity={0} />
+              </linearGradient>
             </defs>
             <XAxis dataKey="month" />
             <YAxis />
             <CartesianGrid strokeDasharray="3 3" />
             <Tooltip />
+            <Area
+              type="monotone"
+              dataKey="2024"
+              stroke="#f0600f"
+              fillOpacity={1}
+              fill="url(#2024)"
+            />
             <Area
               type="monotone"
               dataKey="2023"
@@ -164,6 +182,7 @@ const Chart = ({ loading, counter2021, counter2022, counter2023 }) => {
             <Line name="2021" type="monotone" dataKey="2021" stroke="#8884d8" />
             <Line name="2022" type="monotone" dataKey="2022" stroke="#82ca9d" />
             <Line name="2023" type="monotone" dataKey="2023" stroke="#f3921e" />
+            <Line name="2024" type="monotone" dataKey="2024" stroke="#f0600f" />
           </AreaChart>
         </ResponsiveContainer>
       </div>

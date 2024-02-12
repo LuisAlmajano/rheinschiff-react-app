@@ -17,9 +17,11 @@ const Dashboard = () => {
   const [counterBoats2021, setCounterBoats2021] = useState(0);
   const [counterBoats2022, setCounterBoats2022] = useState(0);
   const [counterBoats2023, setCounterBoats2023] = useState(0);
+  const [counterBoats2024, setCounterBoats2024] = useState(0);
   const [counterBoatsMonth2021, setCounterBoatsMonth2021] = useState([]);
   const [counterBoatsMonth2022, setCounterBoatsMonth2022] = useState([]);
   const [counterBoatsMonth2023, setCounterBoatsMonth2023] = useState([]);
+  const [counterBoatsMonth2024, setCounterBoatsMonth2024] = useState([]);
   const [boatMostSeen, setBoatMostSeen] = useState({});
   const [boatFirstSeen, setBoatFirstSeen] = useState({});
   const [boatLastSeen, setBoatLastSeen] = useState({});
@@ -138,22 +140,25 @@ const Dashboard = () => {
         console.log("Boats in 2022: ", BoatsSeeninYear(result.data, 2022));
         setCounterBoats2023(BoatsSeeninYear(result.data, 2023));
         console.log("Boats in 2023: ", BoatsSeeninYear(result.data, 2023));
+        setCounterBoats2024(BoatsSeeninYear(result.data, 2024));
+        console.log("Boats in 2024: ", BoatsSeeninYear(result.data, 2024));
         //BoatsSeeninMonth(result.data, 2022, "07");
 
         // Set counters required for Chart
         setCounterBoatsMonth2021(BoatsSeeninYearPerMonth(result.data, 2021));
         setCounterBoatsMonth2022(BoatsSeeninYearPerMonth(result.data, 2022));
         setCounterBoatsMonth2023(BoatsSeeninYearPerMonth(result.data, 2023));
+        setCounterBoatsMonth2024(BoatsSeeninYearPerMonth(result.data, 2024));
 
         // Set featured Boats
+        setBoatLastSeen(BoatsLastSeen(result.data));
+        console.log({ boatLastSeen });
+
         setBoatMostSeen(BoatsMostSeen(result.data));
         console.log({ boatMostSeen });
 
         setBoatFirstSeen(BoatsFirstSeen(result.data));
         console.log({ boatFirstSeen });
-
-        setBoatLastSeen(BoatsLastSeen(result.data));
-        console.log({ boatLastSeen });
 
         setLoading(false);
       })
@@ -172,6 +177,7 @@ const Dashboard = () => {
       <div className="header">RheinSchiff Dashboard</div>
       <div className="widgets">
         <Widget type="boats" counter={counterTotalBoats} />
+        <Widget type="boats2024" counter={counterBoats2024} />
         <Widget type="boats2023" counter={counterBoats2023} />
         <Widget type="boats2022" counter={counterBoats2022} />
         <Widget type="boats2021" counter={counterBoats2021} />
@@ -200,6 +206,7 @@ const Dashboard = () => {
             counter2021={counterBoatsMonth2021}
             counter2022={counterBoatsMonth2022}
             counter2023={counterBoatsMonth2023}
+            counter2024={counterBoatsMonth2024}
           />
         </div>
       </div>
