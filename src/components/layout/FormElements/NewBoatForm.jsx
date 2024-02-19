@@ -33,7 +33,7 @@ const initialValues = {
 /* For server-side object schema validation with NodeJS, Joi is the choice */
 
 const validationSchema = Yup.object({
-  name: Yup.string().min(4).max(50).required(),
+  name: Yup.string().min(3).max(50).required(),
   description: Yup.string().min(4).max(500),
   image: Yup.string(),
   firstseen: Yup.date(),
