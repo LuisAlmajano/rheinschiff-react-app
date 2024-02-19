@@ -34,7 +34,7 @@ const initialValues = {
 
 const validationSchema = Yup.object({
   name: Yup.string().min(3).max(50).required(),
-  description: Yup.string().min(4).max(500),
+  description: Yup.string().min(3).max(500),
   image: Yup.string(),
   firstseen: Yup.date(),
   seen: Yup.date(),
