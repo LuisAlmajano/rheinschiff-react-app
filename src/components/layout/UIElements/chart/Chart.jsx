@@ -119,7 +119,7 @@ const Chart = ({
 
     return (
       <div className="chart">
-        <div className="title">Number of Boats sighted per Month</div>
+        <div className="title">Number of New Boats sighted per Month</div>
         <ResponsiveContainer width="100%" aspect={2 / 1}>
           <AreaChart
             width={730}
