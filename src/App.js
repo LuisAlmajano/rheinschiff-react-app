@@ -17,7 +17,7 @@ import ProtectedRoute from "./components/routing/ProtectedRoute";
 function App() {
   return (
     <AuthProvider>
-      <Router>
+      <Router basename={"/rheinschiff"}>
         <Switch>
           <Route path="/" exact component={Boats} />
           <Route path="/login" exact component={Login} />

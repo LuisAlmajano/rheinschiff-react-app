@@ -1,6 +1,7 @@
 {
   "name": "rheinschiff-frontend",
   "version": "1.5.1",
+  "homepage": "https://luisalmajano.org/rheinschiff",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.2",
