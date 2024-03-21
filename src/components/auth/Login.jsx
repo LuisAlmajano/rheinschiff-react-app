@@ -33,7 +33,7 @@ const Login = () => {
   return (
     <form className="form-login" onSubmit={handleSubmit}>
       <img
-        src="/favicon.png"
+        src="favicon.png"
         alt=""
         height="92"
         width="92"
