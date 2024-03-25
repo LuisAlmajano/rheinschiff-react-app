@@ -29,3 +29,13 @@
   flex: 3;
   padding: 20px;
 }
+
+/* Mobile Styles */
+@media (max-width: 1738px) {
+  .widgets {
+    flex-direction:column;
+  }
+  .highlightsContainer {
+    flex-direction: column;
+  }
+}
