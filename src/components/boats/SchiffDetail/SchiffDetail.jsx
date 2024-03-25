@@ -181,6 +181,7 @@ const SchiffDetail = ({ loadedBoat }) => {
               setEditedBoat({ ...editedBoat, firstseen: date });
             }}
             withPortal
+            isClearable
             value={editedBoat.firstseen}
           />
 
@@ -191,6 +192,7 @@ const SchiffDetail = ({ loadedBoat }) => {
               setEditedBoat({ ...editedBoat, lastseen: date });
             }}
             withPortal
+            isClearable
             value={editedBoat.lastseen}
           />
         </div>
