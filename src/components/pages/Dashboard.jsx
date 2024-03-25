@@ -44,7 +44,7 @@ const Dashboard = () => {
     const boatsInMonth = boats.filter((boat) =>
       boat.firstseen.includes(year + "-" + month)
     );
-    console.log(`Boats seen in ${month}, ${year}: `, boatsInMonth);
+    // console.log(`Boats seen in ${month}, ${year}: `, boatsInMonth);
     return boatsInMonth.length;
   };
 
@@ -81,7 +81,8 @@ const Dashboard = () => {
     const boatsOrderedByCountSeen = boats.sort(
       (a, b) => b.countseen - a.countseen
     );
-    console.log("------BoatsOrderedByCountSeen: ", boatsOrderedByCountSeen);
+    console.log("------BoatsOrderedByCountSeen: ");
+    console.table(boatsOrderedByCountSeen, ["name", "countseen"]);
     console.log("------BoatMostSeen: ", boatsOrderedByCountSeen[0].name);
 
     // Return the boat with the max countseen.
@@ -107,9 +108,10 @@ const Dashboard = () => {
   const BoatsFirstSeen = (boats) => {
     // We sort all boats by firstseen date
     const boatsOrderedByFirstSeen = boats.sort(
-      (a, b) => b.firstseen - a.firstseen
+      (a, b) => new Date(a.firstseen) - new Date(b.firstseen)
     );
-    console.log("------BoatsOrderedByFirstSeen: ", boatsOrderedByFirstSeen);
+    console.log("------BoatsOrderedByFirstSeen: ");
+    console.table(boatsOrderedByFirstSeen, ["name", "firstseen"]);
     console.log("------BoatFirstSeen: ", boatsOrderedByFirstSeen[0].name);
 
     return boatsOrderedByFirstSeen[0];
@@ -120,7 +122,9 @@ const Dashboard = () => {
     const boatsOrderedByLastSeen = boats.sort(
       (a, b) => new Date(b.lastseen) - new Date(a.lastseen)
     );
-    console.log("------BoatsOrderedByLastSeen: ", boatsOrderedByLastSeen);
+
+    console.log("------BoatsOrderedByLastSeen: ");
+    console.table(boatsOrderedByLastSeen, ["name", "lastseen"]);
     console.log("------BoatLastSeen: ", boatsOrderedByLastSeen[0].name);
 
     return boatsOrderedByLastSeen[0];
