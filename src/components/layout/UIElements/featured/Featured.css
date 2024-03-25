@@ -58,8 +58,22 @@
 }
 
 /* Mobile Styles */
-@media (max-width: 920px) {
-  .content {
-    padding: 5px;
+@media (max-width: 1738px) {
+  .info .name {
+    padding-top: 10px;
+    font-weight: 500;
+    font-size: 1rem;
+  }
+  .info .countseen {
+    font-size: 0.8rem;
+  }
+  .info .firstseen {
+    font-size: 0.7rem;
+  }
+  .info .lastseen {
+    font-size: 0.7rem;
+  }
+  .avatar {
+    padding-top: 10px;
   }
 }
