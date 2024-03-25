@@ -31,12 +31,12 @@
 }
 
 /* Mobile Styles */
-@media (max-width: 375px) {
+@media (max-width: 420px) {
   .header {
     font-size: medium;
   }
   .widgets {
-    flex-direction:column;
+    flex-direction: column;
   }
   .highlightsContainer {
     flex-direction: column;
