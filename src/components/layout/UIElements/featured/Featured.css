@@ -58,6 +58,12 @@
 }
 
 /* Mobile Styles */
+@media (max-width: 375px) {
+  .avatar {
+    padding-bottom: 5px;
+  }
+}
+
 @media (max-width: 1738px) {
   .info .name {
     padding-top: 10px;

@@ -31,7 +31,10 @@
 }
 
 /* Mobile Styles */
-@media (max-width: 1738px) {
+@media (max-width: 375px) {
+  .header {
+    font-size: medium;
+  }
   .widgets {
     flex-direction:column;
   }
