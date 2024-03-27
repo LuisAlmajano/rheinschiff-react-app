@@ -58,13 +58,17 @@
 }
 
 /* Mobile Styles */
-@media (max-width: 450px) {
+@media screen and (max-width: 450px) {
   .avatar {
     padding-bottom: 5px;
   }
+  .info .name {
+    font-size: 1.3rem;
+  }
 }
 
-@media (max-width: 1738px) {
+/* Small Screens */
+@media screen and (min-width: 451px) and (max-width: 1738px) {
   .info .name {
     padding-top: 10px;
     font-weight: 500;
