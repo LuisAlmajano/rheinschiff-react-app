@@ -1,17 +1,19 @@
 import "./Widget.css";
 import PropTypes from "prop-types";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import DirectionsBoatIcon from "@material-ui/icons/DirectionsBoat";
 import React from "react";
 
-const Widget = ({ type, counter, loading }) => {
+const Widget = ({ type, counter, percentage = "0", loading }) => {
   let data;
 
   switch (type) {
     case "boats":
       data = {
         title: "TOTAL BOATS",
-        counter: counter,
+        counter,
+        percentage,
         link: "See all boats",
         icon: (
           <DirectionsBoatIcon
@@ -28,7 +30,8 @@ const Widget = ({ type, counter, loading }) => {
     case "boats2021":
       data = {
         title: "BOATS SIGHTED IN 2021",
-        counter: counter,
+        counter,
+        percentage,
         link: "See all boats",
         icon: (
           <DirectionsBoatIcon
@@ -45,7 +48,8 @@ const Widget = ({ type, counter, loading }) => {
     case "boats2022":
       data = {
         title: "BOATS SIGHTED IN 2022",
-        counter: counter,
+        counter,
+        percentage,
         link: "See all boats",
         icon: (
           <DirectionsBoatIcon
@@ -62,7 +66,8 @@ const Widget = ({ type, counter, loading }) => {
     case "boats2023":
       data = {
         title: "BOATS SIGHTED IN 2023",
-        counter: counter,
+        counter,
+        percentage,
         link: "See all boats",
         icon: (
           <DirectionsBoatIcon
@@ -79,7 +84,8 @@ const Widget = ({ type, counter, loading }) => {
     case "boats2024":
       data = {
         title: "BOATS SIGHTED IN 2024",
-        counter: counter,
+        counter,
+        percentage,
         link: "See all boats",
         icon: (
           <DirectionsBoatIcon
@@ -106,9 +112,14 @@ const Widget = ({ type, counter, loading }) => {
         <span className="link">{data.link}</span>
       </div>
       <div className="right">
-        <div className="percentage positive">
-          <KeyboardArrowUpIcon />
-          20%
+        <div
+          className={`percentage ${
+            data.percentage >= 0 ? "positive" : "negative"
+          }`}
+        >
+          {data.percentage >= 0 ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon /> }
+
+          {data.percentage}%
         </div>
         {data.icon}
       </div>

@@ -26,6 +26,13 @@ const Dashboard = () => {
   const [boatFirstSeen, setBoatFirstSeen] = useState({});
   const [boatLastSeen, setBoatLastSeen] = useState({});
 
+  // Widget Statistics. Reference starts with 100 boats
+  const percentage2021 = (counterBoats2021 - 100) / 100;
+  const percentage2022 = Math.round((counterBoats2022 - counterBoats2021)/counterBoats2021 * 100);
+  const percentage2023 = Math.round((counterBoats2023 - counterBoats2022)/counterBoats2022 * 100);
+  const percentage2024 = Math.round((counterBoats2024 - counterBoats2023)/counterBoats2023 * 100);
+  const percentageTotal = Math.round((counterTotalBoats - counterBoats2021)/counterBoats2021 *100);
+  
   const BoatsSeeninYear = (boats, year) => {
     let counter = 0;
 
@@ -180,11 +187,11 @@ const Dashboard = () => {
       <SearchAppBarDrawer />
       <div className="header">RheinSchiff Dashboard</div>
       <div className="widgets">
-        <Widget type="boats" counter={counterTotalBoats} />
-        <Widget type="boats2024" counter={counterBoats2024} />
-        <Widget type="boats2023" counter={counterBoats2023} />
-        <Widget type="boats2022" counter={counterBoats2022} />
-        <Widget type="boats2021" counter={counterBoats2021} />
+        <Widget type="boats" counter={counterTotalBoats} percentage={percentageTotal} />
+        <Widget type="boats2024" counter={counterBoats2024} percentage={percentage2024} />
+        <Widget type="boats2023" counter={counterBoats2023} percentage={percentage2023} />
+        <Widget type="boats2022" counter={counterBoats2022} percentage={percentage2022} />
+        <Widget type="boats2021" counter={counterBoats2021} percentage={percentage2021} />
       </div>
       <div className="highlightsContainer">
         <div className="highlights">

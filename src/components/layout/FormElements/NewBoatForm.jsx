@@ -157,6 +157,7 @@ const NewBoatForm = () => {
           type="textarea"
           id="description"
           name="description"
+          placeholder="Enter boat description..."
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.description}
