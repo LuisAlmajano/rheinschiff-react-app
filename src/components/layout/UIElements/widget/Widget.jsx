@@ -4,6 +4,7 @@ import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import DirectionsBoatIcon from "@material-ui/icons/DirectionsBoat";
 import React from "react";
+import { motion } from "framer-motion";
 
 const Widget = ({ type, counter, percentage = "0", loading }) => {
   let data;
@@ -105,7 +106,11 @@ const Widget = ({ type, counter, percentage = "0", loading }) => {
   }
 
   return (
-    <div className="widget">
+    <motion.div
+      initial={{ y: -200, opacity: 0 }}
+      animate={{ y: 0, opacity: 1, transition: { duration: 0.6 } }}
+      className="widget"
+    >
       <div className="left">
         <span className="title">{data.title}</span>
         <span className="counter">{data.counter}</span>
@@ -117,13 +122,16 @@ const Widget = ({ type, counter, percentage = "0", loading }) => {
             data.percentage >= 0 ? "positive" : "negative"
           }`}
         >
-          {data.percentage >= 0 ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon /> }
-
+          {data.percentage >= 0 ? (
+            <KeyboardArrowUpIcon />
+          ) : (
+            <KeyboardArrowDownIcon />
+          )}
           {data.percentage}%
         </div>
         {data.icon}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

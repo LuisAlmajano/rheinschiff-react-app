@@ -2,7 +2,7 @@ import "./Featured.css";
 import Spinner from "../Spinner";
 import Avatar from "../Avatar";
 import { Link } from "react-router-dom";
-
+import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 
 const Featured = ({ type, featuredBoat, loading }) => {
@@ -52,7 +52,16 @@ const Featured = ({ type, featuredBoat, loading }) => {
     }
 
     return (
-      <div className="featured">
+      <motion.div
+        initial={{ x: -200, opacity: 0 }}
+        whileInView={{
+          x: 0,
+          opacity: 1,
+          transition: { duration: 0.6 },
+        }}
+        viewport={{ once: true }}
+        className="featured"
+      >
         <div className="title">{data.title}</div>
         <div className="content">
           <div className="avatar">
@@ -77,7 +86,7 @@ const Featured = ({ type, featuredBoat, loading }) => {
             <Link to={`/boats/${featuredBoat._id}`}>{data.link}</Link>
           </div>
         </div>
-      </div>
+      </motion.div>
     );
   }
 };
