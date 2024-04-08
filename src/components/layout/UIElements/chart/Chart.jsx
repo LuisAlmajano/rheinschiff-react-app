@@ -1,7 +1,7 @@
 // Ref: https://recharts.org/en-US/api
 
 import "./Chart.css";
-
+import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 import Spinner from "../../UIElements/Spinner";
 
@@ -118,7 +118,12 @@ const Chart = ({
     }
 
     return (
-      <div className="chart">
+      <motion.div
+        initial={{ x: 300}}
+        whileInView={{ x: 0, transtion: { duration: 0.8 } }}
+        viewport={{ once: true }}
+        className="chart"
+      >
         <div className="title">Number of New Boats sighted per Month</div>
         <ResponsiveContainer width="100%" aspect={2 / 1}>
           <AreaChart
@@ -185,7 +190,7 @@ const Chart = ({
             <Line name="2024" type="monotone" dataKey="2024" stroke="#f0600f" />
           </AreaChart>
         </ResponsiveContainer>
-      </div>
+      </motion.div>
     );
   }
 };
