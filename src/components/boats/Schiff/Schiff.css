@@ -25,6 +25,10 @@
   height: 170px;
 }
 
+.schiff-item__content:hover {
+  box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.5), -10px -10px 10px white;
+}
+
 .schiff-item__image {
   width: 4rem;
   height: 4rem;
