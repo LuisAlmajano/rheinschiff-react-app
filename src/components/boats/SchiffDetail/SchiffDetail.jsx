@@ -7,7 +7,8 @@ import AWS from "aws-sdk";
 import PropTypes from "prop-types";
 import { useAuth } from "../../../contexts/AuthContext";
 
-import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale, setDefaultLocale } from "react-datepicker";
+import { enGB } from "date-fns/locale";
 import DeleteModal from "../../layout/UIElements/DeleteModal";
 import Card from "../../layout/UIElements/Card";
 import Button from "react-bootstrap/Button";
@@ -39,6 +40,11 @@ const SchiffDetail = ({ loadedBoat }) => {
   const { currentUser } = useAuth();
 
   let history = useHistory();
+
+  // Set locale for DatePicker (so that week starts on Monday)
+  registerLocale("en", enGB);
+  setDefaultLocale("en");
+  
 
   // Extract the boatId from the URL in App <Route path="/boats/:boatId" exact> and only show the selected boat
   const boatId = useParams().boatId;
