@@ -4,14 +4,16 @@ import axios from "axios";
 import SearchAppBarDrawer from "../layout/Navigation/SearchAppBarDrawer";
 import ScrollToTop from "../layout/Navigation/ScrollToTop";
 import SchiffListe from "../boats/SchiffListe/SchiffListe";
-import Pagination from "../layout/Navigation/Pagination";
+//import Pagination from "../layout/Navigation/Pagination";
+import ReactPaginate from "react-paginate";
+import "../layout/Navigation/ReactPaginate.css";
 import Footer from "../layout/Navigation/Footer";
 
 const Boats = () => {
   const [boats_db, setBoats] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [boatsPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [boatsPerPage] = useState(20);
   const [filtered, setFiltered] = useState(null);
 
   useEffect(() => {
@@ -37,7 +39,12 @@ const Boats = () => {
         console.error("Error fetching data with axios: ", error);
         if (error.response) {
           // Request was made and the server responded with a status code that falls out of the range 2xx
-          console.error("HTTP Status code: " + error.response.status + "; Error Data: " + error.response.data);
+          console.error(
+            "HTTP Status code: " +
+              error.response.status +
+              "; Error Data: " +
+              error.response.data
+          );
         } else if (error.request) {
           // Request was made but no response was received. 'error.request' is an instance of XMLHttpRequest
           // in the browser and an instance http.ClientRequest in Node.js
@@ -64,12 +71,11 @@ const Boats = () => {
 
   // Pagination logic
   // Change page
-  const paginate = (pageNum) => setCurrentPage(pageNum);
+  const handlePageChange = ({ selected }) => setCurrentPage(selected);
 
   // Get current boats
-  const indexOfLastBoat = currentPage * boatsPerPage;
-  const indexOfFirstBoat = indexOfLastBoat - boatsPerPage;
-  const currentBoats = boats_db.slice(indexOfFirstBoat, indexOfLastBoat);
+  const offset = currentPage * boatsPerPage;
+  const paginatedItems = boats_db.slice(offset, offset + boatsPerPage);
 
   return (
     <Fragment>
@@ -82,11 +88,18 @@ const Boats = () => {
       ) : (
         <Fragment>
           <ScrollToTop />
-          <SchiffListe loading={loading} boats={currentBoats} />
-          <Pagination
-            boatsPerPage={boatsPerPage}
-            totalBoats={boats_db.length}
-            paginate={paginate}
+          <SchiffListe loading={loading} boats={paginatedItems} />
+          <ReactPaginate
+            containerClassName="pagination"
+            pageClassName="page-item"
+            activeClassName="active"
+            previousLinkClassName="previous-pagination"
+            previousLabel="Prev"
+            nextLinkClassName="next-pagination"
+            nextLabel="Next"
+            breakLabel="..."
+            pageCount={Math.ceil(boats_db.length / boatsPerPage)}
+            onPageChange={handlePageChange}
           />
         </Fragment>
       )}
