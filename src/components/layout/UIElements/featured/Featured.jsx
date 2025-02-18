@@ -4,6 +4,7 @@ import Avatar from "../Avatar";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
+import { format } from "timeago.js";
 
 const Featured = ({ type, featuredBoat, loading }) => {
   if (loading) {
@@ -74,11 +75,11 @@ const Featured = ({ type, featuredBoat, loading }) => {
             </span>
             {type === "firstSeen" ? (
               <span className="firstseen">
-                First seen on: {data.firstseen.toDateString()}
+                First seen: {format(data.firstseen.toDateString())}
               </span>
             ) : (
               <span className="lastseen">
-                Last seen on: {data.lastseen.toDateString()}
+                Last seen: {format(data.lastseen.toDateString())}
               </span>
             )}
           </div>

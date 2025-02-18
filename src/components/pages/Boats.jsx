@@ -99,6 +99,8 @@ const Boats = () => {
             nextLabel="Next"
             breakLabel="..."
             pageCount={Math.ceil(boats_db.length / boatsPerPage)}
+            marginPagesDisplayed={1}
+            pageRangeDisplayed={3}
             onPageChange={handlePageChange}
           />
         </Fragment>

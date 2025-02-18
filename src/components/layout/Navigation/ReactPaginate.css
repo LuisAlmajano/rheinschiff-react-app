@@ -27,14 +27,14 @@
   background-color: #0060df;
   color: white;
   padding: 4px 10px;
-  border-radius: 15%;
+  border-radius: 15px;
 }
 
 .next-pagination {
   background-color: #0060df;
   color: white;
   padding: 4px 10px;
-  border-radius: 15%;
+  border-radius: 15px;
 }
 
 .next-pagination a:hover {
