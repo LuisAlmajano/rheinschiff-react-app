@@ -86,6 +86,7 @@ const Chart = ({
   counter2022,
   counter2023,
   counter2024,
+  counter2025,
 }) => {
   const months = [
     "Jan",
@@ -114,12 +115,13 @@ const Chart = ({
         2022: counter2022[i],
         2023: counter2023[i],
         2024: counter2024[i],
+        2025: counter2025[i],
       };
     }
 
     return (
       <motion.div
-        initial={{ x: 300}}
+        initial={{ x: 300 }}
         whileInView={{ x: 0, transtion: { duration: 0.8 } }}
         viewport={{ once: true }}
         className="chart"
@@ -149,11 +151,22 @@ const Chart = ({
                 <stop offset="5%" stopColor="#f0600f" stopOpacity={0.8} />
                 <stop offset="95%" stopColor="#f0600f" stopOpacity={0} />
               </linearGradient>
+              <linearGradient id="2025" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#f08080" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#f08080" stopOpacity={0} />
+              </linearGradient>
             </defs>
             <XAxis dataKey="month" />
             <YAxis />
             <CartesianGrid strokeDasharray="3 3" />
             <Tooltip />
+            <Area
+              type="monotone"
+              dataKey="2025"
+              stroke="#f08080"
+              fillOpacity={1}
+              fill="url(#2025)"
+            />
             <Area
               type="monotone"
               dataKey="2024"
@@ -188,6 +201,7 @@ const Chart = ({
             <Line name="2022" type="monotone" dataKey="2022" stroke="#82ca9d" />
             <Line name="2023" type="monotone" dataKey="2023" stroke="#f3921e" />
             <Line name="2024" type="monotone" dataKey="2024" stroke="#f0600f" />
+            <Line name="2025" type="monotone" dataKey="2025" stroke="#f08080" />
           </AreaChart>
         </ResponsiveContainer>
       </motion.div>

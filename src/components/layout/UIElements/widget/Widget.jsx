@@ -100,6 +100,24 @@ const Widget = ({ type, counter, percentage = "0", loading }) => {
       };
 
       break;
+    case "boats2025":
+      data = {
+        title: "BOATS SIGHTED IN 2025",
+        counter,
+        percentage,
+        link: "See all boats",
+        icon: (
+          <DirectionsBoatIcon
+            className="icon"
+            style={{
+              color: "lightcoral",
+              backgroundColor: "rgba(253,253,253,0.2)",
+            }}
+          />
+        ),
+      };
+
+      break;
 
     default:
       break;

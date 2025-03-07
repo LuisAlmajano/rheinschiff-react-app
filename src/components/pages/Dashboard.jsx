@@ -18,21 +18,37 @@ const Dashboard = () => {
   const [counterBoats2022, setCounterBoats2022] = useState(0);
   const [counterBoats2023, setCounterBoats2023] = useState(0);
   const [counterBoats2024, setCounterBoats2024] = useState(0);
+  const [counterBoats2025, setCounterBoats2025] = useState(0);
+
   const [counterBoatsMonth2021, setCounterBoatsMonth2021] = useState([]);
   const [counterBoatsMonth2022, setCounterBoatsMonth2022] = useState([]);
   const [counterBoatsMonth2023, setCounterBoatsMonth2023] = useState([]);
   const [counterBoatsMonth2024, setCounterBoatsMonth2024] = useState([]);
+  const [counterBoatsMonth2025, setCounterBoatsMonth2025] = useState([]);
+
   const [boatMostSeen, setBoatMostSeen] = useState({});
   const [boatFirstSeen, setBoatFirstSeen] = useState({});
   const [boatLastSeen, setBoatLastSeen] = useState({});
 
   // Widget Statistics. Reference starts with 100 boats
   const percentage2021 = (counterBoats2021 - 100) / 100;
-  const percentage2022 = Math.round((counterBoats2022 - counterBoats2021)/counterBoats2021 * 100);
-  const percentage2023 = Math.round((counterBoats2023 - counterBoats2022)/counterBoats2022 * 100);
-  const percentage2024 = Math.round((counterBoats2024 - counterBoats2023)/counterBoats2023 * 100);
-  const percentageTotal = Math.round((counterTotalBoats - counterBoats2021)/counterBoats2021 *100);
-  
+  const percentage2022 = Math.round(
+    ((counterBoats2022 - counterBoats2021) / counterBoats2021) * 100
+  );
+  const percentage2023 = Math.round(
+    ((counterBoats2023 - counterBoats2022) / counterBoats2022) * 100
+  );
+  const percentage2024 = Math.round(
+    ((counterBoats2024 - counterBoats2023) / counterBoats2023) * 100
+  );
+  const percentage2025 = Math.round(
+    ((counterBoats2025 - counterBoats2024) / counterBoats2024) * 100
+  );
+
+  const percentageTotal = Math.round(
+    ((counterTotalBoats - counterBoats2021) / counterBoats2021) * 100
+  );
+
   const BoatsSeeninYear = (boats, year) => {
     let counter = 0;
 
@@ -153,6 +169,8 @@ const Dashboard = () => {
         console.log("Boats in 2023: ", BoatsSeeninYear(result.data, 2023));
         setCounterBoats2024(BoatsSeeninYear(result.data, 2024));
         console.log("Boats in 2024: ", BoatsSeeninYear(result.data, 2024));
+        setCounterBoats2025(BoatsSeeninYear(result.data, 2025));
+        console.log("Boats in 2025: ", BoatsSeeninYear(result.data, 2025));
         //BoatsSeeninMonth(result.data, 2022, "07");
 
         // Set counters required for Chart
@@ -160,6 +178,7 @@ const Dashboard = () => {
         setCounterBoatsMonth2022(BoatsSeeninYearPerMonth(result.data, 2022));
         setCounterBoatsMonth2023(BoatsSeeninYearPerMonth(result.data, 2023));
         setCounterBoatsMonth2024(BoatsSeeninYearPerMonth(result.data, 2024));
+        setCounterBoatsMonth2025(BoatsSeeninYearPerMonth(result.data, 2025));
 
         // Set featured Boats
         setBoatLastSeen(BoatsLastSeen(result.data));
@@ -187,11 +206,36 @@ const Dashboard = () => {
       <SearchAppBarDrawer />
       <div className="header">RheinSchiff Dashboard</div>
       <div className="widgets">
-        <Widget type="boats" counter={counterTotalBoats} percentage={percentageTotal} />
-        <Widget type="boats2024" counter={counterBoats2024} percentage={percentage2024} />
-        <Widget type="boats2023" counter={counterBoats2023} percentage={percentage2023} />
-        <Widget type="boats2022" counter={counterBoats2022} percentage={percentage2022} />
-        <Widget type="boats2021" counter={counterBoats2021} percentage={percentage2021} />
+        <Widget
+          type="boats"
+          counter={counterTotalBoats}
+          percentage={percentageTotal}
+        />
+          <Widget
+          type="boats2025"
+          counter={counterBoats2025}
+          percentage={percentage2025}
+        />
+        <Widget
+          type="boats2024"
+          counter={counterBoats2024}
+          percentage={percentage2024}
+        />
+        <Widget
+          type="boats2023"
+          counter={counterBoats2023}
+          percentage={percentage2023}
+        />
+        <Widget
+          type="boats2022"
+          counter={counterBoats2022}
+          percentage={percentage2022}
+        />
+        <Widget
+          type="boats2021"
+          counter={counterBoats2021}
+          percentage={percentage2021}
+        />
       </div>
       <div className="highlightsContainer">
         <div className="highlights">
@@ -218,6 +262,7 @@ const Dashboard = () => {
             counter2022={counterBoatsMonth2022}
             counter2023={counterBoatsMonth2023}
             counter2024={counterBoatsMonth2024}
+            counter2025={counterBoatsMonth2025}
           />
         </div>
       </div>
