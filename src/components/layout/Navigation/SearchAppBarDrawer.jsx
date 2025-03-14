@@ -40,6 +40,9 @@ const useStyles = (theme) => ({
       display: "block",
     },
   },
+  currentUser: {
+    paddingRight: theme.spacing(2), 
+  },
   search: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -223,7 +226,7 @@ const SearchAppBarDrawer = ({ classes, filterBoats, clearFilter }) => {
           </Typography>
 
           {/* Added current user after log in  */}
-          <Typography>{currentUser && currentUser.email}</Typography>
+          <Typography className={classes.currentUser}>{currentUser && currentUser.email}</Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
