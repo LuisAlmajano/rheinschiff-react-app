@@ -26,6 +26,8 @@ import InfoIcon from "@material-ui/icons/Info";
 import PropTypes from "prop-types";
 import { blue, blueGrey } from "@material-ui/core/colors";
 
+import Divider from "@material-ui/core/Divider";
+
 const useStyles = (theme) => ({
   root: {
     flexGrow: 1,
@@ -41,7 +43,7 @@ const useStyles = (theme) => ({
     },
   },
   currentUser: {
-    paddingRight: theme.spacing(2), 
+    paddingRight: theme.spacing(2),
   },
   search: {
     position: "relative",
@@ -94,44 +96,34 @@ const SearchAppBarDrawer = ({ classes, filterBoats, clearFilter }) => {
   const { currentUser, logout } = useAuth();
   const text = useRef("");
 
-  const [state, setState] = useState({
-    left: false,
-  });
+  const [open, setOpen] = useState(false);
+  const anchor = "left";
 
   // User Authentication via Firebase
   const handleLogout = async (e) => {
     e.preventDefault();
 
-    console.log("HEY THERE! HandleLogut function was called");
-
     try {
       await logout();
       console.log("Logout was successful!!");
-      setState({ ...state, [anchor]: false });
+      setOpen(false);
     } catch (err) {
       console.log("Failed to log out", err.message);
     }
   };
 
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
-    setState({ ...state, [anchor]: open });
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+    console.log("ToggleDrawer function called", newOpen);
   };
 
-  const list = (anchor) => (
+  const DrawerList = (
     <div
       className={clsx(classes.list, {
         [classes.fullList]: anchor === "top" || anchor === "bottom",
       })}
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
+      onClick={toggleDrawer(false)}
     >
       <List>
         <ListItem button key="Home">
@@ -175,6 +167,7 @@ const SearchAppBarDrawer = ({ classes, filterBoats, clearFilter }) => {
             <ListItemText primary="Dashboard" />
           </Link>
         </ListItem>
+        <Divider />
         <ListItem button key="About">
           <ListItemIcon>
             <InfoIcon />
@@ -196,8 +189,6 @@ const SearchAppBarDrawer = ({ classes, filterBoats, clearFilter }) => {
     }
   };
 
-  const anchor = "left";
-
   // To fix the AppBar set position="fixed" below.
   // Also possible to include back to top button: https://material-ui.com/components/app-bar/#back-to-top
 
@@ -210,14 +201,10 @@ const SearchAppBarDrawer = ({ classes, filterBoats, clearFilter }) => {
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
-            onClick={toggleDrawer(anchor, true)}
+            onClick={toggleDrawer(!open)}
           >
-            <Drawer
-              anchor={anchor}
-              open={state[anchor]}
-              onClose={toggleDrawer(anchor, false)}
-            >
-              {list(anchor)}
+            <Drawer open={open} onClose={toggleDrawer(false)}>
+              {DrawerList}
             </Drawer>
             <MenuIcon />
           </IconButton>
@@ -226,7 +213,9 @@ const SearchAppBarDrawer = ({ classes, filterBoats, clearFilter }) => {
           </Typography>
 
           {/* Added current user after log in  */}
-          <Typography className={classes.currentUser}>{currentUser && currentUser.email}</Typography>
+          <Typography className={classes.currentUser}>
+            {currentUser && currentUser.email}
+          </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
