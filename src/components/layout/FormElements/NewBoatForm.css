@@ -41,3 +41,7 @@ input {
   margin: 0 auto;
   display: flex;
 }
+
+.react-datepicker__calendar-icon {
+  fill: gray;
+}
