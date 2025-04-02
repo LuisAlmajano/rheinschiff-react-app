@@ -7,7 +7,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import DatePicker , { registerLocale, setDefaultLocale } from "react-datepicker";
+import DatePicker, { registerLocale, setDefaultLocale } from "react-datepicker";
 import { enGB } from "date-fns/locale";
 // CSS Modules, react-datepicker-cssmodules.css
 import "react-datepicker/dist/react-datepicker.css";
@@ -30,9 +30,9 @@ const initialValues = {
   image: "",
 };
 
- // Set locale for DatePicker (so that week starts on Monday)
- registerLocale("en", enGB);
- setDefaultLocale("en");
+// Set locale for DatePicker (so that week starts on Monday)
+registerLocale("en", enGB);
+setDefaultLocale("en");
 
 /* Yup is designed for front-end browser based use. */
 /* For server-side object schema validation with NodeJS, Joi is the choice */
@@ -175,6 +175,7 @@ const NewBoatForm = () => {
       <div className="form-new-boat">
         <label htmlFor="dateseen">Date seen</label>
         <DatePicker
+          showIcon
           selected={pickDate}
           onChange={(date) => {
             setPickDate(date);

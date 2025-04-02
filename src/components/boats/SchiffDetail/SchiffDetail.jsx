@@ -44,7 +44,6 @@ const SchiffDetail = ({ loadedBoat }) => {
   // Set locale for DatePicker (so that week starts on Monday)
   registerLocale("en", enGB);
   setDefaultLocale("en");
-  
 
   // Extract the boatId from the URL in App <Route path="/boats/:boatId" exact> and only show the selected boat
   const boatId = useParams().boatId;
@@ -182,6 +181,7 @@ const SchiffDetail = ({ loadedBoat }) => {
 
           <h4>First seen on:</h4>
           <DatePicker
+            showIcon
             selected={editedBoat.firstseen}
             onChange={(date) => {
               setEditedBoat({ ...editedBoat, firstseen: date });
@@ -193,6 +193,7 @@ const SchiffDetail = ({ loadedBoat }) => {
 
           <h4>Last seen on:</h4>
           <DatePicker
+            showIcon
             selected={editedBoat.lastseen}
             onChange={(date) => {
               setEditedBoat({ ...editedBoat, lastseen: date });
