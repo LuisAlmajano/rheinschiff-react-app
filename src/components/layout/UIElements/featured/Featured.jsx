@@ -75,11 +75,11 @@ const Featured = ({ type, featuredBoat, loading }) => {
             </span>
             {type === "firstSeen" ? (
               <span className="firstseen">
-                First seen: {format(data.firstseen.toDateString())}
+                First seen: {format(data.firstseen)}
               </span>
             ) : (
               <span className="lastseen">
-                Last seen: {format(data.lastseen.toDateString())}
+                Last seen: {format(data.lastseen)}
               </span>
             )}
           </div>
