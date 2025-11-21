@@ -14,11 +14,52 @@ import Card from "../../layout/UIElements/Card";
 import Button from "react-bootstrap/Button";
 
 import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
+import { S3Client, DeleteObjectCommand } from "@aws-sdk/client-s3";
+// AWS Cognito to get temporary credentials
+import getAwsCredentials from "../../../utils/cognito";
+import { auth } from "../../../utils/firebase";
 
 //import Button from "../../../shared/components/FormElements/Button";
 import "./SchiffDetail.css";
 
 toast.configure();
+
+// AWS S3 Client with Cognito temporary credentials
+const createS3Client = (firebaseToken) => {
+  const credentials = getAwsCredentials(firebaseToken);
+
+  return new S3Client({
+    region: process.env.REACT_APP_AWS_REGION,
+    requestChecksumCalculation: "WHEN_REQUIRED",
+    credentials,
+  });
+};
+
+// AWS S3 Delete Boat Image Function
+const deleteBoatImageS3 = async (fileinput, filename) => {
+  const firebaseToken = await auth.currentUser.getIdToken(true);
+  const s3 = await createS3Client(firebaseToken);
+
+  const extension = fileinput.name.split(".")[1];
+  const newFileName = filename + "." + extension;
+
+  const key = `${process.env.REACT_APP_AWS_DIR_NAME}/${newFileName}`;
+
+  const command = new DeleteObjectCommand({
+    Bucket: process.env.REACT_APP_AWS_BUCKET_NAME,
+    Key: key,
+    Body: fileinput,
+    ContentType: fileinput.type,
+  });
+
+  // Send delete command to delete image to S3
+  await s3.send(command);
+
+  toast("Boat image deleted in S3!", {
+    type: "success",
+    autoClose: 1500,
+  });
+};
 
 const SchiffDetail = ({ loadedBoat }) => {
   const [showModal, setShowModal] = useState(false);
