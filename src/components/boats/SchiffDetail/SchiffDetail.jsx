@@ -36,29 +36,29 @@ const createS3Client = (firebaseToken) => {
 };
 
 // AWS S3 Delete Boat Image Function
-const deleteBoatImageS3 = async (fileinput, filename) => {
+const deleteBoatImageS3 = async (S3Object) => {
   const firebaseToken = await auth.currentUser.getIdToken(true);
   const s3 = await createS3Client(firebaseToken);
 
-  const extension = fileinput.name.split(".")[1];
-  const newFileName = filename + "." + extension;
-
-  const key = `${process.env.REACT_APP_AWS_DIR_NAME}/${newFileName}`;
-
   const command = new DeleteObjectCommand({
     Bucket: process.env.REACT_APP_AWS_BUCKET_NAME,
-    Key: key,
-    Body: fileinput,
-    ContentType: fileinput.type,
+    Key: `${process.env.REACT_APP_AWS_DIR_NAME + "/" + S3Object}`,
   });
 
   // Send delete command to delete image to S3
-  await s3.send(command);
-
-  toast("Boat image deleted in S3!", {
-    type: "success",
-    autoClose: 1500,
-  });
+  try {
+    await s3.send(command);
+    // toast("Boat image deleted in S3!", {
+    //   type: "success",
+    //   autoClose: 1500,
+    // });
+    console.log("S3 object deleted successfully");
+    return true;
+  } catch (err) {
+    //toast("Ops! S3 image deletion went wrong", { type: "error" });
+    console.error("Failed to delete S3 object: " + JSON.stringify(err));
+    throw err;
+  }
 };
 
 const SchiffDetail = ({ loadedBoat }) => {
@@ -100,31 +100,31 @@ const SchiffDetail = ({ loadedBoat }) => {
   // Function to delete boat from S3
   // https://stackoverflow.com/questions/27753411/how-do-i-delete-an-object-on-aws-s3-using-javascript
 
-  const deleteS3Object = async (S3Object) => {
-    AWS.config.update({
-      accessKeyId: process.env.REACT_APP_AWS_ACCESS_ID,
-      secretAccessKey: process.env.REACT_APP_AWS_ACCESS_KEY,
-      region: process.env.REACT_APP_AWS_REGION,
-    });
-    const s3 = new AWS.S3();
+  // const deleteS3Object = async (S3Object) => {
+  //   AWS.config.update({
+  //     accessKeyId: process.env.REACT_APP_AWS_ACCESS_ID,
+  //     secretAccessKey: process.env.REACT_APP_AWS_ACCESS_KEY,
+  //     region: process.env.REACT_APP_AWS_REGION,
+  //   });
+  //   const s3 = new AWS.S3();
 
-    const params = {
-      Bucket: process.env.REACT_APP_AWS_BUCKET_NAME,
-      Key: `${process.env.REACT_APP_AWS_DIR_NAME + "/" + S3Object}`, //if any sub folder-> path/of/the/folder.ext
-    };
-    try {
-      await s3.headObject(params).promise();
-      console.log(`File ${S3Object} found in S3`);
-      try {
-        await s3.deleteObject(params).promise();
-        console.log(`DELETE File ${S3Object} in S3 successfully!!`);
-      } catch (err) {
-        console.error("ERROR in file Deleting : " + JSON.stringify(err));
-      }
-    } catch (err) {
-      console.error("File not Found ERROR : " + err.code);
-    }
-  };
+  //   const params = {
+  //     Bucket: process.env.REACT_APP_AWS_BUCKET_NAME,
+  //     Key: `${process.env.REACT_APP_AWS_DIR_NAME + "/" + S3Object}`, //if any sub folder-> path/of/the/folder.ext
+  //   };
+  //   try {
+  //     await s3.headObject(params).promise();
+  //     console.log(`File ${S3Object} found in S3`);
+  //     try {
+  //       await s3.deleteObject(params).promise();
+  //       console.log(`DELETE File ${S3Object} in S3 successfully!!`);
+  //     } catch (err) {
+  //       console.error("ERROR in file Deleting : " + JSON.stringify(err));
+  //     }
+  //   } catch (err) {
+  //     console.error("File not Found ERROR : " + err.code);
+  //   }
+  // };
 
   // Deletion of boat after confirming so in Delete Modal
   const confirmDeleteHandler = (event) => {
@@ -147,7 +147,8 @@ const SchiffDetail = ({ loadedBoat }) => {
       .delete(`/api/boats/${boatId}`)
       .then(() => {
         /* Delete image in AWS S3 Bucket */
-        deleteS3Object(S3filename);
+        deleteBoatImageS3(S3filename);
+        //deleteS3Object(S3filename);
 
         /* After deletion, we remove the Modal */
         setShowModal(false);
