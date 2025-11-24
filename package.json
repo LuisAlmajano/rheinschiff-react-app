@@ -1,6 +1,6 @@
 {
   "name": "rheinschiff-frontend",
-  "version": "1.11.4",
+  "version": "1.12.0",
   "homepage": "https://luisalmajano.org/rheinschiff",
   "private": true,
   "dependencies": {
