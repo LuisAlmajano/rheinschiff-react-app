@@ -1,4 +1,5 @@
 import TwitterIcon from "@material-ui/icons/Twitter";
+import { BsTwitterX } from "react-icons/bs"; // X is the new Twitter
 import GitHubIcon from "@material-ui/icons/GitHub";
 import EmailIcon from "@material-ui/icons/Email";
 
@@ -9,17 +10,17 @@ const Footer = () => {
     <footer id="main-footer">
       <ul className="social">
         <li>
-          <a href="https://twitter.com/luisalma">
-            <TwitterIcon className="social-icon" />
+          <a aria-label="X profile" href="https://twitter.com/luisalma">
+            <BsTwitterX className="social-icon" />
           </a>
         </li>
         <li>
-          <a href="https://github.com/LuisAlmajano">
+          <a aria-label="GitHub profile" href="https://github.com/LuisAlmajano">
             <GitHubIcon className="social-icon" />
           </a>
         </li>
         <li>
-          <a href="mailto:luis.almajano@gmail.com">
+          <a aria-label="Mailto" href="mailto:luis.almajano@gmail.com">
             <EmailIcon className="social-icon" />
           </a>
         </li>
